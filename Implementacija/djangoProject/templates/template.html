@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Enciklopedija vina</title>
     <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,6 +22,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 
     <link rel="stylesheet" href={% static  "css/flaticon.css" %}>
+    <link rel="stylesheet" href={% static  "css/myStyle.css" %}>
     <link rel="stylesheet" href={% static "css/style.css"%}>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -46,8 +48,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Ponuda</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Vina</a>
-                        <a class="dropdown-item" href="#">Proslave</a>
+                        <a class="dropdown-item" href="/views">Vina</a>
+                        <a class="dropdown-item" href="#">Proslave</a>pa re
                         <a class="dropdown-item" href="#">Obilasci</a>
                     </div>
                 </li>
@@ -75,6 +77,7 @@
 </nav>
 <!-- END nav -->
 
+{% block text %}
 <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/banner.jpg' %});"
          data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
@@ -86,6 +89,7 @@
         </div>
     </div>
 </section>
+{% endblock %}
 
 
 {% block content%}
@@ -116,5 +120,6 @@
 <script src={% static "js/scrollax.min.js"%}></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script src={% static "js/main.js"%}></script>
+<script src={% static "js/script.js" %}></script>
 </body>
 </html>
