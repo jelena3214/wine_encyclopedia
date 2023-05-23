@@ -1,0 +1,68 @@
+{% extends 'template.html' %}
+{% block title %}Prijavite se{% endblock %}
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 ftco-animate">
+                <form action="#" id="loginForm">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="emailaddress">Email adresa</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Lozinka</label>
+                                <input type="password" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 text-center">
+                            <a href="resetovanjeLozinke.html">Zaboravili ste lozinku?</a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2">
+                            <div class="pt-1 mb-4">
+                                <button class="btn btn-lg btn-block" type="button"
+                                        style="background-color: #b7472a; color: white">Prijavi se
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-5"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            Nemate nalog? Registrujte se kao <a href="registracijaKupac.html">kupac</a> ili kao <a
+                                href="registracijaProizvodjac.html">proizvođač.</a>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+
+                </form><!-- END -->
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

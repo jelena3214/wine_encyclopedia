@@ -1,0 +1,51 @@
+{% extends "template.html" %}
+
+{% block headers %}
+
+{% endblock %}
+
+{% block title %}
+    Zaboravljena lozinka
+{% endblock %}
+
+{% block content %}
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 ftco-animate">
+                <form action="#" class="resetPass">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 text-center">
+                            <p>Zaboravili ste lozinku? Molimo vas, unesite svoju email adresu ili korisničko ime. Link
+                                za kreiranje nove lozinke poslaćemo vam putem elektronske pošte.</p>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <label for="emailaddress">Email adresa</label>
+                                <input type="text" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="pt-1 mb-4">
+                    <button class="btn btn-lg btn-block" type="button" style="background-color: #b7472a; color: white"
+                            id="myBtn" onclick="popUpButton()">Resetuj lozinku
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
