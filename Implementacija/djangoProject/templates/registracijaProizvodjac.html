@@ -8,13 +8,21 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10 ftco-animate">
-                <form action="#" class="producerRegistration">
+                <form action="#" id="producerRegistration" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row justify-content-center" style="color: #b7472a; font-weight: bold">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="emailaddress">Email adresa</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name = 'email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  title="Format mejla nije odgovarajući" required>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -24,7 +32,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password">Lozinka</label>
-                                <input type="password" class="form-control" placeholder="">
+                                <input type="password" class="form-control" name = 'password' required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Lozinka mora da sadrži minimalno 8 karaktera i najmanje 1 cifru, 1 malo slovo i 1 veliko slovo">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -34,7 +43,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Ime firme</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name = 'name' required>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -44,7 +53,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="companyNumber">Registarski broj firme</label>
-                                <input type="number" class="form-control" placeholder="">
+                                <input type="number" class="form-control" name = 'companyNumber' required pattern="\d{4}" title = "Registarski broj firme sadrži najmanje 10 cifara">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -54,7 +63,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phoneNumber">Broj telefona</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name = "phoneNumber" required pattern="\+3816\d{7,8}" title="Broj telefona je u formatu +3816...">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -64,7 +73,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="address">Adresa</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name = 'address' required>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -75,28 +84,29 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="description">Opis vinarije</label>
-                                <textarea class="form-control" placeholder=""></textarea>
+                                <textarea class="form-control" name = "description" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
-
+                    <!--
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-group custom-file">
                                 <label for="logo" class="custom-file-label">Logo vinarije</label>
-                                <input class="custom-file-input" type="file"/>
+                                <input class="custom-file-input" type="file" name = 'logo'/>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
+                    -->
                     <br>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="form-group text-center">
-                                <input type="checkbox">
+                                <input type="checkbox" required>
                                 <label>Slažem se sa <a href="#" data-toggle="tooltip" data-placement="bottom" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.!">uslovima korišćenja.</a></label>
                             </div>
                         </div>
@@ -106,14 +116,14 @@
                         <div class="col-md-5"></div>
                         <div class="col-md-2">
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-lg btn-block" type="button"
+                                <button class="btn btn-lg btn-block" type="submit"
                                         style="background-color: #b7472a; color: white">Registruj se
                                 </button>
                             </div>
                         </div>
                         <div class="col-md-5"></div>
                     </div>
-                    <p style="text-align: center">Imate nalog?&nbsp;<a href="login.html">Prijavite se.</a></p>
+                    <p style="text-align: center">Imate nalog?&nbsp;<a href="/user">Prijavite se.</a></p>
 
                 </form><!-- END -->
             </div>

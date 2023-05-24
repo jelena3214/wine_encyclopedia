@@ -28,6 +28,7 @@ class Proizvodjac(Korisnik):
     imefirme = models.CharField(db_column='imeFirme', max_length=50, blank=True, null=True)
     registarskibroj = models.IntegerField(db_column='registarskiBroj', blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
+    #logo = models.ImageField(upload_to='images', null=True)
 
     class Meta:
         db_table = 'proizvodjac'
