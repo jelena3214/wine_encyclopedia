@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-     <link rel="stylesheet" href={% static "css/animate.css" %}>
+    <link rel="stylesheet" href={% static "css/animate.css" %}>
 
     <link rel="stylesheet" href={% static "css/owl.carousel.min.css" %}>
     <link rel="stylesheet" href={% static "css/owl.theme.default.min.css" %}>
@@ -23,13 +23,13 @@
 
     <link rel="stylesheet" href={% static  "css/flaticon.css" %}>
     <link rel="stylesheet" href={% static  "css/myStyle.css" %}>
-    <link rel="stylesheet" href={% static "css/style.css"%}>
+    <link rel="stylesheet" href={% static "css/style.css" %}>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="#">Enciklopedija <span>vina</span></a>
+        <a class="navbar-brand" href="http://127.0.0.1:8000/">Enciklopedija <span>vina</span></a>
         <div class="order-lg-last btn-group">
             <a href="#" class="btn-cart" aria-haspopup="true" aria-expanded="false">
                 <span class="flaticon-shopping-bag" style="color: white"></span>
@@ -39,14 +39,14 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="#" class="nav-link">Početna strana</a></li>
+                <li class="nav-item"><a href="http://127.0.0.1:8000/" class="nav-link">Početna strana</a></li>
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Ponuda</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="/views">Vina</a>
-                        <a class="dropdown-item" href="#">Proslave</a>
-                        <a class="dropdown-item" href="#">Obilasci</a>
+                        <a class="dropdown-item" href="/views/allwines">Vina</a>
+                        <a class="dropdown-item" href="/views/celebration">Proslave</a>
+                        <a class="dropdown-item" href="/views/detour">Obilasci</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown active">
@@ -74,21 +74,21 @@
 <!-- END nav -->
 
 {% block text %}
-<section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/banner.jpg' %});"
-         data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end justify-content-center">
-            <div class="col-md-9 ftco-animate mb-5 text-center">
-                <h2 class="mb-0 bread">{% block title%}{% endblock %}</h2>
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/banner.jpg' %});"
+             data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <h2 class="mb-0 bread">{% block title %}{% endblock %}</h2>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
 
 
-{% block content%}
+{% block content %}
 {% endblock %}
 
 
@@ -103,19 +103,19 @@
 </div>
 
 
-<script src={% static "js/jquery.min.js"%}></script>
-<script src={% static "js/jquery-migrate-3.0.1.min.js"%}></script>
-<script src={% static "js/popper.min.js"%}></script>
+<script src={% static "js/jquery.min.js" %}></script>
+<script src={% static "js/jquery-migrate-3.0.1.min.js" %}></script>
+<script src={% static "js/popper.min.js" %}></script>
 <script src={% static "js/bootstrap.min.js" %}></script>
-<script src={% static "js/jquery.easing.1.3.js"%}></script>
-<script src={% static "js/jquery.waypoints.min.js"%}></script>
-<script src={% static "js/jquery.stellar.min.js"%}></script>
-<script src={% static "js/owl.carousel.min.js"%}></script>
-<script src={% static "js/jquery.magnific-popup.min.js"%}></script>
-<script src={% static "js/jquery.animateNumber.min.js"%}></script>
-<script src={% static "js/scrollax.min.js"%}></script>
+<script src={% static "js/jquery.easing.1.3.js" %}></script>
+<script src={% static "js/jquery.waypoints.min.js" %}></script>
+<script src={% static "js/jquery.stellar.min.js" %}></script>
+<script src={% static "js/owl.carousel.min.js" %}></script>
+<script src={% static "js/jquery.magnific-popup.min.js" %}></script>
+<script src={% static "js/jquery.animateNumber.min.js" %}></script>
+<script src={% static "js/scrollax.min.js" %}></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<script src={% static "js/main.js"%}></script>
+<script src={% static "js/main.js" %}></script>
 <script src={% static "js/script.js" %}></script>
 <script src={% static "js/userAppScript.js" %}></script>
 </body>

@@ -19,86 +19,34 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 d-flex">
-                            <div class="product ftco-animate">
-                                <div class="img d-flex align-items-center justify-content-center"
-                                     style="background-image: url({% static  "images/barbara.jpg" %});">
-                                    <div class="desc">
-                                        <p class="meta-prod d-flex">
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-shopping-bag"></span></a>
-                                            <a href="vino-pojedinacan-prikaz.html"
-                                               class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-visibility"></span></a>
-                                        </p>
+                    {% for red in vina %}
+                        <div class="row">
+                            {% for vino in red %}
+                                <div class="col-md-4 d-flex">
+                                    <div class="product ftco-animate">
+                                        <div class="img d-flex align-items-center justify-content-center"
+                                             style="background-image: url({% static  "" %}{{ vino.slika }});">
+                                            <div class="desc">
+                                                <p class="meta-prod d-flex">
+                                                    <a href="#"
+                                                       class="d-flex align-items-center justify-content-center"><span
+                                                            class="flaticon-shopping-bag"></span></a>
+                                                    <a href="vino-pojedinacan-prikaz.html"
+                                                       class="d-flex align-items-center justify-content-center"><span
+                                                            class="flaticon-visibility"></span></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="text text-center">
+                                            <span class="category" style="text-transform: capitalize">{{ vino.naziv }}</span>
+                                            <h2>{{ vino.naziv }}</h2>
+                                            <p class="mb-0"><span class="price">{{ vino.cena }}.00 RSD</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="text text-center">
-                                    <span class="category">Barbara</span>
-                                    <h2>Barbara</h2>
-                                    <p class="mb-0"><span class="price">850.00 RSD</span>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-md-4 d-flex">
-                            <div class="product ftco-animate">
-                                <div class="img d-flex align-items-center justify-content-center"
-                                     style="background-image: url({% static  "images/bonaca.jpg" %});">
-                                    <div class="desc">
-                                        <p class="meta-prod d-flex">
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-shopping-bag"></span></a>
-                                            <a href="vino-pojedinacan-prikaz.html"
-                                               class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-visibility"></span></a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text text-center">
-                                    <span class="category">Bonaca</span>
-                                    <h2>Bonaca</h2>
-                                    <p class="mb-0"><span class="price">850.00 RSD</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-flex">
-                            <div class="product ftco-animate">
-                                <div class="img d-flex align-items-center justify-content-center"
-                                     style="background-image: url({% static  "images/zuti-cvet.jpg" %});">
-                                    <div class="desc">
-                                        <p class="meta-prod d-flex">
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-shopping-bag"></span></a>
-                                            <a href="vino-pojedinacan-prikaz.html"
-                                               class="d-flex align-items-center justify-content-center"><span
-                                                    class="flaticon-visibility"></span></a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text text-center">
-                                    <span class="category">Žuti cvet</span>
-                                    <h2>Žuti cvet</h2>
-                                    <p class="mb-0"><span class="price">850.00 RSD</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col text-center">
-                            <div class="block-27">
-                                <ul>
-                                    <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&gt;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
