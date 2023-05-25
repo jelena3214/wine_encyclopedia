@@ -59,7 +59,7 @@ def registerProducer(request):
                                                       brtelefona=phoneNumber, adresa=address, opis=description,
                                                       javnoime=name, email=email)
 
-        myGroup = Group.objects.get(name='Kupci')
+        myGroup = Group.objects.get(name='Proizvodjaci')
         myGroup.user_set.add(newProducer)
         newProducer.save()
 

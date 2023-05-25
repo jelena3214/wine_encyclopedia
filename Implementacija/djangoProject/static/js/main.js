@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  swal("Poslat vam je email o resetovanju lozinke", "", "success");
     setTimeout(function() {
       document.getElementById('passwordReset').submit();
-    }, 3000);
+    }, 1000);
   });
 });
 
