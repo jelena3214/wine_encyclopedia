@@ -224,6 +224,22 @@
 
 })(jQuery);
 
-function popUpButton() {
-	swal("Poslat vam je email o resetovanju lozinke", "", "success");
+document.addEventListener('DOMContentLoaded', function() {
+	let submitButton = document.getElementById('resetBtn');
+  submitButton.addEventListener('click', function() {
+	  swal("Poslat vam je email o resetovanju lozinke", "", "success");
+    setTimeout(function() {
+      document.getElementById('passwordReset').submit();
+    }, 3000);
+  });
+});
+
+function togglePass() {
+    let passwordInput = document.getElementById('passwordInput');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
 }
+

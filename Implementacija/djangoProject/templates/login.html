@@ -28,9 +28,10 @@
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="password-container">
                                 <label for="password">Lozinka</label>
-                                <input type="password" class="form-control" name = "password" required>
+                                <input type="password" class="form-control" name = "password" required id="passwordInput">
+                                <i onclick="togglePass()" id = "toggle-password" class="fas fa-eye" style="position: absolute;top: 70%;right: 20px;transform:translateY(-45%);cursor: pointer"></i>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -39,7 +40,7 @@
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6 text-center">
-                            <a href="resetovanjeLozinke.html">Zaboravili ste lozinku?</a>
+                            <a href="/user/resetPassword">Zaboravili ste lozinku?</a>
                         </div>
                         <div class="col-md-3"></div>
                     </div>

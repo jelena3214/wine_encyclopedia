@@ -1,5 +1,9 @@
+import random
+import string
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -91,3 +95,36 @@ def logoutUser(request):
 @group_required("Proizvodjac")
 def changeCompanyStuff(request):
     return render(request, "promenaInformacijaVinarije.html")
+
+
+def generate_random_password():
+    length = 8
+    characters = string.ascii_letters + string.digits + string.punctuation
+
+    while True:
+        password = ''.join(random.choice(characters) for _ in range(length))
+        if any(c.islower() for c in password) and any(c.isupper() for c in password) and any(
+                c.isdigit() for c in password):
+            return password
+
+
+def send_custom_email(email, subject, template_name, context):
+    html_message = render_to_string('emails/' + template_name, context)
+    send_mail(subject, '', 'enciklopedijavina@gmail.com', [email], html_message=html_message)
+
+
+def resetPassword(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = Korisnik.objects.get(email=email)
+            newPass = generate_random_password()
+            user.set_password(newPass)
+            user.save()
+            send_custom_email(email, 'Enciklopedija vina zaboravljena lozinka', 'resetovanjeLozinkeEmail.html',
+                              {'newPass': newPass})
+            return redirect('home')
+        except Exception:
+            # If user is not registered on the site we won't send the email
+            return render(request, 'resetovanjeLozinke.html')
+    return render(request, 'resetovanjeLozinke.html')
