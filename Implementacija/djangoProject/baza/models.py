@@ -95,7 +95,7 @@ class Proslava(models.Model):
 
 class Recenzija(models.Model):
     idrecenzija = models.IntegerField(db_column='idRecenzija', primary_key=True)
-    opisrec = models.CharField(db_column='opisRec', max_length=20, blank=True, null=True)
+    opisrec = models.CharField(db_column='opisRec', max_length=400, blank=True, null=True)
     idponuda = models.ForeignKey(Ponuda, models.CASCADE, db_column='idPonuda')
     ocena = models.IntegerField(blank=True, null=True)
     idkorisnik = models.ForeignKey(Korisnik, models.CASCADE)
