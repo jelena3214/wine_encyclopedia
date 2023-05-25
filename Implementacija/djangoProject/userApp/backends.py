@@ -8,10 +8,9 @@ from baza.models import *
 class EmailBackend(ModelBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
         try:
+            print(email)
             user = Korisnik.objects.get(email=email)
-
         except Korisnik.DoesNotExist:
-            print("ne")
             return None
         else:
             if user.check_password(password):
