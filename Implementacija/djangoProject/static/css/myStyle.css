@@ -39,3 +39,23 @@
     height: 300px;
     width: 500px;
 }
+
+.dugme{
+  border: 2px solid #b7472a;
+  background-color: white;
+  color: #b7472a;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sub{
+  border: 2px solid #b7472a;
+  background-color: #b7472a;
+  color: white;
+  padding: 10px 16px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
