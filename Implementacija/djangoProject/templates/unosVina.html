@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+{% block title %}
+    Unos Vina
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="#" class="" method="post">
+            {% csrf_token %}
+	          	<div class="row justify-content-center">
+	          		<div class="col-sm-6">
+	                <div class="form-group">
+	                	<label for="wineName">Naziv Vina</label>
+	                    <input required name="wineName" type="text" class="form-control" placeholder="Unesite naziv vina">
+	                </div>
+	                </div>
+                </div>
+                <div class="row justify-content-center">
+                <div class="col-sm-6">
+	                <div class="form-group">
+	                	<label for="price">Cena (RSD)</label>
+	                    <input required name="price" type="number" class="form-control" placeholder="Unesite cenu vina" step="any" min="0">
+	                </div>
+                </div>
+                </div>
+                <div class="row justify-content-center">
+		            <div class="col-sm-6">
+		            	<div class="form-group">
+		            		<label for="country">Opis</label>
+		            		<div class="select-wrap">
+		                            <textarea required name="description" id="" class="form-control" placeholder="Unesite opis ovde"></textarea>
+		                    </div>
+                        </div>
+		            </div>
+                </div>
+                <div class="row align-items-end justify-content-center">
+	                <div class="form-group col-sm-4">
+                        <div id="tags">
+                            <label for="tagovi" id="tags">Tagovi vina</label>
+                        </div>
+                        <input name="taginputs" id="taginput" placeholder="Unesite tag ovde" type="text" class="form-control p-4"/>  {# data-role="tagsinput" #}
+	                </div>
+                    <div class="col-sm-2 text-center form-group">
+                        <button type="button" class="btn" id="addTag" style="background-color: #b7472a; width: 100%; margin-bottom: 10px; color: white" >Dodaj Tag</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group custom-file">
+                            <label for="winePicture" class="custom-file-label">Unesite sliku vina</label>
+                            <input name="winePicture" class="custom-file-input" type="file"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center form-group justify-content-center">
+                    <div class="col-sm-6 text-center">
+                        <input id="submitButton" type="submit" class="btn" style="background-color: #b7472a; margin-top: 15px; color: white; width: 100%" value="Unesi vino">
+                    </div>
+                </div>
+	          </form><!-- END -->
+    </div>
+
+    <script src="../static/js/unosVina.js">
+    </script>
+
+{% endblock %}

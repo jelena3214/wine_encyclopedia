@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+
+{% block title %}
+    Moja Prodavnica
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 10px">
+                <div class="card" style="width: 33%;">
+                    <img class="card-img-top" src="../static/images/banner.jpg" alt="Card image cap">
+                </div>
+                <div class="card" style="width: 67%;">
+                    <img class="card-img-top" src="../static/images/banner.jpg" alt="Card image cap">
+                </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 10px">
+        <div class="row text-left">
+                <div class="col-sm-3">
+                    <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
+                    <a href="#" style="color: white">Unos Novog Vina</a>
+                    </button>
+
+
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
+                        <a href="#" style="color: white">Azuriranje opcije proslava</a>
+                    </button>
+                </div>
+            <div class="col-sm-3">
+                <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
+                     <a href="#" style="color: white">Pretplate i plan reklama</a>
+                </button>
+
+            </div>
+            <div class="col-sm-3">
+                <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
+                    <a href="#" style="color: white">Azuriranje opcije obilaska</a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="mojaVina">
+            Vina dolaze ovde
+        </div>
+    </div>
+
+{% endblock %}
