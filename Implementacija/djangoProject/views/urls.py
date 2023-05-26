@@ -6,5 +6,6 @@ urlpatterns = [
     path('allwines', views.viewWines, name='viewWines'),
     path('wine/<str:value>', views.wine, name='wine'),
     path('detour', views.detour, name='detour'),
+    path('detours/<str:value>', views.oneDetour, name='oneDetour'),
     path('celebration', views.celebration, name='celebration'),
 ]

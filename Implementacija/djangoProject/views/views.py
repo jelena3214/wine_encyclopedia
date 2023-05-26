@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from baza.models import Korisnik, Proizvodjac, Ponuda, Vino, Slika, Tag, Recenzija, Kupac
+from django.contrib.auth.decorators import login_required
+from baza.models import *
 
 
 class TempVino:
@@ -17,8 +18,14 @@ class TempRecenzija:
         self.ocena = ocena
         self.ime = ime
 
+
+class TempObilazak:
+    def __init__(self, ime, slika):
+        self.ime = ime
+        self.slika = slika
+
+
 def viewWines(request):
-    ponuda = Ponuda.objects.all()
     vina = Vino.objects.all()
 
     vinaRedovi = []
@@ -42,15 +49,19 @@ def viewWines(request):
 
 
 def wine(request, value):
-    id = int(value[1:])
-    if request.method == 'POST':
+    @login_required
+    def recenzija(request, id):
         ocena = request.POST.get('rate')
-        korisnik = Korisnik.objects.filter(id=2)
+        korisnik = request.user
         tekst = request.POST.get('recenzija')
-        print(tekst)
-        novaRec = Recenzija(idrecenzija=3,idponuda=Ponuda(idponuda=id, idkorisnik_id=2), idkorisnik_id=2, opisrec=tekst, ocena=ocena)
+
+        novaRec = Recenzija(idrecenzija=3, idponuda=Ponuda(idponuda=id, idkorisnik_id=korisnik), idkorisnik_id=korisnik,
+                            opisrec=tekst, ocena=ocena)
         novaRec.save()
 
+    id = int(value[1:])
+    if request.method == 'POST':
+        recenzija(request, id)
     vino = Vino.objects.filter(idponuda=id)
     tmp = None
     tagovi = []
@@ -64,9 +75,10 @@ def wine(request, value):
             for r in rec:
                 ocena = []
                 korisnik = Korisnik.objects.filter(id=r.idkorisnik_id)
-                for i in range(r.ocena):
-                    ocena.append("+")
-                recenzije.append(TempRecenzija(r.opisrec, ocena, korisnik[0].javnoime))
+                if korisnik != None:
+                    for i in range(r.ocena):
+                        ocena.append("+")
+                    recenzije.append(TempRecenzija(r.opisrec, ocena, korisnik[0].javnoime))
         if tag:
             for t in tag:
                 tagovi.append(t.tag)
@@ -82,6 +94,37 @@ def wine(request, value):
 
 
 def detour(request):
+    ponuda = Ponuda.objects.all()
+    obilasci = Obilazak.objects.all()
+    obilazakRedovi = []
+    obilazakRed = []
+    forCnt = 0
+
+    for obilazak in obilasci:
+        o = ponuda.filter(idponuda=obilazak.idponuda_id)
+        print(o)
+        vinarija = Korisnik.objects.filter(email=o[0].idkorisnik)[0].javnoime
+        print(vinarija)
+        slika = Slika.objects.filter(idponuda=obilazak.idponuda_id)[0].slika
+        print(slika)
+        tmp = TempObilazak(vinarija, slika)
+        obilazakRed.append(tmp)
+        if (forCnt % 3 == 0 and forCnt != 0) or (len(obilasci) < 3 and forCnt == len(obilasci) - 1):
+            print("if")
+            obilazakRedovi.append(obilazakRed)
+            obilazakRed = []
+        forCnt += 1
+
+    print(obilazakRedovi)
+
+    context = {
+        'obilasci': obilazakRedovi
+    }
+
+    return render(request, "pregledObilazaka.html", context)
+
+
+def oneDetour(request, value):
     return render(request, "obilazakPojedinacanPrikaz.html")
 
 
