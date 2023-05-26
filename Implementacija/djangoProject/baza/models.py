@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from userApp.manager import KorisnikManager
 
+
 class Korisnik(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
@@ -13,6 +14,7 @@ class Korisnik(AbstractUser):
     USERNAME_FIELD = 'email'
 
     objects = KorisnikManager()
+
     class Meta:
         db_table = 'korisnik'
 
@@ -28,7 +30,7 @@ class Proizvodjac(Korisnik):
     imefirme = models.CharField(db_column='imeFirme', max_length=200, blank=True, null=True)
     registarskibroj = models.IntegerField(db_column='registarskiBroj', blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
-    #logo = models.ImageField(upload_to='images', null=True)
+    logo = models.ImageField(upload_to='images', null=True, default=None)
 
     class Meta:
         db_table = 'proizvodjac'
@@ -45,7 +47,7 @@ class Obilazak(models.Model):
 
 
 class Ponuda(models.Model):
-    idponuda = models.IntegerField(db_column='idPonuda', primary_key=True)
+    idponuda = models.AutoField(primary_key=True, db_column='idPonuda')
     idkorisnik = models.ForeignKey(Korisnik, models.CASCADE, db_column='idKorisnik')
 
     class Meta:
@@ -60,7 +62,7 @@ class Ponudaprostor(models.Model):
 
 
 class Pretplata(models.Model):
-    idpretplata = models.IntegerField(db_column='idPretplata', primary_key=True)
+    idpretplata = models.AutoField(db_column='idPretplata', primary_key=True)
     naslov = models.CharField(max_length=200, blank=True, null=True)
     cena = models.IntegerField(blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
@@ -94,7 +96,7 @@ class Proslava(models.Model):
 
 
 class Recenzija(models.Model):
-    idrecenzija = models.IntegerField(db_column='idRecenzija', primary_key=True)
+    idrecenzija = models.AutoField(db_column='idRecenzija', primary_key=True)
     opisrec = models.CharField(db_column='opisRec', max_length=400, blank=True, null=True)
     idponuda = models.ForeignKey(Ponuda, models.CASCADE, db_column='idPonuda')
     ocena = models.IntegerField(blank=True, null=True)
@@ -105,7 +107,7 @@ class Recenzija(models.Model):
 
 
 class Termin(models.Model):
-    idtermin = models.IntegerField(db_column='idTermin', primary_key=True)
+    idtermin = models.AutoField(db_column='idTermin', primary_key=True)
     vreme = models.DateTimeField(blank=True, null=True)
     idponuda = models.ForeignKey(Ponudaprostor, models.CASCADE, db_column='idPonuda')
 
@@ -123,7 +125,7 @@ class Rezervacija(models.Model):
 
 
 class Tag(models.Model):
-    idtag = models.IntegerField(db_column='idTag', primary_key=True)
+    idtag = models.AutoField(db_column='idTag', primary_key=True)
     tag = models.CharField(max_length=100, blank=True, null=True)
     idponuda = models.ForeignKey('Vino', models.CASCADE, db_column='idPonuda')
 
@@ -142,7 +144,7 @@ class Rezultatupitnika(models.Model):
 
 class Slika(models.Model):
     idponuda = models.ForeignKey(Ponuda, models.CASCADE, db_column='idPonuda')
-    idslika = models.IntegerField(db_column='idSlika', primary_key=True)
+    idslika = models.AutoField(db_column='idSlika', primary_key=True)
     slika = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -150,7 +152,7 @@ class Slika(models.Model):
 
 
 class Somelijer(models.Model):
-    idsomelijer = models.IntegerField(db_column='idSomelijer', primary_key=True)
+    idsomelijer = models.AutoField(db_column='idSomelijer', primary_key=True)
     idponuda = models.ForeignKey(Obilazak, models.CASCADE, db_column='idPonuda')
     ime = models.CharField(max_length=100, blank=True, null=True)
     biografija = models.TextField(blank=True, null=True)
@@ -165,14 +167,14 @@ class Ukorpi(models.Model):
                                    null=True)
     idponuda = models.ForeignKey('Vino', models.CASCADE, db_column='idPonuda', blank=True,
                                  null=True)
-    idkorpa = models.IntegerField(db_column='idKorpa', primary_key=True)
+    idkorpa = models.AutoField(db_column='idKorpa', primary_key=True)
 
     class Meta:
         db_table = 'ukorpi'
 
 
 class Upitnikpitanje(models.Model):
-    idpitanje = models.IntegerField(db_column='idPitanje', primary_key=True)
+    idpitanje = models.AutoField(db_column='idPitanje', primary_key=True)
     tekst = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -182,7 +184,7 @@ class Upitnikpitanje(models.Model):
 class Upitnikodgovor(models.Model):
     idpitanje = models.ForeignKey(Upitnikpitanje, models.CASCADE, db_column='idPitanje', blank=True,
                                   null=True)
-    idodgovor = models.IntegerField(db_column='idOdgovor', primary_key=True)
+    idodgovor = models.AutoField(db_column='idOdgovor', primary_key=True)
     odgovor = models.CharField(max_length=100, blank=True, null=True)
     idtag = models.ForeignKey(Tag, models.CASCADE, db_column='idTag')
 
@@ -204,7 +206,7 @@ class Vino(models.Model):
 
 
 class Vrstaobilaska(models.Model):
-    idobilazak = models.IntegerField(db_column='idObilazak', primary_key=True)
+    idobilazak = models.AutoField(db_column='idObilazak', primary_key=True)
     idponuda = models.ForeignKey(Obilazak, models.CASCADE, db_column='idPonuda')
     naziv = models.CharField(max_length=100, blank=True, null=True)
     cena = models.IntegerField(blank=True, null=True)
