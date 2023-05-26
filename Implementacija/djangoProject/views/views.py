@@ -19,30 +19,60 @@ class TempRecenzija:
         self.ime = ime
 
 
-class TempObilazak:
+class TempProstor:
     def __init__(self, ime, slika):
         self.ime = ime
         self.slika = slika
 
 
+class TempProslava:
+    def __init__(self, ime, slika, id):
+        self.ime = ime
+        self.slika = slika # niz slika
+        self.id = id
+
+
 def viewWines(request):
     vina = Vino.objects.all()
-
+    tagovi = list(Tag.objects.all().values('tag').distinct())
+    tags = []
+    for tag in tagovi:
+        tags.append(tag["tag"])
     vinaRedovi = []
     vinoRed = []
 
-    forCnt = 0
-    for vino in vina:
-        slike = Slika.objects.filter(idponuda=vino.idponuda_id)
-        tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda_id)
-        vinoRed.append(tmp)
-        if forCnt % 3 == 0 and forCnt != 0:
-            vinaRedovi.append(vinoRed)
-            vinoRed = []
-        forCnt += 1
+    if request.method == 'POST' and request.POST.get('filter') != None:
+        filter = request.POST.get('filter')
+        tagovi = Tag.objects.filter(tag=filter)
+        ponude = []
+        for tag in tagovi:
+            ponuda = Vino.objects.filter(idponuda=tag.idponuda_id).first()
+            ponude.append(ponuda)
+
+        forCnt = 0
+        for vino in ponude:
+            slike = Slika.objects.filter(idponuda=vino.idponuda)
+            tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda)
+            vinoRed.append(tmp)
+            if (forCnt % 3 == 0 and forCnt != 0) or (len(ponude) <= 3 and forCnt == len(ponude) - 1):
+                vinaRedovi.append(vinoRed)
+                vinoRed = []
+            forCnt += 1
+        print(vinaRedovi)
+    else:
+        forCnt = 0
+        for vino in vina:
+            slike = Slika.objects.filter(idponuda=vino.idponuda_id)
+            tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda_id)
+            vinoRed.append(tmp)
+            if forCnt % 3 == 0 and forCnt != 0:
+                vinaRedovi.append(vinoRed)
+                vinoRed = []
+            forCnt += 1
 
     context = {
         'vina': vinaRedovi,
+        'tagovi': tags
     }
 
     return render(request, "pregledVina.html", context)
@@ -102,20 +132,14 @@ def detour(request):
 
     for obilazak in obilasci:
         o = ponuda.filter(idponuda=obilazak.idponuda_id)
-        print(o)
         vinarija = Korisnik.objects.filter(email=o[0].idkorisnik)[0].javnoime
-        print(vinarija)
         slika = Slika.objects.filter(idponuda=obilazak.idponuda_id)[0].slika
-        print(slika)
-        tmp = TempObilazak(vinarija, slika)
+        tmp = TempProstor(vinarija, slika)
         obilazakRed.append(tmp)
         if (forCnt % 3 == 0 and forCnt != 0) or (len(obilasci) < 3 and forCnt == len(obilasci) - 1):
-            print("if")
             obilazakRedovi.append(obilazakRed)
             obilazakRed = []
         forCnt += 1
-
-    print(obilazakRedovi)
 
     context = {
         'obilasci': obilazakRedovi
@@ -125,11 +149,93 @@ def detour(request):
 
 
 def oneDetour(request, value):
-    return render(request, "obilazakPojedinacanPrikaz.html")
+    ime = value[1:]
+    korisnici = Korisnik.objects.filter(javnoime=ime)
+    vinarija = None
+    for korisnik in korisnici:
+        pr = Proizvodjac.objects.filter(email=korisnik.email)
+        if pr is not None:
+            vinarija = pr[0]
+            break
+    ponude = Ponuda.objects.filter(idkorisnik_id=vinarija.id)
+    ponuda = None
+    obilasci = Obilazak.objects.all()
+    for p in ponude:
+        pr = obilasci.filter(idponuda=p.idponuda)
+        if len(pr):
+            ponuda = pr[0]
+    if ponuda is None:
+        return celebration(request)
+
+    vrsteobilazaka = Vrstaobilaska.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
+    slika = Slika.objects.filter(idponuda=ponuda.idponuda.idponuda_id)[0]
+    somelijeri = Somelijer.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
+    context = {
+        'vinarija' : vinarija,
+        'obilasci': vrsteobilazaka,
+        'slika': slika,
+        'somelijeri': somelijeri
+    }
+    return render(request, "obilazakPojedinacanPrikaz.html", context)
 
 
 def celebration(request):
-    return render(request, "proslavaPojedinacanPrikaz.html")
+    ponuda = Ponuda.objects.all()
+    proslave = Proslava.objects.all()
+    proslavaRedovi = []
+    proslavaRed = []
+    forCnt = 0
+
+    for proslava in proslave:
+        p = ponuda.filter(idponuda=proslava.idponuda_id)
+        vinarija = Korisnik.objects.filter(email=p[0].idkorisnik)[0].javnoime
+        slika = Slika.objects.filter(idponuda=proslava.idponuda_id)[0].slika
+        tmp = TempProstor(vinarija, slika)
+        proslavaRed.append(tmp)
+        if (forCnt % 3 == 0 and forCnt != 0) or (len(proslave) < 3 and forCnt == len(proslave) - 1):
+            proslavaRedovi.append(proslavaRed)
+            proslavaRed = []
+        forCnt += 1
+
+    context = {
+        'proslave': proslavaRedovi
+    }
+
+    return render(request, "pregledProslava.html", context)
+
+
+def oneCelebration(request, value):
+    ime = value[1:]
+    korisnici = Korisnik.objects.filter(javnoime=ime)
+    vinarija = None
+    for korisnik in korisnici:
+        pr = Proizvodjac.objects.filter(email=korisnik.email)
+        if pr is not None:
+            vinarija = pr[0]
+            break
+    ponude = Ponuda.objects.filter(idkorisnik_id=vinarija.id)
+    ponuda = None
+    proslave = Proslava.objects.all()
+    for p in ponude:
+        pr = proslave.filter(idponuda=p.idponuda)
+        if len(pr):
+            ponuda = pr[0]
+    if ponuda is None:
+        return celebration(request)
+
+    sl = Slika.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
+    slike = []
+    for s in sl:
+        slike.append(s.slika)
+
+    context = {
+        'vinarija': vinarija,
+        'slike': slike,
+        'ponuda': ponuda
+    }
+
+    print(slike)
+    return render(request, "proslavaPojedinacanPrikaz.html", context)
 
 
 def home(request):

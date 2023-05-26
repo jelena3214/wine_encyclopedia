@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% load static %}
 {% block title %}
-    Pregled obilazaka
+    Pregled proslava
 {% endblock %}
 
 {% block content %}
@@ -19,26 +19,26 @@
                             </select>
                         </div>
                     </div>
-                    {% for red in obilasci %}
+                    {% for red in proslave %}
                         <div class="row">
-                            {% for obilazak in red %}
+                            {% for proslava in red %}
                                 <div class="col-md-4 d-flex">
                                     <div class="product ftco-animate">
                                         <div class="img d-flex align-items-center justify-content-center"
-                                             style="background-image: url({% static  "" %}{{ obilazak.slika }});">
+                                             style="background-image: url({% static  "" %}{{ proslava.slika }});">
                                             <div class="desc">
                                                 <p class="meta-prod d-flex">
                                                     <a href="#"
                                                        class="d-flex align-items-center justify-content-center"><span
                                                             class="flaticon-shopping-bag"></span></a>
-                                                    <a href="{% url 'oneDetour' value=0 %}{{ obilazak.ime }}"
+                                                    <a href="{% url 'oneCelebration' value=0 %}{{ proslava.ime }}"
                                                        class="d-flex align-items-center justify-content-center"><span
                                                             class="flaticon-visibility"></span></a>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="text text-center">
-                                            <h2>{{ obilazak.ime }}</h2>
+                                            <h2>{{ proslava.ime }}</h2>
                                         </div>
                                     </div>
                                 </div>

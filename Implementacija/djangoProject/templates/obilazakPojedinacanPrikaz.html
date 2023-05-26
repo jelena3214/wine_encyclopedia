@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% load static %}
 {% block title %}
-    Vinarija Kis
+    {{ vinarija.javnoime }}
 {% endblock %}
 
 {% block content %}
@@ -9,41 +9,49 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <h3 style="display:inline">Obilazak Basic </h3><span class="price" style="display:inline; font-size: large;">850.00 RSD</span>
-                    <p>Obilazak Basic ukljucuje obilazak vinarije i degustaciju 3 vina po izboru</p>
-
-                    <h3 style="display:inline">Obilazak Basic </h3><span class="price" style="display:inline; font-size: large;">850.00 RSD</span>
-                    <p>Obilazak Basic ukljucuje obilazak vinarije i degustaciju 3 vina po izboru</p>
-
-                    <h3 style="display:inline">Obilazak Basic </h3><span class="price" style="display:inline; font-size: large;">850.00 RSD</span>
-                    <p>Obilazak Basic ukljucuje obilazak vinarije i degustaciju 3 vina po izboru</p>
+                    {% for obilazak in obilasci %}
+                        <h3 style="display:inline">{{ obilazak.naziv }} </h3><span class="price" style="display:inline; font-size: large;">{{ obilazak.cena }}.00 RSD</span>
+                        <p>{{ obilazak.opis }}</p>
+                    {% endfor %}
                 </div>
                 <div class="col-lg-4 mb-5 ftco-animate" style="margin-left: auto; margin-right: auto;">
-                    <a href="{% static "images/vinarija.jpg" %}" class="image-popup"><img src="{% static "images/vinarija.jpg" %}" class="img-fluid"
+                    <a href="{% static "" %}{{ slika.slika }}" class="image-popup"><img src="{% static "" %}{{ slika.slika }}" class="img-fluid"
                         alt="Vinarija"></a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="card" style="width: 200px;">
-                                <img src="{% static "images/person_1.jpg" %}" alt="Card image" class="card-img-top">
-                                <div class="card-boy text-center">
-                                    <h4 class="card-title">John Doe</h4>
-                                    <p class="card-text">Somelijer broj 1</p>
+                        {% for somelijer in somelijeri %}
+                            <div class="col-md-4">
+                                <div class="card" style="width: 200px;">
+                                    <img src="{% static "" %}{{ somelijer.slika }}" alt="Card image" class="card-img-top">
+                                    <div class="card-boy text-center">
+                                        <h4 class="card-title">{{ somelijer.ime }}</h4>
+                                        <p class="card-text">{{ somelijer.biografija }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card" style="width: 200px;">
-                                <img src="{% static "images/person_2.jpg" %}" alt="Card image" class="card-img-top">
-                                <div class="card-boy text-center">
-                                    <h4 class="card-title">John Doe</h4>
-                                    <p class="card-text">Somelijer broj 2</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
+
+{#                        <div class="col-md-4">#}
+{#                            <div class="card" style="width: 200px;">#}
+{#                                <img src="{% static "images/person_1.jpg" %}" alt="Card image" class="card-img-top">#}
+{#                                <div class="card-boy text-center">#}
+{#                                    <h4 class="card-title">John Doe</h4>#}
+{#                                    <p class="card-text">Somelijer broj 1</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-md-4">#}
+{#                            <div class="card" style="width: 200px;">#}
+{#                                <img src="{% static "images/person_2.jpg" %}" alt="Card image" class="card-img-top">#}
+{#                                <div class="card-boy text-center">#}
+{#                                    <h4 class="card-title">John Doe</h4>#}
+{#                                    <p class="card-text">Somelijer broj 2</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
 
                 </div>

@@ -10,13 +10,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row mb-4">
-                        <div class="col-md-12 d-flex justify-content-between align-items-center">
-                            <h4 class="product-select">Filtriraj</h4>
-                            <select class="selectpicker" multiple>
-                                <option>Belo vino</option>
-                                <option>Crveno vino</option>
-                                <option>Roze</option>
-                            </select>
+                        <div class="col-md-12 d-flex justify-content-between align-items-end">
+                            <form method="post">
+                                {% csrf_token %}
+                                <select class="selectpicker" name="filter">
+                                    <option value="" selected disabled>Izaberi opciju</option>
+                                    {% for tag in tagovi %}
+                                        <option>{{ tag }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit">Filtriraj</button>
+                            </form>
+                            {#                            <a href="#" class="btn btn-primary py-3 px-5 mr-2">Filtriraj</a>#}
                         </div>
                     </div>
                     {% for red in vina %}
@@ -38,7 +43,8 @@
                                             </div>
                                         </div>
                                         <div class="text text-center">
-                                            <span class="category" style="text-transform: capitalize">{{ vino.naziv }}</span>
+                                            <span class="category"
+                                                  style="text-transform: capitalize">{{ vino.naziv }}</span>
                                             <h2>{{ vino.naziv }}</h2>
                                             <p class="mb-0"><span class="price">{{ vino.cena }}.00 RSD</span>
                                         </div>
