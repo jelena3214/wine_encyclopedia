@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .forms import WineForm
 from baza.models import Vino
 # Create your views here.
 
@@ -18,10 +17,7 @@ def viewWine(request):
         # tags = request.POST['taginputs']
         # new_wine.idponuda = 1
         # new_wine.save()
-    else:
-        form = WineForm()
-
-    return render(request,"unosVina.html",{"form" : form})
+    return render(request,"unosVina.html")
 
 
 def inputTour(request):

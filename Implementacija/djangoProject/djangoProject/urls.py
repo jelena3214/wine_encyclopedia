@@ -27,7 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include("userApp.urls")),
     path('views/', include("views.urls")),
-    path('', views.home, name="home")
+    path('', views.home, name="home"),
+    path('user/add',include("Aleksa.urls"))
 ]
 
 if settings.DEBUG:
