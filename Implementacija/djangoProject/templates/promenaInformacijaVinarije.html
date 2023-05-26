@@ -8,14 +8,22 @@ Promena informacija vinarije
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10 ftco-animate">
-                <form action="#" id="changeInfoUser">
+                <form id="changeInfoUser" method="post">
+                    {% csrf_token %}
+                    <div class="row justify-content-center" style="color: #b7472a; font-weight: bold">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <h5 style="color: #b7472a">Promena opisa vinarije</h5>
                             <div class="form-group">
                                 <label for="description">Opis</label>
-                                <textarea type="text" class="form-control" placeholder=""></textarea>
+                                <textarea type="text" class="form-control" name = "opis" placeholder="{{ description }}"></textarea>
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -36,7 +44,7 @@ Promena informacija vinarije
                             <h5 style="color: #b7472a">Promena naziva vinarije</h5>
                             <div class="form-group">
                                 <label for="description">Naziv</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" class="form-control" name = "naziv" placeholder="{{ name }}">
                             </div>
                         </div>
                         <div class="col-md-3"></div>
@@ -46,7 +54,7 @@ Promena informacija vinarije
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-lg btn-block" type="button"
+                                <button class="btn btn-lg btn-block" type="submit"
                                         style="background-color: #b7472a; color: white">Sačuvaj izmene
                                 </button>
                             </div>

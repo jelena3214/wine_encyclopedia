@@ -234,8 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function togglePass() {
-    let passwordInput = document.getElementById('passwordInput');
+function togglePass(id) {
+    let passwordInput = document.getElementById(id);
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
     } else {

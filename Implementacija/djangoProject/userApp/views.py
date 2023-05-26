@@ -1,3 +1,4 @@
+import email
 import random
 import string
 from django.core.mail import send_mail
@@ -50,6 +51,11 @@ def registerProducer(request):
         password = request.POST.get('password')
         name = request.POST.get('name')
         companyNumber = request.POST.get('companyNumber')
+
+        if Proizvodjac.objects.filter(registarskibroj=companyNumber).count() > 0:
+            messages.error(request, message="Već postoji vinarija sa unetim registarskim brojem")
+            return render(request, 'registracijaProizvodjac.html')
+
         phoneNumber = request.POST.get('phoneNumber')
         address = request.POST.get('address')
         description = request.POST.get('description')
@@ -92,9 +98,83 @@ def logoutUser(request):
 
 
 @login_required(login_url='/user')
-@group_required("Proizvodjac")
+@group_required("Proizvodjaci")
 def changeCompanyStuff(request):
-    return render(request, "promenaInformacijaVinarije.html")
+    if request.method == "POST":
+        opis = request.POST.get("opis")
+        naziv = request.POST.get("naziv")
+        producer = Proizvodjac.objects.get(email=request.user)
+        if len(opis) > 0:
+            producer.opis = opis
+        if len(naziv) > 0:
+            producer.imefirme = naziv
+            producer.javnoime = naziv
+        producer.save()
+
+        context = {
+            'name': producer.imefirme,
+            'description': producer.opis
+        }
+        return render(request, "promenaInformacijaVinarije.html", context)
+    else:
+        producer = Proizvodjac.objects.get(email=request.user)
+        context = {
+            'name': producer.imefirme,
+            'description': producer.opis
+        }
+        return render(request, "promenaInformacijaVinarije.html", context)
+
+
+@login_required(login_url='/user')
+def changeInfoUser(request):
+    if request.method == "POST":
+        user = Korisnik.objects.get(email=request.user)
+        showName = request.POST.get("showName")
+        address = request.POST.get("address")
+        phoneNumber = request.POST.get("phoneNumber")
+        currentPassword = request.POST.get("currentPassword")
+        newPassword = request.POST.get("newPassword")
+        newPasswordSubmit = request.POST.get("newPasswordSubmit")
+
+        context = {
+            'showName': user.javnoime,
+            'address': user.adresa,
+            'phoneNumber': user.brtelefona
+        }
+
+        if len(newPassword) > 0 and not user.check_password(currentPassword):
+            messages.error(request, message="Lozinka se ne poklapa sa trenutnom lozinkom naloga")
+            return render(request, 'promenaInformacijaKorisnika.html', context)
+
+        if len(newPassword) > 0 and newPassword != newPasswordSubmit:
+            messages.error(request, message="Nova lozinka se nije potvrđena")
+            return render(request, 'promenaInformacijaKorisnika.html', context)
+
+        if len(newPassword) > 0 and len(newPasswordSubmit) > 0:
+            user.set_password(newPassword)
+        if len(showName) > 0:
+            user.javnoime = showName
+        if len(address) > 0:
+            user.adresa = address
+        if len(phoneNumber) > 0:
+            user.brtelefona = phoneNumber
+        user.save()
+
+        context = {
+            'showName': user.javnoime,
+            'address': user.adresa,
+            'phoneNumber': user.brtelefona
+        }
+
+        return render(request, 'promenaInformacijaKorisnika.html', context)
+    else:
+        user = Korisnik.objects.get(email=request.user)
+        context = {
+            'showName': user.javnoime,
+            'address': user.adresa,
+            'phoneNumber': user.brtelefona
+        }
+        return render(request, 'promenaInformacijaKorisnika.html', context)
 
 
 def generate_random_password():

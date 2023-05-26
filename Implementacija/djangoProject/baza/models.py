@@ -5,8 +5,8 @@ from userApp.manager import KorisnikManager
 class Korisnik(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    javnoime = models.CharField(db_column='javnoIme', max_length=20, blank=True, null=True)
-    adresa = models.CharField(max_length=50, blank=True, null=True)
+    javnoime = models.CharField(db_column='javnoIme', max_length=200, blank=True, null=True)
+    adresa = models.CharField(max_length=200, blank=True, null=True)
     brtelefona = models.CharField(db_column='brTelefona', max_length=50, blank=True, null=True)
 
     REQUIRED_FIELDS = []
@@ -25,7 +25,7 @@ class Kupac(Korisnik):
 
 
 class Proizvodjac(Korisnik):
-    imefirme = models.CharField(db_column='imeFirme', max_length=50, blank=True, null=True)
+    imefirme = models.CharField(db_column='imeFirme', max_length=200, blank=True, null=True)
     registarskibroj = models.IntegerField(db_column='registarskiBroj', blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
     #logo = models.ImageField(upload_to='images', null=True)
@@ -61,7 +61,7 @@ class Ponudaprostor(models.Model):
 
 class Pretplata(models.Model):
     idpretplata = models.IntegerField(db_column='idPretplata', primary_key=True)
-    naslov = models.CharField(max_length=20, blank=True, null=True)
+    naslov = models.CharField(max_length=200, blank=True, null=True)
     cena = models.IntegerField(blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
 
@@ -124,7 +124,7 @@ class Rezervacija(models.Model):
 
 class Tag(models.Model):
     idtag = models.IntegerField(db_column='idTag', primary_key=True)
-    tag = models.CharField(max_length=20, blank=True, null=True)
+    tag = models.CharField(max_length=100, blank=True, null=True)
     idponuda = models.ForeignKey('Vino', models.CASCADE, db_column='idPonuda')
 
     class Meta:
@@ -152,7 +152,7 @@ class Slika(models.Model):
 class Somelijer(models.Model):
     idsomelijer = models.IntegerField(db_column='idSomelijer', primary_key=True)
     idponuda = models.ForeignKey(Obilazak, models.CASCADE, db_column='idPonuda')
-    ime = models.CharField(max_length=20, blank=True, null=True)
+    ime = models.CharField(max_length=100, blank=True, null=True)
     biografija = models.TextField(blank=True, null=True)
     slika = models.TextField(blank=True, null=True)
 
@@ -173,7 +173,7 @@ class Ukorpi(models.Model):
 
 class Upitnikpitanje(models.Model):
     idpitanje = models.IntegerField(db_column='idPitanje', primary_key=True)
-    tekst = models.CharField(max_length=20, blank=True, null=True)
+    tekst = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'upitnikpitanje'
@@ -183,7 +183,7 @@ class Upitnikodgovor(models.Model):
     idpitanje = models.ForeignKey(Upitnikpitanje, models.CASCADE, db_column='idPitanje', blank=True,
                                   null=True)
     idodgovor = models.IntegerField(db_column='idOdgovor', primary_key=True)
-    odgovor = models.CharField(max_length=20, blank=True, null=True)
+    odgovor = models.CharField(max_length=100, blank=True, null=True)
     idtag = models.ForeignKey(Tag, models.CASCADE, db_column='idTag')
 
     class Meta:
@@ -193,7 +193,7 @@ class Upitnikodgovor(models.Model):
 class Vino(models.Model):
     idponuda = models.OneToOneField(Ponuda, models.CASCADE, db_column='idPonuda',
                                     primary_key=True)
-    naziv = models.CharField(max_length=20, blank=True, null=True)
+    naziv = models.CharField(max_length=100, blank=True, null=True)
     cena = models.IntegerField(blank=True, null=True)
     opisvina = models.CharField(db_column='opisVina', max_length=200, blank=True,
                                 null=True)
@@ -206,7 +206,7 @@ class Vino(models.Model):
 class Vrstaobilaska(models.Model):
     idobilazak = models.IntegerField(db_column='idObilazak', primary_key=True)
     idponuda = models.ForeignKey(Obilazak, models.CASCADE, db_column='idPonuda')
-    naziv = models.CharField(max_length=20, blank=True, null=True)
+    naziv = models.CharField(max_length=100, blank=True, null=True)
     cena = models.IntegerField(blank=True, null=True)
     opis = models.TextField(blank=True, null=True)
 
