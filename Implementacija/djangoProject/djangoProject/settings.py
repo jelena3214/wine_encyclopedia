@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'baza.apps.BazaConfig',
     'userApp.apps.UserappConfig',
-    'views.apps.ViewsConfig'
+    'views.apps.ViewsConfig',
+    'Aleksa.apps.AleksaConfig'
 ]
 
 MIDDLEWARE = [

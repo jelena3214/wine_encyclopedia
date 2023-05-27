@@ -48,16 +48,18 @@
     </div>
     <!-- Kraj forme za unos tipa obilaska -->
 
-    <div id="tourTypes" class="justify-content-center row" style="margin-top: 10px">
+    <div id="{{ vrsta_obilaska.id }}" class="justify-content-center row" style="margin-top: 10px">
+      {% for vrsta_obilaska in obilasci %}
         <div class="card" style="width: 18rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
             <div class="card-body">
-                <div class="text-right" style="height: 5px">  <a href="#" class="btn">X</a></div>
-                <h5 class="card-title">Vrsta obilaska
+                <div class="text-right" style="height: 5px">  <a href="removeTourType/{{vrsta_obilaska.id }}" class="btn">X</a></div>
+                <h5 class="card-title">{{ vrsta_obilaska.naziv }}
                 </h5>
-                <h5>Cena 1000 RSD</h5>
-                <p class="card-text">Ovde treba da dodje opis jednog obilaska koji ce se povuci iz djanga</p>
+                <h5>{{ vrsta_obilaska.cena }}</h5>
+                <p class="card-text">{{ vrsta_obilaska.opis }}</p>
             </div>
         </div>
+      {% endfor %}
     </div>
     <!-- Unos slike -->
     <div class="container">
@@ -93,17 +95,6 @@
 	                            </div>
 	                        </div>
                         </div>
-{#                        <div class="row justify-content-center align-items-center">#}
-{#                            <div class="col-sm-2">#}
-{#	                            <div class="form-group">#}
-{#	                	            <label for="sommelierPrice">Cena angazovanja somelijera</label>#}
-{#	                                <input required name="sommelierPrice" type="number" class="form-control" placeholder="Unesite cenu angazovanja somelijera">#}
-{#	                            </div>#}
-{#	                        </div>#}
-{#                            <div class="col-sm-1">#}
-{#                                RSD#}
-{#                            </div>#}
-{#                        </div>#}
                         <div class="row justify-content-center">
                              <div class="col-sm-4">
 	                            <div class="form-group">
@@ -163,7 +154,7 @@
            </div>
             <div class="row text-center form-group justify-content-center">
                 <div class="col-sm-3 text-center">
-                    <input id="tourDate" type="date" min="" class=""  style="width: 100%" ">
+                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%" ">
                 </div>
             </div>
             <div class="row text-center form-group justify-content-center">
@@ -176,7 +167,7 @@
 
     </div>
 
-<script src="../static/js/unosObilaska.js">
+<script src="../../static/js/unosObilaska.js">
 
 </script>
 
