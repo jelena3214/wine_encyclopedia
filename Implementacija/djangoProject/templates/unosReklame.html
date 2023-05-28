@@ -1,0 +1,111 @@
+{% extends 'template.html' %}
+{% block title %}
+    Reklame
+{% endblock %}
+
+{% block content %}
+
+    {# Trenutne pretplate #}
+     <div class="container">
+        <div class="row justify-content-center" style="margin-top: 10px">
+            <h4>Trenutno aktivne pretplate:</h4>
+        </div>
+        <div id="mojeReklame" class=" row justify-content-center" style="margin-top: 10px">
+
+            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD dasasdsdadasasdsad {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+                     <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+                     <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    </div>
+
+    {# Dostupne pretplate #}
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 20px">
+            <h3>
+                Dostupne pretplate:
+            </h3>
+        </div>
+        <div class="row justify-content-center">
+            <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;">
+                        <div class="card-body">
+                            <div class="text-right align-items-end" style="height: 5px;">
+                               <a href= "removeAd" class="btn">
+                                   <p style="font-size: 25pt">+</p>
+                               </a>
+                            </div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklame u to ime nazdravljam</p>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    {# Istorija pretplata #}
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 10px">
+            <h4>Trenutno aktivne pretplate:</h4>
+        </div>
+        <div id="mojeReklame" class=" row justify-content-center" style="margin-top: 10px">
+
+            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD dasasdsdadasasdsad {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+                     <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+                     <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ reklama.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ reklama.naziv }}Premium dx paket  1999RSD {{reklama.cena}}
+                            </h5>
+                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    </div>
+
+{% endblock %}
+

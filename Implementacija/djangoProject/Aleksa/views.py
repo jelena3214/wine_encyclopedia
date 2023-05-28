@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from userApp.decorators import group_required
 from baza.models import *
 
+# from project_FourDesperados.Implementacija.djangoProject.baza.models import Somelijer
+
+
 # from project_FourDesperados.Implementacija.djangoProject.baza.models import *
 
 # @login_required(login_url='/user')
@@ -134,9 +137,6 @@ def inputCelebration(request):
 
 # @login_required(login_url='/user')
 # @group_required("Proizvodjaci")
-def myStore(request):
-    return render(request,"mojaProdavnica.html")
-
 
 def setTourDetails(request: HttpRequest):
     if request.method == "POST":
@@ -172,7 +172,7 @@ def addSommelier(request : HttpRequest):
         new_sommelier.slika = request.POST['sommelierPicture']
         new_sommelier.save()
 
-    return render(request,"unosObilaska.html")
+    return unosObilaskaExit(request)
 
 def checkIfTourExists(request : HttpRequest):
 
@@ -192,16 +192,40 @@ def checkIfTourExists(request : HttpRequest):
         new_tour.save()
         return new_tour
 
-
-
 def unosObilaskaExit(request : HttpRequest):
     tour = checkIfTourExists(request)
     tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
+    sommeliers = Somelijer.objects.filter(idponuda=tour)
+
     context = {
-        'obilasci': tour_types
+        'obilasci': tour_types,
+        'somelijeri' : sommeliers
     }
     return render(request, "unosObilaska.html", context)
 
 
 def removeTourType(request : HttpRequest, value):
     return unosObilaskaExit(request)
+
+def myStore(request):
+    return render(request,"mojaProdavnica.html")
+
+#TODO treba napraviti reklameExit funkciju koja ce da renderuje reklame i da podesi kontekst
+def viewAds(request : HttpRequest):
+
+    context = {}
+    return render(request,"unosReklame.html",context)
+
+def unsubscribeAd(request: HttpRequest, ad_id):
+    context = {}
+    return render(request,"unosReklame.html",context)
+
+def subscribeAd(request: HttpRequest, ad_id):
+    context = {}
+    return render(request,"unosReklame.html",context)
+
+
+
+
+
+
