@@ -1,0 +1,49 @@
+{% extends 'emails/templateMail.html' %}
+{% block content %}
+    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
+        Vaša kupovina u "Enciklopedija vina":
+    </h1>
+    <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead class="thead-primary">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Proizvod</th>
+                            <th>Cena</th>
+                            <th>Količina</th>
+                            <th>Ukupna cena</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="alert" role="alert">
+                            <td>
+                                <div class="img" style="background-image: url(/static/images/barbara.jpg);"></div>
+                            </td>
+                            <td>Barbara</td>
+                            <td>900.00 RSD</td>
+                            <td class="quantity">2</td>
+                            <td>1800.00 RSD</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="justify-content-end">
+                <div class="cart-total mb-3">
+                    <h3>Ukupna cena</h3>
+                    <p class="d-flex">
+                        <span>IZNOS:</span>
+                        <span>2000.00 RSD</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

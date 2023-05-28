@@ -13968,3 +13968,21 @@ textarea.form-control {
         stroke-dashoffset: -136px;
     }
 }
+
+.cart-payment {
+    background: #b7472a;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    border: 5px;
+    border-color: #b04023;
+}
+
+
+.cart-payment-text {
+    background: #b04023;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
