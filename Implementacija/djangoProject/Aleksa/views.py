@@ -1,12 +1,9 @@
 from django.contrib.auth.decorators import *
 from django.http import HttpRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from userApp.decorators import group_required
 from baza.models import *
-
-# from project_FourDesperados.Implementacija.djangoProject.baza.models import Somelijer
-
 
 # from project_FourDesperados.Implementacija.djangoProject.baza.models import *
 
@@ -205,7 +202,20 @@ def unosObilaskaExit(request : HttpRequest):
 
 
 def removeTourType(request : HttpRequest, value):
-    return unosObilaskaExit(request)
+
+    tour_type_to_remove = Vrstaobilaska.objects.get(idobilazak=int(value))
+    tour_type_to_remove.delete()
+
+    return redirect("inputTour")
+
+
+def removeSommelier(request: HttpRequest,value):
+
+    sommelier_to_remove = Somelijer.objects.get(idsomelijer=int(value))
+    sommelier_to_remove.delete()
+
+    return redirect('inputTour')
+
 
 def myStore(request):
     return render(request,"mojaProdavnica.html")

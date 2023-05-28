@@ -52,7 +52,7 @@
       {% for vrsta_obilaska in obilasci %}
         <div class="card" style="width: 18rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
             <div class="card-body">
-                <div class="text-right" style="height: 5px">  <a href= "removeTourType{{ vrsta_obilaska.id }}" class="btn">X</a></div>
+                <div class="text-right" style="height: 5px">  <a href= "{% url 'removeTourType' vrsta_obilaska.idobilazak %}" class="btn">X</a></div>
 
                 <h5 class="card-title">{{ vrsta_obilaska.naziv }}
                 </h5>
@@ -128,7 +128,7 @@
             <div class="card" style="width: 18rem;margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
                 <img class="card-img-top" alt="xd" src="../../static/images/banner.jpg">
                 <div class="card-body">
-                    <div class="text-right" style="height: 5px">  <a href="#" class="btn">X</a></div>
+                    <div class="text-right" style="height: 5px">  <a href="{% url 'removeSommelier' somelijer.idsomelijer %}" class="btn">X</a></div>
                     <h5 class="card-title">{{ somelijer.ime }}
                     </h5>
                     <p class="card-text">{{somelijer.biografija}}</p>
@@ -167,7 +167,6 @@
             </div>
 
     </form>
-
     </div>
 
 <script src="../../static/js/unosObilaska.js">
