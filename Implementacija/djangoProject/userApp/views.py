@@ -1,4 +1,5 @@
 import email
+import os
 import random
 import string
 from django.core.mail import send_mail
@@ -59,11 +60,11 @@ def registerProducer(request):
         phoneNumber = request.POST.get('phoneNumber')
         address = request.POST.get('address')
         description = request.POST.get('description')
-        # photo = request.FILES['logo']
+        photo = request.FILES['logo']
 
         newProducer = Proizvodjac.objects.create_user(password=password, imefirme=name, registarskibroj=companyNumber,
                                                       brtelefona=phoneNumber, adresa=address, opis=description,
-                                                      javnoime=name, email=email)
+                                                      javnoime=name, email=email, logo=photo)
 
         myGroup = Group.objects.get(name='Proizvodjaci')
         myGroup.user_set.add(newProducer)
@@ -104,6 +105,16 @@ def changeCompanyStuff(request):
         opis = request.POST.get("opis")
         naziv = request.POST.get("naziv")
         producer = Proizvodjac.objects.get(email=request.user)
+
+        try:
+            newLogo = request.FILES['logo']
+            # Delete previously uploaded logo image
+            if os.path.exists(producer.logo.path):
+                os.remove(producer.logo.path)
+            producer.logo = newLogo
+        except Exception:
+            pass
+
         if len(opis) > 0:
             producer.opis = opis
         if len(naziv) > 0:

@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Recenzija)
+admin.site.register(Tag)
+admin.site.register(Upitnikpitanje)
+admin.site.register(Upitnikodgovor)
