@@ -29,20 +29,20 @@ def init():
     p1 = Proizvodjac.objects.create_user(password="Vinarijakis123", imefirme="Vinarija Kis", registarskibroj=1234,
                                          brtelefona="+381645565656", adresa="Bulevar Oslobodjenja 67, Novi Sad",
                                          opis="Mala porodicna vinarija puna ljubavi",
-                                         javnoime="Vinarija Kis", email="vinarijaKis@gmail.com")
+                                         javnoime="Vinarija Kis", email="vinarijaKis@gmail.com", logo="images/1234")
 
     producerGroup.user_set.add(p1)
     p2 = Proizvodjac.objects.create_user(password="Vinarijabogdan123", imefirme="Vinarija Zvonko Bogdan",
                                          registarskibroj=1237,
                                          brtelefona="+381645565690", adresa="Palicko jezero",
                                          opis="Dodjite da pijemo zajedno i veselimo se!",
-                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan@gmail.com")
+                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan@gmail.com", logo="images/1237")
     producerGroup.user_set.add(p2)
 
     p3 = Proizvodjac.objects.create_user(password="Novasansa123", imefirme="Vinarija Nova Sansa", registarskibroj=1277,
                                          brtelefona="+381645589690", adresa="Kragujevac",
                                          opis="Porodicna vinarija",
-                                         javnoime="Nova Sansa", email="novaSansa@gmail.com")
+                                         javnoime="Nova Sansa", email="novaSansa@gmail.com", logo='images/1277')
     producerGroup.user_set.add(p3)
     producers.append(p1)
     producers.append(p2)
