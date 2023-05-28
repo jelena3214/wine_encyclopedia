@@ -19,34 +19,91 @@
         <div class="row text-left">
                 <div class="col-sm-3">
                     <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
-                    <a href="#" style="color: white">Unos Novog Vina</a>
+                    <a href="wine" style="color: white">Unos Novog Vina</a>
                     </button>
 
 
                 </div>
                 <div class="col-sm-3">
                     <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
-                        <a href="#" style="color: white">Azuriranje opcije proslava</a>
+                        <a href="celebration" style="color: white">Azuriranje opcije proslava</a>
                     </button>
                 </div>
             <div class="col-sm-3">
                 <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
-                     <a href="#" style="color: white">Pretplate i plan reklama</a>
+                     <a href="ad" style="color: white">Pretplate i plan reklama</a>
                 </button>
 
             </div>
             <div class="col-sm-3">
                 <button class="btn" style="height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white">
-                    <a href="#" style="color: white">Azuriranje opcije obilaska</a>
+                    <a href="tour" style="color: white">Azuriranje opcije obilaska</a>
                 </button>
 
             </div>
         </div>
     </div>
     <div class="container">
-        <div id="mojaVina">
+        <div id="mojaVina" class="row justify-content-center">
             Vina dolaze ovde
         </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 10px">
+            <h4>Rezervisani obilasci:</h4>
+        </div>
+        <div id="rezervisaniObilasci" class=" row justify-content-center" style="margin-top: 10px">
+
+            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ obilazak.naziv }} Opis obilaska nekakvog {{obilazak.cena}}
+                            </h5>
+                            <p class="card-text">{{ obilazak.opis }}Ovde ide opis obilaska treba povezati sa djangom</p>
+                        </div>
+                    </div>
+                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ obilazak.naziv }} Opis obilaska nekakvog {{obilazak.cena}}
+                            </h5>
+                            <p class="card-text">{{ obilazak.opis }}Ovde ide opis obilaska treba povezati sa djangom</p>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 10px">
+            <h4>Rezervisani proslave:</h4>
+        </div>
+        <div id="rezervisaniObilasci" class=" row justify-content-center" style="margin-top: 10px">
+
+            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ proslava.naziv }} Opis proslave dolazi ovde {{proslava.cena}}
+                            </h5>
+                            <p class="card-text">{{ proslava.opis }}Ovde ide opis proslave treba povezati sa djangom</p>
+                        </div>
+                    </div>
+                      <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                        <div class="card-body">
+                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+
+                            <h5 class="card-title">{{ proslava.naziv }} Opis proslave dolazi ovde {{proslava.cena}}
+                            </h5>
+                            <p class="card-text">{{ proslava.opis }}Ovde ide opis proslave treba povezati sa djangom</p>
+                        </div>
+                    </div>
+            </div>
+    </div>
     </div>
 
 {% endblock %}

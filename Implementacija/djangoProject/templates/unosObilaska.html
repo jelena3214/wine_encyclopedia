@@ -48,11 +48,12 @@
     </div>
     <!-- Kraj forme za unos tipa obilaska -->
 
-    <div id="{{ vrsta_obilaska.id }}" class="justify-content-center row" style="margin-top: 10px">
+    <div id="tourTypes" class="justify-content-center row" style="margin-top: 10px">
       {% for vrsta_obilaska in obilasci %}
         <div class="card" style="width: 18rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
             <div class="card-body">
-                <div class="text-right" style="height: 5px">  <a href="removeTourType/{{vrsta_obilaska.id }}" class="btn">X</a></div>
+                <div class="text-right" style="height: 5px">  <a href= "removeTourType{{ vrsta_obilaska.id }}" class="btn">X</a></div>
+
                 <h5 class="card-title">{{ vrsta_obilaska.naziv }}
                 </h5>
                 <h5>{{ vrsta_obilaska.cena }}</h5>
@@ -123,15 +124,17 @@
 
     <div class="">
         <div id="sommelierList" class="justify-content-center row" style="margin-top: 10px">
+            {% for somelijer in somelijeri %}
             <div class="card" style="width: 18rem;margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
                 <img class="card-img-top" alt="xd" src="../../static/images/banner.jpg">
                 <div class="card-body">
                     <div class="text-right" style="height: 5px">  <a href="#" class="btn">X</a></div>
-                    <h5 class="card-title">Ime somelijera
+                    <h5 class="card-title">{{ somelijer.ime }}
                     </h5>
-                    <p class="card-text">Kratka biografija somelijera</p>
+                    <p class="card-text">{{somelijer.biografija}}</p>
                 </div>
             </div>
+            {% endfor %}
 
         </div>
     </div>
