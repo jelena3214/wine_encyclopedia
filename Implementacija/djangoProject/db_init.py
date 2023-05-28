@@ -24,25 +24,28 @@ def init():
     groups.append(Group(name="Proizvodjaci"))
     [x.save() for x in groups]
 
+    admin = Korisnik.objects.create_superuser(email="admin@admin.com", password="Admin123")
+    admin.save()
+
     producers = []
     producerGroup = Group.objects.get(name='Proizvodjaci')
     p1 = Proizvodjac.objects.create_user(password="Vinarijakis123", imefirme="Vinarija Kis", registarskibroj=1234,
                                          brtelefona="+381645565656", adresa="Bulevar Oslobodjenja 67, Novi Sad",
                                          opis="Mala porodicna vinarija puna ljubavi",
-                                         javnoime="Vinarija Kis", email="vinarijaKis@gmail.com", logo="images/1234")
+                                         javnoime="Vinarija Kis", email="vinarijaKis@gmail.com", logo="images/1234.jpg")
 
     producerGroup.user_set.add(p1)
     p2 = Proizvodjac.objects.create_user(password="Vinarijabogdan123", imefirme="Vinarija Zvonko Bogdan",
                                          registarskibroj=1237,
                                          brtelefona="+381645565690", adresa="Palicko jezero",
                                          opis="Dodjite da pijemo zajedno i veselimo se!",
-                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan@gmail.com", logo="images/1237")
+                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan@gmail.com", logo="images/1237.png")
     producerGroup.user_set.add(p2)
 
     p3 = Proizvodjac.objects.create_user(password="Novasansa123", imefirme="Vinarija Nova Sansa", registarskibroj=1277,
                                          brtelefona="+381645589690", adresa="Kragujevac",
                                          opis="Porodicna vinarija",
-                                         javnoime="Nova Sansa", email="novaSansa@gmail.com", logo='images/1277')
+                                         javnoime="Nova Sansa", email="novaSansa@gmail.com", logo='images/1277.png')
     producerGroup.user_set.add(p3)
     producers.append(p1)
     producers.append(p2)
@@ -93,7 +96,7 @@ def init():
         else:
             tmpOff = Ponuda(idkorisnik=p3)
         tmpOff.save()
-        offersPhoto.append(Slika(idponuda=tmpOff, slika='images/' + tmpOff.idkorisnik.javnoime + str(tmpOff.idponuda)))
+        offersPhoto.append(Slika(idponuda=tmpOff, slika='images/' + tmpOff.idkorisnik.javnoime + str(tmpOff.idponuda) + ".jpg"))
         offers.append(tmpOff)
 
     [x.save() for x in offersPhoto]
@@ -138,7 +141,7 @@ def init():
             tmpSom = Somelijer(idponuda=newTour, ime=names[i * 2 + j], biografija="Moja biografija " + names[i * 2 + j],
                                slika='images/' + names[i * 2 + j])
             tmpSom.save()
-            tmpSom.slika = tmpSom.slika + str(tmpSom.pk)
+            tmpSom.slika = tmpSom.slika + str(tmpSom.pk) + ".jpg"
             tmpSom.save()
             sommeliers.append(tmpSom)
 
