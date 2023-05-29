@@ -11,5 +11,6 @@ urlpatterns = [
     path('changeCompanyStuff', views.changeCompanyStuff, name='changeCompanyStuff'),
     path('resetPassword', views.resetPassword, name='resetPassword'),
     path('changeInfoUser', views.changeInfoUser, name='changeInfoUser'),
+    path('userExists/<str:email>/', views.userExists, name='userExists'),
 
 ]

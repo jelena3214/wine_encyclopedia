@@ -3,6 +3,7 @@ import os
 import random
 import string
 from django.core.mail import send_mail
+from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -219,3 +220,15 @@ def resetPassword(request):
             # If user is not registered on the site we won't send the email
             return render(request, 'resetovanjeLozinke.html')
     return render(request, 'resetovanjeLozinke.html')
+
+
+def userExists(request, email):
+    print(email)
+    try:
+        Korisnik.objects.get(email=email)
+        result = True
+        print("jeej")
+    except Exception:
+        result = False
+    print(result)
+    return JsonResponse({'result': result})
