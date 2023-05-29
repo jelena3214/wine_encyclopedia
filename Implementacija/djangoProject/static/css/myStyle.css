@@ -1,37 +1,35 @@
-.rate {
-  float: left;
-  height: 46px;
-  padding: 0 10px;
+.toRate{
+  transform: rotateY(180deg);
 }
-.rate:not(:checked) > input {
-  position:absolute;
-  top:-9999px;
+
+.toRate input{
+  display: none;
 }
-.rate:not(:checked) > label {
-  float:right;
-  width:1em;
-  overflow:hidden;
-  white-space:nowrap;
-  cursor:pointer;
-  font-size:30px;
-  color:#ccc;
+.toRate label{
+  cursor: pointer;
+  width: 20px;
 }
-.rate:not(:checked) > label:before {
-  content: '★ ';
+
+.toRate label:before{
+  content: '\f005';
+  font-family: FontAwesome, serif;
+  position: relative;
+  display: block;
 }
-.rate > input:checked ~ label {
+.toRate label:after{
+  content: '\f005';
+  font-family: FontAwesome, serif;
+  position: absolute;
+  top: 0px;
+  display: block;
   color: #b7472a;
+  opacity: 0;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #b7472a;
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #b7472a;
+
+.toRate label:hover:after,
+.toRate label:hover ~ label:after,
+.toRate input:checked ~ label:after{
+  opacity: 1;
 }
 
 .carousel-item img {

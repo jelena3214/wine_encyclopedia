@@ -1,3 +1,6 @@
+import fnmatch
+import os
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from baza.models import *
@@ -34,6 +37,7 @@ class TempProslava:
 
 def viewWines(request):
     vina = Vino.objects.all()
+    print(vina)
     tagovi = list(Tag.objects.all().values('tag').distinct())
     tags = []
     for tag in tagovi:
@@ -51,21 +55,20 @@ def viewWines(request):
 
         forCnt = 0
         for vino in ponude:
-            slike = Slika.objects.filter(idponuda=vino.idponuda)
-            tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda)
+            slike = Slika.objects.filter(idponuda=vino.idponuda_id)
+            tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda_id)
             vinoRed.append(tmp)
             if (forCnt % 3 == 0 and forCnt != 0) or (len(ponude) <= 3 and forCnt == len(ponude) - 1):
                 vinaRedovi.append(vinoRed)
                 vinoRed = []
             forCnt += 1
-        print(vinaRedovi)
     else:
         forCnt = 0
         for vino in vina:
             slike = Slika.objects.filter(idponuda=vino.idponuda_id)
             tmp = TempVino(vino.naziv, vino.opisvina, vino.cena, slike[0].slika, vino.idponuda_id)
             vinoRed.append(tmp)
-            if forCnt % 3 == 0 and forCnt != 0:
+            if forCnt % 3 == 0 and forCnt != 0 or (len(vina) <= 3 and forCnt == len(vina) - 1):
                 vinaRedovi.append(vinoRed)
                 vinoRed = []
             forCnt += 1
@@ -84,8 +87,7 @@ def wine(request, value):
         ocena = request.POST.get('rate')
         korisnik = request.user
         tekst = request.POST.get('recenzija')
-
-        novaRec = Recenzija(idrecenzija=3, idponuda=Ponuda(idponuda=id, idkorisnik_id=korisnik), idkorisnik_id=korisnik,
+        novaRec = Recenzija(idponuda=Ponuda(idponuda=id, idkorisnik_id=korisnik), idkorisnik_id=korisnik.id,
                             opisrec=tekst, ocena=ocena)
         novaRec.save()
 
@@ -133,10 +135,10 @@ def detour(request):
     for obilazak in obilasci:
         o = ponuda.filter(idponuda=obilazak.idponuda_id)
         vinarija = Korisnik.objects.filter(email=o[0].idkorisnik)[0].javnoime
-        slika = Slika.objects.filter(idponuda=obilazak.idponuda_id)[0].slika
-        tmp = TempProstor(vinarija, slika)
+        sl = Slika.objects.filter(idponuda=obilazak.idponuda_id)[0].slika
+        tmp = TempProstor(vinarija, sl)
         obilazakRed.append(tmp)
-        if (forCnt % 3 == 0 and forCnt != 0) or (len(obilasci) < 3 and forCnt == len(obilasci) - 1):
+        if (forCnt % 3 == 0 and forCnt != 0) or (len(obilasci) <= 3 and forCnt == len(obilasci) - 1):
             obilazakRedovi.append(obilazakRed)
             obilazakRed = []
         forCnt += 1
@@ -168,12 +170,12 @@ def oneDetour(request, value):
         return celebration(request)
 
     vrsteobilazaka = Vrstaobilaska.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
-    slika = Slika.objects.filter(idponuda=ponuda.idponuda.idponuda_id)[0]
+    slike = Slika.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
     somelijeri = Somelijer.objects.filter(idponuda=ponuda.idponuda.idponuda_id)
     context = {
         'vinarija' : vinarija,
         'obilasci': vrsteobilazaka,
-        'slika': slika,
+        'slika': slike[0],
         'somelijeri': somelijeri
     }
     return render(request, "obilazakPojedinacanPrikaz.html", context)
@@ -189,10 +191,10 @@ def celebration(request):
     for proslava in proslave:
         p = ponuda.filter(idponuda=proslava.idponuda_id)
         vinarija = Korisnik.objects.filter(email=p[0].idkorisnik)[0].javnoime
-        slika = Slika.objects.filter(idponuda=proslava.idponuda_id)[0].slika
-        tmp = TempProstor(vinarija, slika)
+        slike = Slika.objects.filter(idponuda=proslava.idponuda_id)
+        tmp = TempProstor(vinarija, slike[0].slika)
         proslavaRed.append(tmp)
-        if (forCnt % 3 == 0 and forCnt != 0) or (len(proslave) < 3 and forCnt == len(proslave) - 1):
+        if (forCnt % 3 == 0 and forCnt != 0) or (len(proslave) <= 3 and forCnt == len(proslave) - 1):
             proslavaRedovi.append(proslavaRed)
             proslavaRed = []
         forCnt += 1

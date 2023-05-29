@@ -21,7 +21,6 @@
                                 </select>
                                 <button class="btn btn-primary py-3 px-5 mr-2" type="submit">Filtriraj</button>
                             </form>
-                            {#                            <a href="#" class="btn btn-primary py-3 px-5 mr-2">Filtriraj</a>#}
                         </div>
                     </div>
                     {% for red in vina %}
@@ -30,7 +29,7 @@
                                 <div class="col-md-4 d-flex">
                                     <div class="product ftco-animate">
                                         <div class="img d-flex align-items-center justify-content-center"
-                                             style="background-image: url({% static  "" %}{{ vino.slika }});">
+                                             style="background-image: url('{% static '' %}{{ vino.slika }}');">
                                             <div class="desc">
                                                 <p class="meta-prod d-flex">
                                                     <a href="#"
