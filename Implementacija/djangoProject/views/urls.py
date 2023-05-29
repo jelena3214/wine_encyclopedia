@@ -8,5 +8,5 @@ urlpatterns = [
     path('detour', views.detour, name='detour'),
     path('detours/<str:value>', views.oneDetour, name='oneDetour'),
     path('celebration', views.celebration, name='celebration'),
-    path('celebration/<str:value>', views.oneCelebration, name='oneCelebration')
+    path('celebration/<str:value>', views.oneCelebration, name='oneCelebration'),
 ]

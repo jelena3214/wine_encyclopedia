@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block text %}
-    <div class="hero-wrap" style="background-image: url({% static 'images/banner.jpg' %});" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap" style="background-image: url({% static 'images/banner.jpg' %});"
+         data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -51,22 +52,15 @@
     <section class="ftco-section ftco-no-pb">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center"
-                     style="background-image: url({% static 'images/vinarija-aleksic.jpg' %});">
+                <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center">
+                    <img src="{% static '' %}{{ premium.logo }}">
                 </div>
                 <div class="col-md-6 wrap-about pl-md-5 ftco-animate py-5">
                     <div class="heading-section">
-                        <span class="subheading">Od 2006</span>
-                        <h2 class="mb-4">Vinarija Aleksic</h2>
+                        <h2 class="mb-4">{{ premium.javnoime }}</h2>
 
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                            It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                        <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
-                            would have been rewritten a thousand times and everything that was left from its origin
-                            would be the word "and" and the Little Blind Text should turn around and return to its own,
-                            safe country.</p>
+                        <p>{{ premium.opis }}</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -80,68 +74,91 @@
                     <h2>Najprodavanija vina</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 d-flex">
-                    <div class="product ftco-animate">
-                        <div class="img d-flex align-items-center justify-content-center"
-                             style="background-image: url({% static 'images/barbara.jpg' %});">
-                            <div class="desc">
-                                <p class="meta-prod d-flex">
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-shopping-bag"></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-visibility"></span></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="text text-center">
-                            <span class="category">Roze</span>
-                            <h2>Barbara</h2>
-                            <p class="mb-0"><span class="price">850.00 RSD</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-flex">
-                    <div class="product ftco-animate">
-                        <div class="img d-flex align-items-center justify-content-center"
-                             style="background-image: url({% static 'images/bonaca.jpg' %});">
-                            <div class="desc">
-                                <p class="meta-prod d-flex">
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-shopping-bag"></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-visibility"></span></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="text text-center">
-                            <span class="category">Crveno vino</span>
-                            <h2>Bonaca</h2>
-                            <p class="mb-0"><span class="price">850.00 RSD</span></p>
+            {% if one %}
+                <div class="row justify-content-center">
+                    <div class="col-md-4 d-flex">
+                        <div class="product ftco-animate align-items-center justify-content-center">
+                            {% for row in wines %}
+                                {% for wine in row %}
+                                    <div class="img d-flex align-items-center justify-content-center"
+                                         style="background-image: url('{% static '' %}{{ wine.slika }}');">
+                                        <div class="desc">
+                                            <p class="meta-prod d-flex">
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-shopping-bag"></span></a>
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-visibility"></span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text text-center">
+                                        <h2>{{ wine.naziv }}</h2>
+                                        <p class="mb-0"><span class="price">{{ wine.cena }}.00 RSD</span></p>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 d-flex">
-                    <div class="product ftco-animate">
-                        <div class="img d-flex align-items-center justify-content-center"
-                             style="background-image: url({% static 'images/zuti-cvet.jpg' %});">
-                            <div class="desc">
-                                <p class="meta-prod d-flex">
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-shopping-bag"></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-visibility"></span></a>
-                                </p>
+            {% elif two %}
+                <div class="row justify-content-center">
+                    {% for row in wines %}
+                        {% for wine in row %}
+                            <div class="col-md-4 d-flex">
+                                <div class="product ftco-animate align-items-center justify-content-center">
+                                    <div class="img d-flex align-items-center justify-content-center"
+                                         style="background-image: url('{% static '' %}{{ wine.slika }}');">
+                                        <div class="desc">
+                                            <p class="meta-prod d-flex">
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-shopping-bag"></span></a>
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-visibility"></span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text text-center">
+                                        <h2>{{ wine.naziv }}</h2>
+                                        <p class="mb-0"><span class="price">{{ wine.cena }}.00 RSD</span></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="text text-center">
-                            <span class="category">Belo vino</span>
-                            <h2>Zuti cvet</h2>
-                            <p class="mb-0"><span class="price">850.00 RSD</span></p>
-                        </div>
-                    </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
-            </div>
+            {% else %}
+                {% for row in wines %}
+                    <div class="row justify-content-center">
+                        {% for wine in wines %}
+                            <div class="col-md-4 d-flex">
+                                <div class="product ftco-animate align-items-center justify-content-center">
+                                    <div class="img d-flex align-items-center justify-content-center"
+                                         style="background-image: url('{% static '' %}{{ wine.slika }}');">
+                                        <div class="desc">
+                                            <p class="meta-prod d-flex">
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-shopping-bag"></span></a>
+                                                <a href="#"
+                                                   class="d-flex align-items-center justify-content-center"><span
+                                                        class="flaticon-visibility"></span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text text-center">
+                                        <h2>{{ wine.naziv }}</h2>
+                                        <p class="mb-0"><span class="price">{{ wine.cena }}.00 RSD</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 {% endblock %}
