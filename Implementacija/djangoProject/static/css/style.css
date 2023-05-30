@@ -13986,3 +13986,8 @@ textarea.form-control {
     text-align: center;
     color: white;
 }
+
+.form-check-input1[type="radio"]:checked{
+    background-color: black; !important;
+    border-color: black;
+}

@@ -21,24 +21,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for vine in vines %}
+                        {% for wine in wines %}
                             <tr class="alert" role="alert">
                                 <td>
-                                    <div class="img" style="background-image: url('{{ vine.slika }}');"></div>
+                                    <div class="img" style="background-image: url('{{ wine.slika }}');"></div>
                                 </td>
                                 <td>
                                     <div class="email">
-                                        <span>{{ vine.naziv }}</span>
-                                        <span>{{ vine.opis }}</span>
+                                        <span>{{ wine.naziv }}</span>
+                                        <span>{{ wine.opis }}</span>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="price">{{ vine.cena }}</p> RSD
+                                    <p class="price">{{ wine.cena }}</p> RSD
                                 </td>
                                 <td class="quantity">
                                     <div class="input-group">
                                         <input type="number" name="quantity" class="quantity form-control input-number"
-                                               value="2" min="1" max="100">
+                                               value="{{ wine.kolicina }}" min="1" max="100" data-item-id="{{ wine.id }}">
                                     </div>
                                 </td>
                                 <td>
@@ -46,7 +46,7 @@
                                 </td>
                                 <td>
                                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                    <button type="button" class="close" data-item-id="{{ vine.id }}" data-dismiss="alert" aria-label="Close">
+                                    <button type="button" class="close" data-item-id="{{ wine.id }}" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true"><i class="fa fa-close"></i></span>
                                     </button>
                                 </td>

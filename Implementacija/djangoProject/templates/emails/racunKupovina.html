@@ -6,37 +6,40 @@
     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
     <section class="ftco-section">
         <div class="container">
-            <div class="row">
-                <div class="table-wrap">
+            <div class="row justify-content-center">
+                <div class="table-wrap" style="text-align: center">
                     <table class="table">
                         <thead class="thead-primary">
                         <tr>
-                            <th>&nbsp;</th>
+                            <th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
                             <th>Proizvod</th>
+                            <th>&emsp;</th>
                             <th>Cena</th>
+                            <th>&emsp;</th>
                             <th>Količina</th>
+                            <th>&emsp;</th>
                             <th>Ukupna cena</th>
-                            <th>&nbsp;</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for index, vine in vines %}
+                        {% for index, wine in wines %}
                             <tr class="alert" role="alert">
                                 <td></td>
                                 <td>
-                                    <div class="email">
-                                        <span>{{ vine.naziv }}</span>
-                                        <span>{{ vine.opis }}</span>
-                                    </div>
+                                    {{ wine.naziv }}
                                 </td>
+                                <td></td>
                                 <td>
-                                    {{ vine.cena }} RSD
+                                    {{ wine.cena }} RSD
                                 </td>
+                                <td></td>
                                 <td class="quantity">
-                                    {{ quantities.index }}
+                                    {{ wine.kolicina }}
                                 </td>
+                                <td></td>
                                 <td>
-                                    {{ sumPrices.index}}
+                                    {{ wine.id }} RSD
                                 </td>
                                 <td></td>
                             </tr>
@@ -48,11 +51,7 @@
 
             <div class="justify-content-end">
                 <div class="cart-total mb-3">
-                    <h3>Ukupna cena</h3>
-                    <p class="d-flex">
-                        <span>IZNOS:</span>
-                        <span>{{ theTotal }} RSD</span>
-                    </p>
+                    <h3>Ukupan iznos za uplatu: {{ theTotal }} RSD</h3>
                 </div>
             </div>
         </div>

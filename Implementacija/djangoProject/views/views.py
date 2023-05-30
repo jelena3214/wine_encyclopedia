@@ -6,6 +6,8 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
 from django.test import Client
 
+from shopping.views import findImagePath
+
 
 class TempVino:
     def __init__(self, naziv, opis, cena, slika, id):
@@ -169,11 +171,12 @@ def oneDetour(request, value):
 
     typesOfTour = Vrstaobilaska.objects.filter(idponuda=offer.idponuda.idponuda_id)
     pictures = Slika.objects.filter(idponuda=offer.idponuda.idponuda_id)
+    slika = findImagePath(pictures[0].slika)
     sommeliers = Somelijer.objects.filter(idponuda=offer.idponuda.idponuda_id)
     context = {
         'vinarija': winery,
         'obilasci': typesOfTour,
-        'slika': pictures[0],
+        'slika': slika,
         'somelijeri': sommeliers
     }
     return render(request, "obilazakPojedinacanPrikaz.html", context)
