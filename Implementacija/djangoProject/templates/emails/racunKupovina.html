@@ -20,15 +20,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="alert" role="alert">
-                            <td>
-                                <div class="img" style="background-image: url(/static/images/barbara.jpg);"></div>
-                            </td>
-                            <td>Barbara</td>
-                            <td>900.00 RSD</td>
-                            <td class="quantity">2</td>
-                            <td>1800.00 RSD</td>
-                        </tr>
+                        {% for index, vine in vines %}
+                            <tr class="alert" role="alert">
+                                <td></td>
+                                <td>
+                                    <div class="email">
+                                        <span>{{ vine.naziv }}</span>
+                                        <span>{{ vine.opis }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ vine.cena }} RSD
+                                </td>
+                                <td class="quantity">
+                                    {{ quantities.index }}
+                                </td>
+                                <td>
+                                    {{ sumPrices.index}}
+                                </td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -39,7 +51,7 @@
                     <h3>Ukupna cena</h3>
                     <p class="d-flex">
                         <span>IZNOS:</span>
-                        <span>2000.00 RSD</span>
+                        <span>{{ theTotal }} RSD</span>
                     </p>
                 </div>
             </div>

@@ -168,6 +168,7 @@ class Ukorpi(models.Model):
     idponuda = models.ForeignKey('Vino', models.CASCADE, db_column='idPonuda', blank=True,
                                  null=True)
     idkorpa = models.AutoField(db_column='idKorpa', primary_key=True)
+    kolicina = models.IntegerField(db_column='kolicina', blank=True, null=True)
 
     class Meta:
         db_table = 'ukorpi'
