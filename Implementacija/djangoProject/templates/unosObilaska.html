@@ -64,14 +64,14 @@
     </div>
     <!-- Unos slike -->
     <div class="container">
-    <form action="inputTourPicture">
+    <form action="inputTourPicture" enctype='multipart/form-data' method="post">
     {% csrf_token %}
         <div class="" style="margin-top: 10px">
             <div class="row justify-content-center">
                 <div class="col-sm-4 form-group">
                     <div class="form-group custom-file">
                         <label for="inputTourPicture" class="custom-file-label">Unesite sliku ambijenta</label>
-                        <input name="inputTourPicture" class="custom-file-input" type="file"/>
+                        <input required name="inputTourPicture" class="custom-file-input" type="file"/>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
     <!-- Unos somelijera -->
     <div class="container">
     <div class="row-md-6 justify-content-center">
-    <form action="addSommelier" class="" method="post">
+    <form action="addSommelier" class="" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
 	          		<div class="cart-detail" style="margin-top: 10px;">
                         <div class="row justify-content-center">
@@ -108,7 +108,7 @@
                             <div class="col-sm-4 form-group">
                                 <div class="form-group custom-file">
                                     <label for="sommelierPicture" class="custom-file-label">Unesite sliku somelijera</label>
-                                    <input name="sommelierPicture" class="custom-file-input" type="file"/>
+                                    <input required name="sommelierPicture" class="custom-file-input" type="file"/>
                                 </div>
                             </div>
                         </div>
@@ -125,8 +125,8 @@
     <div class="">
         <div id="sommelierList" class="justify-content-center row" style="margin-top: 10px">
             {% for somelijer in somelijeri %}
-            <div class="card" style="width: 18rem;margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
-                <img class="card-img-top" alt="xd" src="../../static/images/banner.jpg">
+            <div class="card" style=" width: 18rem;margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                <img class="card-img-top" alt="xd" src="../../media/{{somelijer.slika}}">
                 <div class="card-body">
                     <div class="text-right" style="height: 5px">  <a href="{% url 'removeSommelier' somelijer.idsomelijer %}" class="btn">X</a></div>
                     <h5 class="card-title">{{ somelijer.ime }}
@@ -142,7 +142,7 @@
 
 
 
-    <form action="setTourDetails" class="" method="post">
+    <form action="setTourDetails" class="" method="post" enctype='multipart/form-data' >
         {% csrf_token %}
            <div class="row justify-content-center align-items-center">
                 <div class="col-sm-2">
@@ -157,7 +157,7 @@
            </div>
             <div class="row text-center form-group justify-content-center">
                 <div class="col-sm-3 text-center">
-                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%" ">
+                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%">
                 </div>
             </div>
             <div class="row text-center form-group justify-content-center">

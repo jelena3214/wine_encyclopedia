@@ -72,7 +72,9 @@ class Pretplata(models.Model):
 
 
 class Pretplacen(models.Model):
-    idkorisnik = models.OneToOneField(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
+
+    idpretplacen = models.AutoField(primary_key=True,db_column='idPretplacen',default=None)
+    idkorisnik = models.ForeignKey(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
     idpretplata = models.ForeignKey(Pretplata, models.CASCADE, db_column='idPretplata', null=False)
     datumpocetak = models.DateTimeField(db_column='datumPocetak', blank=True, null=True)
     datumkraj = models.DateTimeField(db_column='datumKraj', blank=True, null=True)
@@ -145,7 +147,7 @@ class Rezultatupitnika(models.Model):
 class Slika(models.Model):
     idponuda = models.ForeignKey(Ponuda, models.CASCADE, db_column='idPonuda')
     idslika = models.AutoField(db_column='idSlika', primary_key=True)
-    slika = models.TextField(blank=True, null=True)
+    slika = models.ImageField(upload_to='images', null=True, default=None)
 
     class Meta:
         db_table = 'slika'
@@ -156,7 +158,7 @@ class Somelijer(models.Model):
     idponuda = models.ForeignKey(Obilazak, models.CASCADE, db_column='idPonuda')
     ime = models.CharField(max_length=100, blank=True, null=True)
     biografija = models.TextField(blank=True, null=True)
-    slika = models.TextField(blank=True, null=True)
+    slika = models.ImageField(upload_to='images', null=True, default=None)
 
     class Meta:
         db_table = 'somelijer'

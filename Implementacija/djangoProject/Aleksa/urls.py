@@ -14,8 +14,8 @@ urlpatterns = [
     path('addSommelier',views.addSommelier),
     path('removeTourType/<str:value>/',views.removeTourType,name='removeTourType'),
     path('removeSommelier/<str:value>/',views.removeSommelier,name='removeSommelier'),
-    path('ad',views.viewAds),
-    path('unsubscribeAd/<str:ad_id>',views.unsubscribeAd),
-    path('subscribeAd/<str:ad_id>',views.subscribeAd)
+    path('ad',views.viewAds,name='viewAds'),
+    path('unsubscribeAd/<str:ad_id>',views.unsubscribeAd,name='unsubscribeAd'),
+    path('subscribeAd/<str:ad_id>',views.subscribeAd,name='subscribeAd')
 ]
 

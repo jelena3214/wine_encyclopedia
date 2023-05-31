@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="container">
-        <form action="#" class="" method="post">
+        <form action="#" enctype='multipart/form-data' method="post">
             {% csrf_token %}
 	          	<div class="row justify-content-center">
 	          		<div class="col-sm-6">
@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group custom-file">
                             <label for="winePicture" class="custom-file-label">Unesite sliku vina</label>
-                            <input name="winePicture" class="custom-file-input" type="file"/>
+                            <input required name="winePicture" class="custom-file-input" type="file"/>
                         </div>
                     </div>
                 </div>

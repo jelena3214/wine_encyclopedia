@@ -7,7 +7,7 @@
 {% block content %}
 
     <div class="container" style="margin-top: 10px">
-    <form action="#" class="" method="post" style="">
+    <form action="#" class="" method="post" style="" enctype='multipart/form-data'>
                     {% csrf_token %}
             <div class="row justify-content-center">
 		            <div class="col-sm-6">
@@ -31,14 +31,14 @@
                 <div class="col-sm-6 form-group">
                     <div class="form-group custom-file">
                         <label for="inputTourPicture" class="custom-file-label">Unesite sliku ambijenta</label>
-                        <input name="inputTourPicture" class="custom-file-input" type="file"/>
+                        <input required name="inputTourPicture" class="custom-file-input" type="file"/>
                     </div>
                 </div>
             </div>
         <div class="row justify-content-center">
                 <div class="col-sm-6 form-group">
                     <div class="form-group">
-                        <label for="inputTourPicture" class="">Odaberite datume pocetka i kraja</label>
+                        <label for="inputTourPicture" class="">Odaberite datum pocetka proslave</label>
                         <input name="inputDateStart" required class="" type="datetime-local"/>
                     </div>
                 </div>

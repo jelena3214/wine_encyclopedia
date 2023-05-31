@@ -1,3 +1,6 @@
+import datetime
+from xmlrpc.client import DateTime
+
 from django.contrib.auth.decorators import *
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -6,7 +9,6 @@ from userApp.decorators import group_required
 from baza.models import *
 
 # from project_FourDesperados.Implementacija.djangoProject.baza.models import *
-
 # @login_required(login_url='/user')
 # @group_required("Proizvodjaci")
 def viewWine(request : HttpRequest):
@@ -30,7 +32,7 @@ def viewWine(request : HttpRequest):
 
         #kreiranje slika
         new_picture = Slika()
-        new_picture.slika = request.POST['winePicture']
+        new_picture.slika = request.FILES["winePicture"]
         new_picture.idponuda = new_offer
         new_picture.save()
 
@@ -80,11 +82,16 @@ def addTourType(request):
 
 
 def inputTourPicture(request):
+    tour = checkIfTourExists(request)
+
     if request.method == "POST":
         print(request.POST)
+        new_picture = Slika()
+        new_picture.idponuda = tour.idponuda.idponuda
+        new_picture.slika = request.FILES['inputTourPicture']
+        new_picture.save()
 
 
-    tour = checkIfTourExists(request)
     tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
     context = {
         'obilasci': tour_types
@@ -115,8 +122,9 @@ def inputCelebration(request):
         new_celebration.idponuda = new_space_offer
 
         new_picture = Slika()
-        new_picture.slika = request.POST['inputTourPicture']
+        new_picture.slika = request.FILES['inputTourPicture']
         new_picture.idponuda = new_offer
+        new_picture.save()
         new_celebration.save()
 
         new_time = Termin()
@@ -166,10 +174,10 @@ def addSommelier(request : HttpRequest):
         new_sommelier.ime = request.POST['sommelierName']
         new_sommelier.biografija = request.POST['sommelierDescription']
         new_sommelier.idponuda = tour
-        new_sommelier.slika = request.POST['sommelierPicture']
+        new_sommelier.slika = request.FILES['sommelierPicture']
         new_sommelier.save()
 
-    return unosObilaskaExit(request)
+    return redirect('inputTour')
 
 def checkIfTourExists(request : HttpRequest):
 
@@ -218,24 +226,71 @@ def removeSommelier(request: HttpRequest,value):
 
 
 def myStore(request):
-    return render(request,"mojaProdavnica.html")
+    tour = checkIfTourExists(request)
+
+    pictures = Slika.objects.filter(idponuda=tour.idponuda.idponuda)
+    celebrations = Proslava.objects.filter(idponuda__idponuda__idkorisnik=request.user)
+    reserved_tours = Termin.objects.filter(idponuda=tour.idponuda)
+
+    context = {
+        'pictures' : pictures,
+        'celebrations' : celebrations,
+        'resrved_tours' : reserved_tours
+    }
+
+
+
+
+
+
+
+    return render(request,"mojaProdavnica.html",context)
 
 #TODO treba napraviti reklameExit funkciju koja ce da renderuje reklame i da podesi kontekst
 def viewAds(request : HttpRequest):
 
-    context = {}
-    return render(request,"unosReklame.html",context)
+    return adsExit(request)
 
 def unsubscribeAd(request: HttpRequest, ad_id):
-    context = {}
-    return render(request,"unosReklame.html",context)
+
+    ad_to_remove = Pretplacen.objects.get(idpretplata=ad_id,idkorisnik=request.user)
+    ad_to_remove.delete()
+
+
+    return redirect('viewAds')
 
 def subscribeAd(request: HttpRequest, ad_id):
-    context = {}
-    return render(request,"unosReklame.html",context)
+
+    active_ads = Pretplacen.objects.filter(idkorisnik=request.user)
+
+    if active_ads.exists():
+        context = {
+            "message_body": "Ne mozete imati vise od jedne pretplate."
+        }
+        return render(request, "modalMesesage.html", context)
 
 
 
+    new_subscription = Pretplacen()
+    new_subscription.idkorisnik = request.user
+    new_subscription.datumpocetak = datetime.date.today()
+    new_subscription.datumkraj = datetime.date.today()
+    new_subscription.datumkraj.replace(year=new_subscription.datumkraj.year + 1)
+    new_subscription.idpretplata = Pretplata.objects.get(idpretplata=ad_id)
+    new_subscription.save()
+    new_subscription.trenutnistatus = 'Aktivna'
 
+    return redirect('viewAds')
+
+
+
+def adsExit(request):
+    ads_not_subscribed_to = Pretplata.objects.exclude(pretplacen__idkorisnik=request.user)
+    ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user)
+
+
+    context = {'ads_not_subscribed_to': ads_not_subscribed_to,
+               'ads_subscribed_to' : ads_subscribed_to}
+    return render(request, "unosReklame.html", context)
 
 
