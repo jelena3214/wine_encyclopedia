@@ -141,7 +141,7 @@ def init():
             tmpSom = Somelijer(idponuda=newTour, ime=names[i * 2 + j], biografija="Moja biografija " + names[i * 2 + j],
                                slika='images/' + names[i * 2 + j])
             tmpSom.save()
-            tmpSom.slika = tmpSom.slika + str(tmpSom.pk) + ".jpg"
+            tmpSom.slika = str(tmpSom.slika) + str(tmpSom.pk) + ".jpg"
             tmpSom.save()
             sommeliers.append(tmpSom)
 
