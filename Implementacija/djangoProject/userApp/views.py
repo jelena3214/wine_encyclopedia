@@ -223,12 +223,9 @@ def resetPassword(request):
 
 
 def userExists(request, email):
-    print(email)
     try:
         Korisnik.objects.get(email=email)
         result = True
-        print("jeej")
     except Exception:
         result = False
-    print(result)
     return JsonResponse({'result': result})
