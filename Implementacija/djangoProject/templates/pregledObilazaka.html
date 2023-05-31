@@ -11,12 +11,15 @@
                 <div class="col-md-12">
                     <div class="row mb-4">
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
-                            <h4 class="product-select">Filtriraj</h4>
-                            <select class="selectpicker" multiple>
-                                <option>Belo vino</option>
-                                <option>Crveno vino</option>
-                                <option>Roze</option>
-                            </select>
+                            <form method="post">
+                                {% csrf_token %}
+                                <select class="selectpicker" name="filter">
+                                    <option value="" selected disabled>Izaberi opciju</option>
+                                    <option>Ima somelijera</option>
+                                    <option>Nema somelijera</option>
+                                </select>
+                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit">Filtriraj</button>
+                            </form>
                         </div>
                     </div>
                     {% for red in obilasci %}

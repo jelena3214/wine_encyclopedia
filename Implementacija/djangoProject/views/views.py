@@ -1,12 +1,8 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from baza.models import *
 from random import choice, choices
-from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest
-from django.test import Client
-
 from shopping.views import findImagePath
+from .forms import *
 
 
 class TempVino:
@@ -38,33 +34,85 @@ class TempProslava:
         self.id = id
 
 
+filtered = None
+sorted = None
+
+
 def viewWines(request):
+    global sorted, filtered
+    sortToDisplay = None
     wines = Vino.objects.all()
     tags = list(Tag.objects.all().values('tag').distinct())
     listOfTags = []
     for tag in tags:
         listOfTags.append(tag["tag"])
+
     rowsOfWines = []
     row = []
+    filter = request.POST.get('filter')
+    sort = request.POST.get('sort')
+    ids = []
 
-    if request.method == 'POST' and request.POST.get('filter') != None:
-        filter = request.POST.get('filter')
-        tags = Tag.objects.filter(tag=filter)
+    if filter == '':
+        filtered = None
+
+    if sort == '':
+        sorted = None
+
+    if request.method == 'POST':
         offers = []
-        for tag in tags:
-            offer = Vino.objects.filter(idponuda=tag.idponuda_id).first()
-            offers.append(offer)
+        if filter:
+            filtered = filter
+            winesTags = Tag.objects.filter(tag=filter)
+            for tag in winesTags:
+                offer = Vino.objects.filter(idponuda=tag.idponuda_id).first()
+                ids.append(offer.idponuda_id)
+                offers.append(offer)
 
+            if sorted == 'Po ceni rastuce':
+                queryset = Vino.objects.filter(idponuda__in=ids).order_by('cena')
+                offers = list(queryset)
+            elif sorted == 'Po ceni opadajuce':
+                queryset = Vino.objects.filter(idponuda__in=ids).order_by('-cena')
+                offers = list(queryset)
+        if filtered is None:
+            queryset = Vino.objects.all()
+            if sorted == 'Po ceni rastuce':
+                queryset = queryset.order_by('cena')
+                offers = list(queryset)
+            elif sorted == 'Po ceni opadajuce':
+                queryset = queryset.order_by('-cena')
+                offers = list(queryset)
+        if sort:
+            sorted = sort
+            if sort == 'Po ceni rastuce':
+                sortToDisplay = "Po ceni opadajuce"
+                if filtered:
+                    offers = list(Vino.objects.filter(idponuda__in=ids).order_by('cena'))
+                else:
+                    offers = list(Vino.objects.all().order_by('cena'))
+            else:
+                sortToDisplay = "Po ceni rastuce"
+                if filtered:
+                    offers = list(Vino.objects.filter(idponuda__in=ids).order_by('-cena'))
+                else:
+                    offers = list(Vino.objects.all().order_by('-cena'))
+        else:
+            print(offers)
         forCnt = 0
         for wine in offers:
             pictures = Slika.objects.filter(idponuda=wine.idponuda_id)
-            tmp = TempVino(wine.naziv, wine.opisvina, wine.cena, pictures[0].slika, wine.idponuda_id)
+            picture = pictures[0].slika
+            tmp = TempVino(wine.naziv, wine.opisvina, wine.cena, picture, wine.idponuda_id)
             row.append(tmp)
             if (forCnt % 3 == 0 and forCnt != 0) or (len(offers) <= 3 and forCnt == len(offers) - 1):
                 rowsOfWines.append(row)
                 row = []
             forCnt += 1
+
     else:
+        filtered = None
+        sorted = None
         forCnt = 0
         for wine in wines:
             pictures = Slika.objects.filter(idponuda=wine.idponuda_id)
@@ -75,9 +123,16 @@ def viewWines(request):
                 row = []
             forCnt += 1
 
+    if filter:
+        listOfTags.remove(filter)
+
+    print(sorted)
     context = {
         'vina': rowsOfWines,
-        'tagovi': listOfTags
+        'tagovi': listOfTags,
+        'filter': filtered,
+        'sort1': sortToDisplay,
+        'sort': sorted
     }
 
     return render(request, "pregledVina.html", context)
@@ -171,7 +226,7 @@ def oneDetour(request, value):
 
     typesOfTour = Vrstaobilaska.objects.filter(idponuda=offer.idponuda.idponuda_id)
     pictures = Slika.objects.filter(idponuda=offer.idponuda.idponuda_id)
-    slika = findImagePath(pictures[0].slika)
+    slika = pictures[0].slika
     sommeliers = Somelijer.objects.filter(idponuda=offer.idponuda.idponuda_id)
     context = {
         'vinarija': winery,
@@ -182,23 +237,48 @@ def oneDetour(request, value):
     return render(request, "obilazakPojedinacanPrikaz.html", context)
 
 
-def celebration(request):
+def makeList(list, n):
     offer = Ponuda.objects.all()
-    celebrations = Proslava.objects.all()
+    forCnt = 0
     rowsOfCelebrations = []
     row = []
-    forCnt = 0
-
-    for celebration in celebrations:
+    for celebration in list:
         c = offer.filter(idponuda=celebration.idponuda_id)
         winery = Korisnik.objects.filter(email=c[0].idkorisnik)[0].javnoime
         pictures = Slika.objects.filter(idponuda=celebration.idponuda_id)
         tmp = TempProstor(winery, pictures[0].slika)
         row.append(tmp)
-        if (forCnt % 3 == 0 and forCnt != 0) or (len(celebrations) <= 3 and forCnt == len(celebrations) - 1):
+        if (forCnt % 3 == 0 and forCnt != 0) or (n <= 3 and forCnt == n - 1):
             rowsOfCelebrations.append(row)
             row = []
         forCnt += 1
+    return rowsOfCelebrations
+
+
+def celebration(request):
+    celebrations = Proslava.objects.all()
+    filteredCelebrations = []
+    if request.method == 'POST' and request.POST.get('filter') != None:
+        filter = request.POST.get('filter')
+        if filter == 'Do 40 mesta':
+            filteredCelebrations = celebrations.filter(kapacitet__range=(0, 40))
+        elif filter == '40-80 mesta':
+            filteredCelebrations = celebrations.filter(kapacitet__range=(41, 80))
+        elif filter == '80-100 mesta':
+            filteredCelebrations = celebrations.filter(kapacitet__range=(81, 100))
+        else:
+            filteredCelebrations = celebrations.filter(kapacitet__gt=100)
+
+        if len(list(filteredCelebrations)) == 0:
+            context = {
+                "proslave": filteredCelebrations
+            }
+            return render(request, "pregledProslava.html", context)
+
+    if len(list(filteredCelebrations)) == 0:
+        rowsOfCelebrations = makeList(celebrations, len(list(celebrations)))
+    else:
+        rowsOfCelebrations = makeList(filteredCelebrations, len(list(filteredCelebrations)))
 
     context = {
         'proslave': rowsOfCelebrations

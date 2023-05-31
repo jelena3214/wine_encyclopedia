@@ -11,15 +11,38 @@
                 <div class="col-md-12">
                     <div class="row mb-4">
                         <div class="col-md-12 d-flex justify-content-between align-items-end">
-                            <form method="post">
+                            <form method="post" name="forma">
                                 {% csrf_token %}
-                                <select class="selectpicker" name="filter">
+                                <select class="selectpicker" name="filter" id="filter">
+                                {% if filter %}
+                                    <option selected>{{ filter}}</option>
+                                    <option value="" >Sva vina</option>
+                                {% else %}
                                     <option value="" selected disabled>Izaberi opciju</option>
+                                {% endif %}
+
                                     {% for tag in tagovi %}
                                         <option>{{ tag }}</option>
                                     {% endfor %}
                                 </select>
-                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit">Filtriraj</button>
+                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit" value="filter"
+                                        name="formButton">Filtriraj
+                                </button>
+
+                                <select class="selectpicker" name="sort" id="sort">
+                                    {% if sort %}
+                                        <option value="">Podrazumevani redosled</option>
+                                        <option selected>{{ sort }}</option>
+                                        <option>{{ sort1 }}</option>
+                                    {% else %}
+                                        <option value="" selected disabled>Izaberi opciju</option>
+                                        <option>Po ceni opadajuce</option>
+                                        <option>Po ceni rastuce</option>
+                                    {% endif %}
+                                </select>
+                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit" value="sort"
+                                        name="formButton">Sortiraj
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -55,7 +78,5 @@
                 </div>
             </div>
         </div>
-
     </section>
-
 {% endblock %}
