@@ -7,41 +7,56 @@
 {% block content %}
     <section class="ftco-section">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="row mb-4">
-                        <div class="col-md-12 d-flex justify-content-between align-items-end">
+                        <div class="col-md-1w d-flex justify-content-center align-items-center">
                             <form method="post" name="forma">
                                 {% csrf_token %}
                                 <select class="selectpicker" name="filter" id="filter">
-                                {% if filter %}
-                                    <option selected>{{ filter}}</option>
-                                    <option value="" >Sva vina</option>
-                                {% else %}
-                                    <option value="" selected disabled>Izaberi opciju</option>
-                                {% endif %}
+                                    {% if filter %}
+                                        <option selected>{{ filter }}</option>
+                                        <option value="">Sva vina</option>
+                                    {% else %}
+                                        <option value="" selected disabled>Izaberi tag</option>
+                                    {% endif %}
 
                                     {% for tag in tagovi %}
                                         <option>{{ tag }}</option>
                                     {% endfor %}
                                 </select>
-                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit" value="filter"
+                                <button class="btn btn-md btn-primary" type="submit" value="filter"
                                         name="formButton">Filtriraj
                                 </button>
-
                                 <select class="selectpicker" name="sort" id="sort">
                                     {% if sort %}
                                         <option value="">Podrazumevani redosled</option>
                                         <option selected>{{ sort }}</option>
                                         <option>{{ sort1 }}</option>
                                     {% else %}
-                                        <option value="" selected disabled>Izaberi opciju</option>
+                                        <option value="" selected disabled>Podrazumevani redosled</option>
                                         <option>Po ceni opadajuce</option>
                                         <option>Po ceni rastuce</option>
                                     {% endif %}
                                 </select>
-                                <button class="btn btn-primary py-3 px-5 mr-2" type="submit" value="sort"
+                                <button class="btn btn-md btn-primary" type="submit" value="sort"
                                         name="formButton">Sortiraj
+                                </button>
+
+                                <select class="selectpicker" name="winery">
+                                    {% if winery %}
+                                        <option selected>{{ winery }}</option>
+                                        <option value="">Sva vina</option>
+                                    {% else %}
+                                        <option value="" selected disabled>Izaberi vinariju</option>
+                                    {% endif %}
+
+                                    {% for winery in wineries %}
+                                        <option>{{ winery }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-md btn-primary" type="submit" value="sort"
+                                        name="formButton">Izaberi
                                 </button>
                             </form>
                         </div>
@@ -55,9 +70,6 @@
                                              style="background-image: url('{% static '' %}{{ vino.slika }}');">
                                             <div class="desc">
                                                 <p class="meta-prod d-flex">
-                                                    <a href="#"
-                                                       class="d-flex align-items-center justify-content-center"><span
-                                                            class="flaticon-shopping-bag"></span></a>
                                                     <a href="{% url 'wine' value=0 %}{{ vino.id }}"
                                                        class="d-flex align-items-center justify-content-center"><span
                                                             class="flaticon-visibility"></span></a>
