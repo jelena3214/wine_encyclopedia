@@ -116,6 +116,7 @@ $(document).ready(function () {
          $('#addWineButton').on('click', function () {
              let quantity = $('[name="quantity"]').val();
              let idItem = $(this).data('item-id');
+             console.log(idItem)
              let csrfToken = $("input[name='csrfmiddlewaretoken']").val();
              $.ajax({
                 url: '/shopping/addToCart',

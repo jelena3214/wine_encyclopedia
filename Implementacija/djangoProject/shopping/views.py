@@ -19,24 +19,17 @@ class TempVino:
         self.kolicina = kolicina
 
 
-def findImagePath(imageName):
-    imageFolderPath = 'static/images'
-    subdirectory, imageName = imageName.split('/')
-    for filename in os.listdir(imageFolderPath):
-        if filename.startswith(imageName):
-            imagePath = '/' + imageFolderPath + '/' + filename
-    return imagePath
-
-
 @login_required(login_url='/user')
-def shoppingCart(request, folder_path=None, image_name=None):
+def shoppingCart(request):
     tempWines = []
+    print("vala odje1")
     wines = Vino.objects.filter(ukorpi__idkorisnik=request.user)
+    print(request.user.id)
     for wine in wines:
+        print("vala odje")
         image = Slika.objects.get(idponuda=wine.idponuda)
-        imagePath = findImagePath(image.slika)
         inCart = Ukorpi.objects.get(idkorisnik=request.user, idponuda=wine)
-        tempWine = TempVino(wine.naziv, wine.opisvina, wine.cena, imagePath, wine.idponuda.idponuda, inCart.kolicina)
+        tempWine = TempVino(wine.naziv, wine.opisvina, wine.cena, image.slika, wine.idponuda.idponuda, inCart.kolicina)
         tempWines.append(tempWine)
     context = {
         'wines': tempWines
@@ -55,19 +48,19 @@ def shoppingDone(request):
         index = 0
         for wine in wines:
             image = Slika.objects.get(idponuda=wine.idponuda)
-            imagePath = findImagePath(image.slika)
             inCart = Ukorpi.objects.get(idkorisnik=request.user, idponuda=wine)
             tempWine = TempVino(wine.naziv, wine.opisvina, wine.cena, "", sumPrices[index],
                                 inCart.kolicina)
             tempWines.append((index, tempWine))
             index += 1
+            wine.brojprodatih += 1
+            wine.save(update_fields=['brojProdatih'])
         send_custom_email(email, 'Enciklopedija vina račun', 'racunKupovina.html',
                           {'wines': tempWines,
                            'theTotal': request.POST.get('theTotal')
                            })#context of the mail
         items = Ukorpi.objects.filter(idkorisnik=request.user)
         for item in items:
-            print(item)
             item.delete()
     context = {
         'text': 'Čestitamo na uspešnoj kupovini!'
@@ -95,14 +88,43 @@ def reservationCelebrationDone(request):
 @login_required(login_url='/user')
 def reservationVisitDone(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        try:
-            user = Korisnik.objects.get(email=email)
-            send_custom_email(email, 'Enciklopedija vina račun', 'racunRezervacijaObilazak.html',
-                              {})#context mejla
-        except Exception:
-            # If user is not registered on the site we won't send the email
-            return redirect(request.path)
+        email = request.user.email
+        date = request.POST['date']
+        print("Date " + date)
+        numPeople = int(request.POST['quantity'])
+        print("numPeople " + str(numPeople))
+        someliers = request.POST.getlist('somelijer')
+        print("num someliers " + str(len(someliers)))
+        visitOptionId = request.POST.get('obilazak')
+        visitOption = Vrstaobilaska.objects.get(idobilazak=visitOptionId)
+        print("idPonuda " + str(visitOption.idponuda.idponuda.idponuda.idponuda))
+        sumPrice = visitOption.cena * numPeople
+        print("sumPrice " + str(sumPrice))
+        visit = visitOption.idponuda
+        print("cenaSomelijeraJednog " + str(visit.cenasomelijera))
+        somelierPrice = visit.cenasomelijera * len(someliers)
+        if (len(someliers)):
+            print("somelijerID: " + someliers[0])
+        print("cenaSomelijeraSvih " + str(somelierPrice))
+        producer = visit.idponuda.idponuda.idkorisnik.proizvodjac
+        print("Producer " + producer.email)
+        print("NameOfTheFirm " + producer.imefirme)
+        send_custom_email(email, 'Enciklopedija vina račun', 'racunRezervacijaObilazak.html',
+                          {
+                              'place': producer.imefirme,
+                              'packageName': visitOption.naziv,
+                              'packageDesc': visitOption.opis,
+                              'date': date,
+                              'numPeople': numPeople,
+                              'price': sumPrice,
+                              'someliers': someliers,
+                              'somelierPrice': somelierPrice,
+                              'priceTotal': sumPrice+somelierPrice
+                          })#context mejla
+        newRes = Termin()
+        newRes.vreme = date;
+        newRes.idponuda = visit.idponuda
+        newRes.save()
     context = {
         'text': 'Čestitamo na uspešnoj rezervaciji!'
     }
@@ -142,7 +164,7 @@ def addToCart(request):
         idItem = request.POST.get('idItem')
         wine = Vino.objects.get(idponuda__idponuda=idItem)
         quantity = request.POST.get('quantity')
-        if Ukorpi.objects.filter(idponuda=wine):
+        if Ukorpi.objects.filter(idponuda=wine, idkorisnik=request.user):
             item = Ukorpi.objects.get(idponuda=wine)
             item.kolicina += int(quantity)
             item.save(update_fields=['kolicina'])
@@ -159,7 +181,6 @@ def addToCart(request):
 def changeQuantity(request):
     if request.method == 'POST':
         itemId = request.POST.get('itemId')
-        print("IDITEM " + itemId)
         wine = Vino.objects.get(idponuda__idponuda=itemId)
         newQuantity = request.POST.get('newQuantity')
         item = Ukorpi.objects.get(idponuda=wine)

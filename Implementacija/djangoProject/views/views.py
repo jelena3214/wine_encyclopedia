@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from baza.models import *
 from random import choice, choices
-from shopping.views import findImagePath
 from .forms import *
 
 

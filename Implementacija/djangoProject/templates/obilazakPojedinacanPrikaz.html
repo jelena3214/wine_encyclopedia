@@ -13,7 +13,7 @@
                         {% csrf_token %}
                         {% for obilazak in obilasci %}
                             <div class="form-check">
-                                <input class="form-check-input1" type="radio" name="obilazak" value="{{ obilazak.id }}">
+                                <input class="form-check-input1" type="radio" name="obilazak" value={{ obilazak.idobilazak }}>
                                 <label class="form-check-label">
                                     <h3 style="display:inline">{{ obilazak.naziv }} </h3>
                                     <span class="price" style="display:inline; font-size: large;">{{ obilazak.cena }}.00 RSD</span>
@@ -57,7 +57,7 @@
                                                     <div style="display: flex;justify-content: center">
                                                         <label class="checkbox-wrap checkbox-primary">
                                                             <input type="checkbox" name="somelijer"
-                                                                   value="{{ somelijer.id }}">
+                                                                   value={{ somelijer.ime }}>
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </div>
@@ -72,7 +72,7 @@
                     <div class="col-md-4 text-center">
                         <div class="datepicker form-outline mb-4 form-group text-center">
                             <label for="birthDate">Datum obilaska</label>
-                            <input type="date" class="form-control form-control-lg">
+                            <input type="date" name="date" class="form-control form-control-lg">
                         </div>
                         <div class="row mt-4 product-details pl-md-5 ftco-animate">
                             <p>Broj ljudi</p>

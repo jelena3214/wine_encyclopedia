@@ -110,7 +110,7 @@ class Recenzija(models.Model):
 
 class Termin(models.Model):
     idtermin = models.AutoField(db_column='idTermin', primary_key=True)
-    vreme = models.DateTimeField(blank=True, null=True)
+    vreme = models.DateField(blank=True, null=True)
     idponuda = models.ForeignKey(Ponudaprostor, models.CASCADE, db_column='idPonuda')
 
     class Meta:

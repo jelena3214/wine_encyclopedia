@@ -1,6 +1,6 @@
 import datetime
 import random
-from datetime import date
+from datetime import date, timedelta
 
 from django.contrib.auth.models import Group
 
@@ -125,7 +125,7 @@ def init():
     for i in range(3, 9):
         tmp = Ponudaprostor(idponuda=offers[i])
         tourOffers.append(tmp)
-        tourTime.append(Termin(idponuda=tmp, vreme=random_datetime_future()))
+        tourTime.append(Termin(idponuda=tmp, vreme=date.today() + datetime.timedelta(days=random.randint(1, 365))))
 
     [x.save() for x in tourOffers]
     [x.save() for x in tourTime]

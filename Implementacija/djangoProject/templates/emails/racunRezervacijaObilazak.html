@@ -22,6 +22,8 @@
                             <th>&emsp;</th>
                             <th>Cena po osobi</th>
                             <th>&emsp;</th>
+                            <th>Angažovani somelijeri</th>
+                            <th>&emsp;</th>
                             <th>Doplata somelijera</th>
                             <th>&emsp;</th>
                         </tr>
@@ -30,17 +32,28 @@
                         <tr class="alert" role="alert">
                             <td></td>
                             <td>{{ place }}</td>
+                            <td></td>
                             <td>
                                 <div>
-                                    {{ packageName }}
+                                    <h3>{{ packageName }}</h3>
                                 </div>
                                 <div>
                                     {{ packageDesc }}
                                 </div>
                             </td>
+                            <td></td>
                             <td>{{ date }}</td>
-                            <td>{{ num }}</td>
+                            <td></td>
+                            <td>{{ numPeople }}</td>
+                            <td></td>
                             <td>{{ price }}</td>
+                            <td></td>
+                            <td>
+                                {% for somelier in someliers %}
+                                    <div>{{ somelier }}</div>
+                                {% endfor %}
+                            </td>
+                            <td></td>
                             <td>{{ somelierPrice }}</td>
                         </tr>
                         </tbody>
@@ -53,7 +66,7 @@
                     <h3>Ukupna cena</h3>
                     <p class="d-flex">
                         <span>IZNOS:</span>
-                        <span>{{ priceSum }}</span>
+                        <span>{{ priceTotal }}</span>
                     </p>
                 </div>
             </div>
