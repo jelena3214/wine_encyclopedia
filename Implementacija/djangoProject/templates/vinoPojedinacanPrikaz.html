@@ -32,23 +32,26 @@
                         would have been rewritten a thousand times and everything that was left from its origin would be
                         the word "and" and the Little Blind Text should turn around and return to its own, safe country.
                     </p>
-                    <div class="row mt-4">
-                        <div class="input-group col-md-6 d-flex mb-3">
-                            <span class="input-group-btn mr-2">
-                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </span>
-                            <input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
-                                   value="1" min="1" max="100">
-                            <span class="input-group-btn ml-2">
-                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </span>
+                    {% if user.groups.all.0.name != "Proizvodjaci" %}
+                        <div class="row mt-4">
+                            <div class="input-group col-md-6 d-flex mb-3">
+                                <span class="input-group-btn mr-2">
+                                    <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
+                                       value="1" min="1" max="100">
+                                <span class="input-group-btn ml-2">
+                                    <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <button id="addWineButton" class="btn btn-primary py-3 px-5 mr-2" data-item-id="{{ vino.id }}">Dodaj u korpu</button>
+                        <button id="addWineButton" class="btn btn-primary px-5 mr-2 pb-3" data-item-id="{{ vino.id }}">Dodaj u korpu</button>
+                        <p class="py-2" alert-dismissible" id="confirmationText" style="display: none; color: #b04023;">Uspešno ste dodali artikl u korpu.</p>
+                    {% endif %}
                 </div>
             </div>
 

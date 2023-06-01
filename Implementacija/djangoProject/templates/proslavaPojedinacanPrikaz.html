@@ -8,7 +8,10 @@
     <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
-            <h3 style="color: #b7472a;">Kapacitet sale je {{ ponuda.kapacitet }} osoba</h3>
+            <h3 style="color: #b7472a;">Kapacitet sale: {{ ponuda.kapacitet }} osoba</h3>
+        </div>
+        <div class="row justify-content-center">
+            <h3 style="color: #b7472a;" id="cena" >Cena po osobi: {{ ponuda.cenapoosobi }} RSD</h3>
         </div>
         <div class="row justify-content-center" style="margin-left: auto; margin-right: auto;">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -54,35 +57,41 @@
         <div class="row justify-content-center">
             <p>{{ ponuda.opisproslave }}</p>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="datepicker form-outline mb-4 form-group text-center">
-                    <label for="birthDate" style="font-size: large;">Datum proslave</label>
-                    <input type="date" class="form-control form-control-lg">
-                </div>
-                <div class="row mt-4 product-details pl-md-5 ftco-animate">
-                    <p>Broj ljudi</p>
-                    <div class="input-group col-md-8 d-flex mb-3 text-center" style="margin-left: auto; margin-right: auto;">
-                        <span class="input-group-btn mr-2">
-                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </span>
-                        <input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
-                            value="1" min="1" max={{ ponuda.kapacitet }}>
-                        <span class="input-group-btn ml-2">
-                            <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </span>
+        <form action="/shopping/reservationCelebrationDone" method="post">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="datepicker form-outline mb-4 form-group text-center">
+                        <label for="birthDate" style="font-size: large;">Datum proslave</label>
+                        <input type="date" name="date" class="form-control form-group form-control-lg" required oninvalid="this.setCustomValidity('Morate izabrati datum proslave.')" oninput="this.setCustomValidity('')">
+                    </div>
+                    <div class="row mt-4 product-details pl-md-5 ftco-animate">
+                        <p>Broj ljudi</p>
+                        <div class="input-group col-md-8 d-flex mb-3 text-center" style="margin-left: auto; margin-right: auto;">
+                            <span class="input-group-btn mr-2">
+                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="quantity" name="quantity" class="quantity form-control input-number"
+                                value="1" min="1" max="{{ ponuda.kapacitet }}">
+                            <span class="input-group-btn ml-2">
+                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <a href="/shopping/reservationCelebrationDone" class="btn btn-primary py-3 px-5 mr-2">Rezerviši</a>
-        </div>
-
+            <input name="price" value="{{ ponuda.cenapoosobi }}" style="display: none">
+            <input name="celebrationId" value="{{ ponuda.idponuda.idponuda.idponuda }}" style="display: none">
+            {% if user.groups.all.0.name != "Proizvodjaci" %}
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Rezerviši</button>
+                </div>
+            {% endif %}
+        </form>
     </div>
 </section>
 {% endblock %}

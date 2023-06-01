@@ -24,7 +24,7 @@ $(document).ready(function () {
             priceTotalValue = updatePrices(priceElements[i], this, sumPriceElements[i], priceTotalValue);
             //handles quantity field changes
             $(this).on('input', function () {
-                if ($(this).val() < 0 || $(this).val()==='')
+                if ($(this).val() <= 0 || $(this).val()==='')
                     $(this).val(1);
                 let csrfToken = $("input[name='csrfmiddlewaretoken']").val();
                 //changes in database
@@ -96,7 +96,6 @@ $(document).ready(function () {
             let sumPriceValues = sumPriceElements.map(function () {
                 return parseInt($(this).text());
             }).get();
-            console.log(sumPriceValues)
             // Send AJAX request to buy the items
             let csrfToken = $("input[name='csrfmiddlewaretoken']").val();
             $.ajax({
@@ -114,9 +113,9 @@ $(document).ready(function () {
     //handles adding a wine in cart in 'vinoPojedinacanPrikaz.html'
     function addToCart() {
          $('#addWineButton').on('click', function () {
+             $('#confirmationText').show();
              let quantity = $('[name="quantity"]').val();
              let idItem = $(this).data('item-id');
-             console.log(idItem)
              let csrfToken = $("input[name='csrfmiddlewaretoken']").val();
              $.ajax({
                 url: '/shopping/addToCart',
@@ -130,6 +129,22 @@ $(document).ready(function () {
          })
     }
 
+    //handles reservation missing fields
+    function missingInfoReservation() {
+        const radioButtons = document.querySelectorAll('input[type="radio"][required]');
+        const radioGroup = document.getElementsByName('obilazak');
+
+        radioGroup.forEach(function(radio) {
+            console.log(radioGroup.length)
+            radio.addEventListener('input', function() {
+                // resetRadioValidity
+                radioGroup.forEach(function(r) {
+                    r.setCustomValidity('');
+                })
+            });
+        });
+    }
+
     if (document.URL.match("shoppingCart")) {
         sumPriceCalculation();
         deleteCartItem();
@@ -137,5 +152,8 @@ $(document).ready(function () {
     }
     else if (document.URL.match("wine")) {
         addToCart();
+    }
+    else if (document.URL.match("detour")) {
+        missingInfoReservation();
     }
 })

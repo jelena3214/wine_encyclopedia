@@ -11,21 +11,36 @@
                     <table class="table">
                         <thead class="thead-primary">
                         <tr>
-                            <th>&nbsp;</th>
+                            <th>&emsp;</th>
                             <th>Vinarija</th>
+                            <th>&emsp;</th>
                             <th>Datum</th>
+                            <th>&emsp;</th>
                             <th>Broj ljudi</th>
+                            <th>&emsp;</th>
                             <th>Cena po osobi</th>
-                            <th>&nbsp;</th>
+                            <th>&emsp;</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="alert" role="alert">
                             <td></td>
-                            <td>{{ place }}</td>
+                            <td>
+                                <div>
+                                    {{ winery }}
+                                </div>
+                                <span style="display:inline-block; vertical-align:middle; border-bottom:1px solid #cecece; width:20px;"></span>
+                                <div>
+                                    {{ address }}
+                                </div>
+                            </td>
+                            <td></td>
                             <td>{{ date }}</td>
-                            <td>{{ num }}</td>
+                            <td></td>
+                            <td>{{ numPeople }}</td>
+                            <td></td>
                             <td>{{ price }}</td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
@@ -34,11 +49,7 @@
 
             <div class="justify-content-end">
                 <div class="cart-total mb-3">
-                    <h3>Ukupna cena</h3>
-                    <p class="d-flex">
-                        <span>IZNOS:</span>
-                        <span>{{ priceSum }}</span>
-                    </p>
+                    <h3>Ukupan iznos za uplatu: {{ priceTotal }} RSD</h3>
                 </div>
             </div>
         </div>

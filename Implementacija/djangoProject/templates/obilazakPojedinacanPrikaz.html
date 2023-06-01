@@ -13,7 +13,7 @@
                         {% csrf_token %}
                         {% for obilazak in obilasci %}
                             <div class="form-check">
-                                <input class="form-check-input1" type="radio" name="obilazak" value={{ obilazak.idobilazak }}>
+                                <input class="form-check-input" type="radio" name="obilazak" value="{{ obilazak.idobilazak }}" title="Izaberi ovu vrstu obilaska." required oninvalid="this.setCustomValidity('Morate izabrati jednu vrstu obilaska.')" oninput="this.setCustomValidity('')">
                                 <label class="form-check-label">
                                     <h3 style="display:inline">{{ obilazak.naziv }} </h3>
                                     <span class="price" style="display:inline; font-size: large;">{{ obilazak.cena }}.00 RSD</span>
@@ -72,7 +72,7 @@
                     <div class="col-md-4 text-center">
                         <div class="datepicker form-outline mb-4 form-group text-center">
                             <label for="birthDate">Datum obilaska</label>
-                            <input type="date" name="date" class="form-control form-control-lg">
+                            <input type="date" name="date" class="form-control form-control-lg" required oninvalid="this.setCustomValidity('Morate izabrati datum obilaska.')" oninput="this.setCustomValidity('')">
                         </div>
                         <div class="row mt-4 product-details pl-md-5 ftco-animate">
                             <p>Broj ljudi</p>
@@ -95,7 +95,9 @@
                                 </span>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Rezerviši</button>
+                        {% if user.groups.all.0.name != "Proizvodjaci" %}
+                            <button type="submit" class="btn btn-primary py-3 px-5 mr-2">Rezerviši</button>
+                        {% endif %}
                     </div>
                 </div>
             </form>
