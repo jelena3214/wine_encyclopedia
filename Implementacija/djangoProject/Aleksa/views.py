@@ -9,6 +9,7 @@ from userApp.decorators import group_required
 from baza.models import *
 
 # from project_FourDesperados.Implementacija.djangoProject.baza.models import *
+
 # @login_required(login_url='/user')
 # @group_required("Proizvodjaci")
 def viewWine(request : HttpRequest):
@@ -47,16 +48,14 @@ def viewWine(request : HttpRequest):
             new_tag.tag = tag
             new_tag.save()
 
+        context = {
+            "message_body": "Vino je uspesno uneto."
+        }
+        return render(request, "modalMesesage.html", context)
     return render(request,"unosVina.html")
-
-
-
 
 def inputTour(request : HttpRequest):
     return unosObilaskaExit(request)
-
-
-
 
 
 # @login_required(login_url='/user')
@@ -231,22 +230,32 @@ def myStore(request):
     pictures = Slika.objects.filter(idponuda=tour.idponuda.idponuda)
     celebrations = Proslava.objects.filter(idponuda__idponuda__idkorisnik=request.user)
     reserved_tours = Termin.objects.filter(idponuda=tour.idponuda)
+    wines = Vino.objects.filter(idponuda__idkorisnik=request.user)
+    wine_tuple = []
+    for wine in wines:
+        picture = Slika.objects.get(idponuda=wine.idponuda)
+        wine_tuple.append([wine,picture])
+
 
     context = {
         'pictures' : pictures,
         'celebrations' : celebrations,
-        'resrved_tours' : reserved_tours
+        'resrved_tours' : reserved_tours,
+        'wines' : wine_tuple
     }
+    return render(request, "mojaProdavnica.html", context)
+
+
+def removeWine(request,wine_id):
+
+    wine_to_remove = Vino.objects.get(idponuda=wine_id)
+    wine_to_remove.delete()
+
+    return redirect("myStore")
 
 
 
 
-
-
-
-    return render(request,"mojaProdavnica.html",context)
-
-#TODO treba napraviti reklameExit funkciju koja ce da renderuje reklame i da podesi kontekst
 def viewAds(request : HttpRequest):
 
     return adsExit(request)
@@ -254,14 +263,16 @@ def viewAds(request : HttpRequest):
 def unsubscribeAd(request: HttpRequest, ad_id):
 
     ad_to_remove = Pretplacen.objects.get(idpretplata=ad_id,idkorisnik=request.user)
-    ad_to_remove.delete()
+    ad_to_remove.trenutnistatus = 'Istekla'
+    ad_to_remove.save()
+    # ad_to_remove.delete()
 
 
     return redirect('viewAds')
 
 def subscribeAd(request: HttpRequest, ad_id):
 
-    active_ads = Pretplacen.objects.filter(idkorisnik=request.user)
+    active_ads = Pretplacen.objects.filter(idkorisnik=request.user,trenutnistatus='Aktivna')
 
     if active_ads.exists():
         context = {
@@ -269,16 +280,14 @@ def subscribeAd(request: HttpRequest, ad_id):
         }
         return render(request, "modalMesesage.html", context)
 
-
-
     new_subscription = Pretplacen()
     new_subscription.idkorisnik = request.user
     new_subscription.datumpocetak = datetime.date.today()
     new_subscription.datumkraj = datetime.date.today()
     new_subscription.datumkraj.replace(year=new_subscription.datumkraj.year + 1)
     new_subscription.idpretplata = Pretplata.objects.get(idpretplata=ad_id)
-    new_subscription.save()
     new_subscription.trenutnistatus = 'Aktivna'
+    new_subscription.save()
 
     return redirect('viewAds')
 
@@ -286,11 +295,14 @@ def subscribeAd(request: HttpRequest, ad_id):
 
 def adsExit(request):
     ads_not_subscribed_to = Pretplata.objects.exclude(pretplacen__idkorisnik=request.user)
-    ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user)
+    ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Aktivna')
+    old_ads = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Istekla')
 
 
     context = {'ads_not_subscribed_to': ads_not_subscribed_to,
-               'ads_subscribed_to' : ads_subscribed_to}
+               'ads_subscribed_to' : ads_subscribed_to,
+               'old_ads' : old_ads
+               }
     return render(request, "unosReklame.html", context)
 
 

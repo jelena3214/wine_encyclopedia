@@ -16,6 +16,8 @@ urlpatterns = [
     path('removeSommelier/<str:value>/',views.removeSommelier,name='removeSommelier'),
     path('ad',views.viewAds,name='viewAds'),
     path('unsubscribeAd/<str:ad_id>',views.unsubscribeAd,name='unsubscribeAd'),
-    path('subscribeAd/<str:ad_id>',views.subscribeAd,name='subscribeAd')
+    path('subscribeAd/<str:ad_id>',views.subscribeAd,name='subscribeAd'),
+    path('removeWine/<str:wine_id>',views.removeWine,name='removeWine'),
+    # path('removeTour')
 ]
 
