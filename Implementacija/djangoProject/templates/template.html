@@ -29,57 +29,73 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="/">Enciklopedija <span>vina</span></a>
-        {% if user.groups.all.0.name == "Kupci" %}
-            <div class="order-lg-last btn-group">
-                <a href="/shopping/shoppingCart" class="btn-cart" aria-haspopup="true" aria-expanded="false">
-                    <span class="flaticon-shopping-bag"></span>
-                </a>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar"
+     style="width: 100% !important; padding: 0 !important; border: 0 !important;">
+    <div class="container justify-content-center"
+         style="width: 100% !important; padding: 0 !important; border: 0 !important;">
+        <div class="row justify-content-center"
+             style="width: 100% !important; padding: 0 !important; border: 0 !important;">
+            <div class="col-md-3 col-lg-3 col-sm-12" style="padding-top: 10px;">
+                <a class="navbar-brand" href="/">Enciklopedija <span>vina</span></a>
             </div>
-        {% endif %}
-
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="/" class="nav-link">Početna strana</a></li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Ponuda</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="/views/allwines">Vina</a>
-                        <a class="dropdown-item" href="/views/celebration">Proslave</a>
-                        <a class="dropdown-item" href="/views/detour">Obilasci</a>
-                    </div>
-                </li>
-                {% if user.is_authenticated and user.groups.all.0.name == "Proizvodjaci" %}
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Za proizvođača</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="/user/add/myStore">Moja prodavnica</a>
-                            <a class="dropdown-item" href="/user/changeCompanyStuff">Promena informacija vinarije</a>
-                        </div>
-                    </li>
-                {% endif %}
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Moj nalog</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        {% if not user.is_authenticated %}
-                            <a class="dropdown-item" href="/user">Prijava</a>
+            <div class="{% if user.groups.all.0.name == "Kupci" %}col-md-8 col-lg-8{% else %}col-md-8 col-lg-8{% endif %}col-sm-12 justify-content-sm-start justify-content-md-around justify-content-lg-end justify-content-start"
+                 style="display: flex">
+                <div class="navbar-toggle" id="ftco-nav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="/" class="nav-link">Početna strana</a></li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Ponuda</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="/views/allwines">Vina</a>
+                                <a class="dropdown-item" href="/views/celebration">Proslave</a>
+                                <a class="dropdown-item" href="/views/detour">Obilasci</a>
+                            </div>
+                        </li>
+                        {% if user.is_authenticated and user.groups.all.0.name == "Proizvodjaci" %}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">Za proizvođača</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="/user/add/myStore">Moja prodavnica</a>
+                                    <a class="dropdown-item" href="/user/changeCompanyStuff">Promena informacija
+                                        vinarije</a>
+                                </div>
+                            </li>
                         {% endif %}
-                        {% if user.is_authenticated %}
-                            <a class="dropdown-item" href="/user/changeInfoUser">Promena informacija naloga</a>
-                            <a class="dropdown-item" href="#">Pregled anketa</a>
-                            <a class="dropdown-item" href="/user/logoutUser">Odjava</a>
-                        {% endif %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Moj nalog</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                {% if not user.is_authenticated %}
+                                    <a class="dropdown-item" href="/user">Prijava</a>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                    <a class="dropdown-item" href="/user/changeInfoUser">Promena informacija
+                                        naloga</a>
+                                    <a class="dropdown-item" href="#">Pregled anketa</a>
+                                    <a class="dropdown-item" href="/user/logoutUser">Odjava</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% if user.groups.all.0.name == "Kupci" %}
+                <div class="col-sm-12 col-md-1 col-lg-1 justify-content-sm-start justify-content-md-around justify-content-lg-end justify-content-start"
+                     style="padding-top: 15px;display: flex">
+                    <div class="btn-group">
+                        <a href="/shopping/shoppingCart" class="btn-cart" aria-haspopup="true" aria-expanded="false">
+                            <span class="flaticon-shopping-bag"></span>
+                        </a>
                     </div>
-                </li>
-            </ul>
+                </div>
+            {% endif %}
         </div>
     </div>
+
+
 </nav>
 <!-- END nav -->
 
