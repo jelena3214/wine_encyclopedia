@@ -260,10 +260,12 @@ def changeQuantity(request):
         return JsonResponse({'result': 'Success'})
 
 
+@login_required(login_url='/user')
 def questionnaire(request):
     return render(request, 'upitnikPocetnaStrana.html')
 
 
+@login_required(login_url='/user')
 def questionnaireQ(request):
     questions = []
     questionsBase = Upitnikpitanje.objects.all()
@@ -280,6 +282,7 @@ def questionnaireQ(request):
     return render(request, 'upitnikPitanja.html', context)
 
 
+@login_required(login_url='/user')
 def questionnaireRes(request):
     if request.method == "POST":
         tagCount = {}
@@ -310,6 +313,7 @@ def questionnaireRes(request):
     return redirect('/shopping/questionnaire')
 
 
+@login_required(login_url='/user')
 def questionnaireHist(request):
     results = Rezultatupitnika.objects.filter(idkorisnik=request.user)
     tags = []

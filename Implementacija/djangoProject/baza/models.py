@@ -137,6 +137,7 @@ class Tag(models.Model):
 
 
 class Rezultatupitnika(models.Model):
+    id = models.AutoField(db_column='id', primary_key=True)
     idkorisnik = models.ForeignKey(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
     idtag = models.ForeignKey(Tag, models.CASCADE, db_column='idTag', null=False)
 

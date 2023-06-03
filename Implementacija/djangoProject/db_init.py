@@ -221,4 +221,21 @@ def init():
 
     [x.save() for x in producersSubscriptions]
 
+    questions = [
+        Upitnikpitanje(tekst="Izaberite piće:"),
+        Upitnikpitanje(tekst="Koja Vam je omiljena vrsta čokolade?")
+    ]
+
+    answers = [
+        Upitnikodgovor(idpitanje=questions[0], odgovor="Hladna kokosova voda", idtag=Tag.objects.get(tag="Belo")),
+        Upitnikodgovor(idpitanje=questions[0], odgovor="Sveže ceđeni sok", idtag=Tag.objects.get(tag="Crveno")),
+        Upitnikodgovor(idpitanje=questions[0], odgovor="Voćni šejk", idtag=Tag.objects.get(tag="Roze")),
+        Upitnikodgovor(idpitanje=questions[1], odgovor="Mlečna čokolada", idtag=Tag.objects.get(tag="Crveno")),
+        Upitnikodgovor(idpitanje=questions[1], odgovor="Crna čokolada", idtag=Tag.objects.get(tag="Belo")),
+        Upitnikodgovor(idpitanje=questions[1], odgovor="Bela čokolada", idtag=Tag.objects.get(tag="Roze"))
+    ]
+
+    [x.save() for x in questions]
+    [x.save() for x in answers]
+
     print("Success")
