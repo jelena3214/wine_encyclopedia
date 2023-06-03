@@ -10,8 +10,8 @@ from baza.models import *
 
 # from project_FourDesperados.Implementacija.djangoProject.baza.models import *
 #
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def viewWine(request : HttpRequest):
 
     if request.method == "POST":
@@ -55,14 +55,14 @@ def viewWine(request : HttpRequest):
     return render(request,"unosVina.html")
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def inputTour(request : HttpRequest):
     return unosObilaskaExit(request)
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def addTourType(request):
 
 
@@ -82,8 +82,8 @@ def addTourType(request):
 
     return unosObilaskaExit(request)
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def inputTourPicture(request):
     tour = checkIfTourExists(request)
 
@@ -102,8 +102,8 @@ def inputTourPicture(request):
     return render(request, "unosObilaska.html", context)
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def removeTourPicture(request, picture_id):
 
     picture_to_remove = Slika.objects.filter(idslika=picture_id)
@@ -114,8 +114,8 @@ def removeTourPicture(request, picture_id):
 
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def inputCelebration(request):
 
     if request.method == "POST":
@@ -171,9 +171,8 @@ def checkIfCelebrationExists(request: HttpRequest):
         new_celebration.save()
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
-
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def setTourDetails(request: HttpRequest):
 
     tour = checkIfTourExists(request)
@@ -199,8 +198,8 @@ def setTourDetails(request: HttpRequest):
         print(request.POST)
     return unosObilaskaExit(request)
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def addSommelier(request : HttpRequest):
     if request.method == "POST":
 
@@ -243,8 +242,8 @@ def unosObilaskaExit(request : HttpRequest):
     }
     return render(request, "unosObilaska.html", context)
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def removeTourType(request : HttpRequest, value):
 
     tour_type_to_remove = Vrstaobilaska.objects.get(idobilazak=int(value))
@@ -252,8 +251,8 @@ def removeTourType(request : HttpRequest, value):
 
     return redirect("inputTour")
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def removeSommelier(request: HttpRequest,value):
 
     sommelier_to_remove = Somelijer.objects.get(idsomelijer=int(value))
@@ -306,8 +305,8 @@ def myStore(request):
     }
     return render(request, "mojaProdavnica.html", context)
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def removeReservation(request, reservation_id):
 
     reservation_to_delete = Termin.objects.get(idtermin=reservation_id)
@@ -315,8 +314,8 @@ def removeReservation(request, reservation_id):
 
     return redirect("myStore")
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def removeWine(request,wine_id):
 
     wine_to_remove = Vino.objects.get(idponuda=wine_id)
@@ -326,14 +325,14 @@ def removeWine(request,wine_id):
 
 
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def viewAds(request : HttpRequest):
 
     return adsExit(request)
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def unsubscribeAd(request: HttpRequest, ad_id):
 
     ad_to_remove = Pretplacen.objects.get(idpretplata=ad_id,idkorisnik=request.user)
@@ -344,8 +343,8 @@ def unsubscribeAd(request: HttpRequest, ad_id):
 
     return redirect('viewAds')
 
-# @login_required(login_url='/user')
-# @group_required("Proizvodjaci")
+@login_required(login_url='/user')
+@group_required("Proizvodjaci")
 def subscribeAd(request: HttpRequest, ad_id):
 
     active_ads = Pretplacen.objects.filter(idkorisnik=request.user,trenutnistatus='Aktivna')
