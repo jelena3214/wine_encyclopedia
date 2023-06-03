@@ -135,7 +135,6 @@ $(document).ready(function () {
         const radioGroup = document.getElementsByName('obilazak');
 
         radioGroup.forEach(function(radio) {
-            console.log(radioGroup.length)
             radio.addEventListener('input', function() {
                 // resetRadioValidity
                 radioGroup.forEach(function(r) {
@@ -143,6 +142,15 @@ $(document).ready(function () {
                 })
             });
         });
+        //prohibits entering a date that is not in the future
+        $('input[name="date"]').on('change', function () {
+            let today = new Date();
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            let tomorrowString = tomorrow.toISOString().split('T')[0];
+            $('input[name="date"]').attr('min', tomorrowString);
+        })
+
     }
 
     if (document.URL.match("shoppingCart")) {
@@ -153,7 +161,7 @@ $(document).ready(function () {
     else if (document.URL.match("wine")) {
         addToCart();
     }
-    else if (document.URL.match("detour")) {
+    else if (document.URL.match("detour") || document.URL.match("celebration")) {
         missingInfoReservation();
     }
 })

@@ -112,7 +112,7 @@ class Termin(models.Model):
     idtermin = models.AutoField(db_column='idTermin', primary_key=True)
     vreme = models.DateField(blank=True, null=True)
     idponuda = models.ForeignKey(Ponudaprostor, models.CASCADE, db_column='idPonuda')
-    brojljudigi = models.IntegerField(db_column='brojLjudi', blank=True, null=True)
+    brojljudi = models.IntegerField(db_column='brojLjudi', blank=True, null=True)
 
     class Meta:
         db_table = 'termin'

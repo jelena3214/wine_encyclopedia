@@ -13992,8 +13992,16 @@ input[type="radio"]:checked{
     border-color: black;
 }
 
-.questionnaire-text {
-    background: white;
+.questionnaire-heading {
+    color: #b04023;
+    border-radius: 4px;
     text-align: center;
+    background: white;
+}
+
+.questionnaire-text {
     padding: 50px;
+    border-radius: 4px;
+    text-align: center;
+    background: white;
 }

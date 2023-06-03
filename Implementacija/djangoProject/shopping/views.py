@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 
 from baza.models import *
 from userApp.views import send_custom_email
+from datetime import date
 
 
 class TempVino:
@@ -63,7 +64,8 @@ def shoppingDone(request):
         for item in items:
             item.delete()
         context = {
-            'text': 'Čestitamo na uspešnoj kupovini!'
+            'text': 'Čestitamo na uspešnoj kupovini!',
+            'email': email
         }
         return render(request, 'potvrdaKupovine.html', context)
     else:
@@ -90,6 +92,10 @@ def reservationCelebrationDone(request):
         producerUser = celebrationPonuda.idkorisnik
         address = producerUser.adresa
         producer = producerUser.proizvodjac
+        #  check if this winery on this date is already reserved so the producer can be notified
+        similarReservExists = ''
+        if Termin.objects.filter(vreme=date, idponuda=celebrationPonudaProstor):
+            similarReservExists = 'Rezervacija za isti datum već postoji, molimo da proverite regularnost i javite klijentima na mejl ukoliko rezervacija nije validna.'
         send_custom_email(email, 'Enciklopedija vina račun', 'racunRezervacijaProslava.html',
                           {
                               'winery': producer.imefirme,
@@ -99,10 +105,22 @@ def reservationCelebrationDone(request):
                               'price': price,
                               'priceTotal': price * numPeople
                           })
+        send_custom_email(producerUser.email, 'Enciklopedija vina rezervacija', 'rezervacijaProslavaObavestenje.html',
+                          {
+                              'date': date,
+                              'email': email,
+                              'additionalText': similarReservExists,
+                              'winery': producer.imefirme,
+                              'address': address,
+                              'numPeople': numPeople,
+                              'price': price,
+                              'priceTotal': price * numPeople
+                          })
         # new element in Termin
         newTerm = Termin()
         newTerm.vreme = date
         newTerm.idponuda = celebrationPonudaProstor
+        newTerm.brojljudi = numPeople
         newTerm.save()
         # new element in Rezervacija
         newRes = Rezervacija()
@@ -111,7 +129,8 @@ def reservationCelebrationDone(request):
         newRes.save()
 
     context = {
-        'text': 'Čestitamo na uspešnoj rezervaciji prostora za proslavu!'
+        'text': 'Čestitamo na uspešnoj rezervaciji prostora za proslavu!',
+        'email': email
     }
     return render(request, 'potvrdaKupovine.html', context)
 
@@ -129,10 +148,31 @@ def reservationVisitDone(request):
         visit = visitOption.idponuda
         visitPonudaProstor = visit.idponuda
         sommelierPrice = visit.cenasomelijera * len(sommelierNames)
+        producerUser = visit.idponuda.idponuda.idkorisnik
         producer = visit.idponuda.idponuda.idkorisnik.proizvodjac
         address = visit.idponuda.idponuda.idkorisnik.adresa
+        #  check if this winery on this date is already reserved so the producer can be notified
+        similarReservExists = ''
+        if Termin.objects.filter(vreme=date, idponuda=visitPonudaProstor):
+            similarReservExists = 'Rezervacija za isti datum već postoji, molimo da proverite regularnost i javite klijentima na mejl ukoliko rezervacija nije validna.'
         send_custom_email(email, 'Enciklopedija vina račun', 'racunRezervacijaObilazak.html',
                           {
+                              'winery': producer.imefirme,
+                              'address': address,
+                              'packageName': visitOption.naziv,
+                              'packageDesc': visitOption.opis,
+                              'date': date,
+                              'numPeople': numPeople,
+                              'price': price,
+                              'sommelierNames': sommelierNames,
+                              'sommelierPrice': sommelierPrice,
+                              'priceTotal': price * numPeople + sommelierPrice
+                          })
+        send_custom_email(producerUser.email, 'Enciklopedija vina rezervacija', 'rezervacijaObilazakObavestenje.html',
+                          {
+                              'date': date,
+                              'email': email,
+                              'additionalText': similarReservExists,
                               'winery': producer.imefirme,
                               'address': address,
                               'packageName': visitOption.naziv,
@@ -148,6 +188,7 @@ def reservationVisitDone(request):
         newTerm = Termin()
         newTerm.vreme = date
         newTerm.idponuda = visitPonudaProstor
+        newTerm.brojljudi = numPeople
         newTerm.save()
         # new element in Rezervacija
         newRes = Rezervacija()
@@ -155,7 +196,8 @@ def reservationVisitDone(request):
         newRes.idkorisnik = request.user
         newRes.save()
     context = {
-        'text': 'Čestitamo na uspešnoj rezervaciji obilaska vinarije!'
+        'text': 'Čestitamo na uspešnoj rezervaciji obilaska vinarije!',
+        'email': email
     }
     return render(request, 'potvrdaKupovine.html', context)
 

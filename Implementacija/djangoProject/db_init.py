@@ -32,20 +32,20 @@ def init():
     p1 = Proizvodjac.objects.create_user(password="Vinarijakis123", imefirme="Vinarija Kis", registarskibroj=1234,
                                          brtelefona="+381645565656", adresa="Bulevar Oslobodjenja 67, Novi Sad",
                                          opis="Mala porodicna vinarija puna ljubavi",
-                                         javnoime="Vinarija Kis", email="vinarijaKis@gmail.com", logo="images/1234.jpg")
+                                         javnoime="Vinarija Kis", email="bojana0507@hotmail.com", logo="images/1234.jpg")
 
     producerGroup.user_set.add(p1)
     p2 = Proizvodjac.objects.create_user(password="Vinarijabogdan123", imefirme="Vinarija Zvonko Bogdan",
                                          registarskibroj=1237,
                                          brtelefona="+381645565690", adresa="Palicko jezero",
                                          opis="Dodjite da pijemo zajedno i veselimo se!",
-                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan@gmail.com", logo="images/1237.png")
+                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan111@gmail.com", logo="images/1237.png")
     producerGroup.user_set.add(p2)
 
     p3 = Proizvodjac.objects.create_user(password="Novasansa123", imefirme="Vinarija Nova Sansa", registarskibroj=1277,
                                          brtelefona="+381645589690", adresa="Kragujevac",
                                          opis="Porodicna vinarija",
-                                         javnoime="Nova Sansa", email="novaSansa@gmail.com", logo='images/1277.png')
+                                         javnoime="Nova Sansa", email="novaSansa111@gmail.com", logo='images/1277.png')
     producerGroup.user_set.add(p3)
     producers.append(p1)
     producers.append(p2)
@@ -64,7 +64,7 @@ def init():
                                    brtelefona="+3878887877", adresa="Despotovac",
                                    javnoime="Bojana Malesevic",
                                    datumrodjenja=datetime.datetime(year=2001, month=7, day=5),
-                                   email="bojanamalesevic@gmail.com")
+                                   email="malesevic.bojana0507@gmail.com")
     buyersGroup.user_set.add(b2)
 
     b3 = Kupac.objects.create_user(password="Aleksa1234", first_name="Aleksa", last_name="Boricic",
@@ -120,15 +120,12 @@ def init():
     [x.save() for x in tags]
 
     tourOffers = []
-    tourTime = []
 
     for i in range(3, 9):
         tmp = Ponudaprostor(idponuda=offers[i])
         tourOffers.append(tmp)
-        tourTime.append(Termin(idponuda=tmp, vreme=date.today() + datetime.timedelta(days=random.randint(1, 365))))
 
     [x.save() for x in tourOffers]
-    [x.save() for x in tourTime]
 
     tours = []
     sommeliers = []
@@ -146,7 +143,7 @@ def init():
             sommeliers.append(tmpSom)
 
     descriptions = [
-        'Kapije naše vinarije širom su otvorene za sve posetioce i ljubitelje koji žele da dožive čari nastanka vina i u prelepom ambijentu uživaju u degustaciji vina koja nose pečat Palićkog vinogorja.',
+        'Doživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja.',
         'Naši obilasci obuhvataju staze i predele, kulturu i običaje, vino i gastronomiju. Iskustvo generacija vinara na ovom područiju približiće vam filozofiju i umetnost u stvaranju karaktera vina.',
         'Obilaskom naše vinarije približićemo Vam razvojni put naše vinarije, Fruškogorske vinske regije i dočaraćemo vam magiju proizvodnje naših vina. Dođite da uživamo zajedno i ponesite sa sobom lepe uspomene.']
     typeOfTour = []
@@ -169,6 +166,32 @@ def init():
         j += 1
 
     [x.save() for x in spaces]
+
+    tourOffers = []
+    tourTime = []
+
+    for i in range(len(tours)):
+        for j in range(random.randint(1, 3)):
+            tourTime.append(Termin(idponuda=tours[i].idponuda,
+                                   vreme=date.today() + datetime.timedelta(days=random.randint(1, 365)),
+                                   brojljudi=random.randint(1, 20)))
+
+    for i in range(len(spaces)):
+        for j in range(random.randint(1,3)):
+            tourTime.append(Termin(idponuda=spaces[i].idponuda,
+                            vreme=date.today() + datetime.timedelta(days=random.randint(1, 365)),
+                            brojljudi=random.randint(1, spaces[i].kapacitet)))
+
+    [x.save() for x in tourOffers]
+    [x.save() for x in tourTime]
+
+    reservations = []
+
+    for i in range(len(tourTime)):
+        reservations.append(Rezervacija(idtermin=tourTime[i], idkorisnik=buyers[random.randint(0, len(buyers)-1)]))
+
+    [r.save() for r in reservations]
+
 
     subscriptionType = [Pretplata(naslov="GODIŠNJI PAKET", cena=1000,
                                   opis='Proizvodi vinarije su istaknuti na početnoj stranici.Naplata na svakih godinu dana do otkazivanja.'),
