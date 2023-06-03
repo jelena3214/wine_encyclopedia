@@ -14,7 +14,7 @@
                             <div class="col-sm-4">
 	                            <div class="form-group">
 	                	            <label for="tourName">Naziv vrste obilaska</label>
-	                                <input required name="tourName" type="text" class="form-control" placeholder="Unesite vrstu obilaska">
+	                                <input required name="tourName" type="text" class="form-control" placeholder="Unesite vrstu obilaska" oninvalid="this.setCustomValidity('Unesite ime obilaska')">
 	                            </div>
 	                        </div>
                         </div>
@@ -22,7 +22,7 @@
                             <div class="col-sm-3">
 	                            <div class="form-group">
 	                	            <label for="tourPrice">Cena obilaska</label>
-	                                <input required name="tourPrice" type="number" class="form-control" placeholder="Unesite cenu obilaska">
+	                                <input min="0" required name="tourPrice" type="number" class="form-control" placeholder="Unesite cenu obilaska" oninput="this.value = this.value.replace(/^0+/, '')">
 	                            </div>
 	                        </div>
                             <div class="col-sm-1">
@@ -100,7 +100,7 @@
                              <div class="col-sm-4">
 	                            <div class="form-group">
                                     <label for="sommelierDescription">Biografija somelijera</label>
-                                    <textarea required name="sommelierDescription" type="number" class="form-control" placeholder="Kratka biografija somelijera"></textarea>
+                                    <textarea required name="sommelierDescription"  class="form-control" placeholder="Kratka biografija somelijera"></textarea>
                                 </div>
 	                        </div>
                         </div>
@@ -148,7 +148,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="sommelierPrice">Cena angazovanja somelijera</label>
-                        <input required name="sommelierPrice" type="number" class="form-control" placeholder="Unesite cenu angazovanja somelijera">
+                        <input required min="0" name="sommelierPrice" type="number" class="form-control" placeholder="Unesite cenu angazovanja somelijera" oninput="this.value = this.value.replace(/^0+/, '')">
                     </div>
                 </div>
                 <div class="col-sm-1">
@@ -156,9 +156,9 @@
                 </div>
            </div>
             <div class="row text-center form-group justify-content-center">
-                <div class="col-sm-3 text-center">
-                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%">
-                </div>
+{#                <div class="col-sm-3 text-center">#}
+{#                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%">#}
+{#                </div>#}
             </div>
             <div class="row text-center form-group justify-content-center">
                 <div class="col-sm-3 text-center">
@@ -172,5 +172,4 @@
 <script src="../../static/js/unosObilaska.js">
 
 </script>
-
 {% endblock %}

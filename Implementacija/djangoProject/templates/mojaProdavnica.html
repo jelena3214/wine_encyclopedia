@@ -21,11 +21,34 @@
 
 
     <div class="container">
+        <div class="row justify-content-center">
+             <h4>Slike ambijenta: </h4>
+        </div>
         <div class="row justify-content-center" style="margin-top: 10px">
                 {% for picture in pictures %}
-                <div class="card" style="width: 33%;">
-                    <img class="card-img-top" src="../../media/{{ picture.slika }}" style="max-width: 100%;max-height: 250px" alt="Card image cap">
+{#                <div class="card" style="width: 33%;">#}
+{#                    <img class="card-img-top" src="../../media/{{ picture.slika }}" style="max-width: 100%;max-height: 250px" alt="Card image cap">#}
+{#                </div>#}
+                    <div class="col-md-4 d-flex">
+                <div class="product ftco-animate">
+                    <div class="img d-flex align-items-center justify-content-center"
+                         style="background-image: url('{% static '' %}{{ picture.slika }}') ">
+                        <div class="desc">
+                            <p class="meta-prod d-flex">
+                                <a href="{% url 'removeTourPicture'  picture.idslika %}"
+                                   class="d-flex align-items-center justify-content-center" style="color: white;"><span
+                                        class=""></span>X</a>
+                            </p>
+                        </div>
+                    </div>
+{#                    <div class="text text-center">#}
+{#                        <span class="category"#}
+{#                              style="text-transform: capitalize">{{ vino.0.naziv }}</span>#}
+{#                        <h2>{{ vino.0.naziv }}</h2>#}
+{#                        <p class="mb-0"><span class="price">{{ vino.0.cena }}.00 RSD</span>#}
+{#                    </div>#}
                 </div>
+            </div>
             {% endfor %}
         </div>
 
@@ -70,11 +93,13 @@
                     {% for obilazak in resrved_tours %}
                     <div class="card row" style="width: 28rem; margin: 2px">
                         <div class="card-body">
-                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+                            <div class="text-right" style="height: 5px">  <a href= "{% url 'removeReservation' obilazak.0.idtermin %}" class="btn">X</a></div>
 
-                            <h5 class="card-title"> Termin Obilaska
+                            <h5 class="card-title"> Rezervacija: {{ obilazak.0.vreme }}
                             </h5>
-                            <p class="card-text">Vreme obilaska {{ obilazak.vreme }}</p>
+                            <p class="card-text">Rezervisao : {{ obilazak.1.idkorisnik }}
+                                <br>Kolicina ljudi : {{ obilazak.0.brojljudi }}
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
@@ -92,13 +117,13 @@
                     {% for proslava in celebrations %}
                       <div class="card  row" style="width: 28rem; margin: 2px">
                         <div class="card-body">
-                            <div class="text-right" style="height: 5px">  <a href= "removeAd{{ obilazak.id }}" class="btn">X</a></div>
+                            <div class="text-right" style="height: 5px">  <a href= "{% url 'removeReservation' proslava.0.idtermin %}" class="btn">X</a></div>
 
-                            <h5 class="card-title"> Proslava - Cena po osobi {{proslava.cenapoosobi}}(RSD)
+                            <h5 class="card-title">Rezervacija : {{ proslava.0.vreme }}
                             </h5>
-                            <p class="card-text">{{ proslava.opisproslave }}
-                                <br> Kapacitet : {{ proslava.kapacitet }}
-
+                            <p class="card-text">
+                                Rezervisao : {{ proslava.1.idkorisnik }}
+                                <br> Kolicina ljudi : {{ proslava.0.brojljudi }}
                             </p>
                         </div>
                     </div>
@@ -106,7 +131,6 @@
             </div>
     </div>
     </div>
-
 {% endblock %}
 
 
