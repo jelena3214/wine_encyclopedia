@@ -31,12 +31,12 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar"
-     style="width: 100% !important; padding: 0 !important; border: 0 !important;">
+     style="width: 100% !important; padding: 0 !important; border: 0 !important; vertical-align: center">
     <div class="container justify-content-center"
          style="width: 100% !important; padding: 0 !important; border: 0 !important;">
         <div class="row justify-content-center"
              style="width: 100% !important; padding: 0 !important; border: 0 !important;">
-            <div class="col-md-3 col-lg-3 col-sm-12" style="padding-top: 10px;">
+            <div class="col-md-3 col-lg-3 col-sm-12">
                 <a class="navbar-brand" href="/">Enciklopedija <span>vina</span></a>
             </div>
             <div class="{% if user.groups.all.0.name == 'Kupci' %}col-md-8 col-lg-8{% else %}col-md-8 col-lg-8{% endif %}col-sm-12 justify-content-sm-start justify-content-md-around justify-content-lg-end justify-content-start"
@@ -85,9 +85,8 @@
                 </div>
             </div>
             {% if user.groups.all.0.name == "Kupci" %}
-                <div class="col-sm-12 col-md-1 col-lg-1 justify-content-sm-start justify-content-md-around justify-content-lg-end justify-content-start"
-                     style="padding-top: 15px;display: flex">
-                    <div class="btn-group">
+                <div class="col-sm-12 col-md-1 col-lg-1 justify-content-sm-start justify-content-md-around justify-content-lg-end justify-content-start" style="display: flex">
+                    <div class="btn-group" style="padding-top: 8px">
                         <a href="/shopping/shoppingCart" class="btn-cart" aria-haspopup="true" aria-expanded="false">
                             <span class="flaticon-shopping-bag"></span>
                         </a>
