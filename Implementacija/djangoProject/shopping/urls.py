@@ -12,5 +12,8 @@ urlpatterns = [
     path('reservationCelebrationDone', views.reservationCelebrationDone, name='reservationCelebrationDone'),
     path('reservationVisitDone', views.reservationVisitDone, name='reservationVisitDone'),
     path('mejlProba', views.mejlProba, name='mejlProba'),
-    path('questionnaire', views.questionnaire, name='questionnaire')
+    path('questionnaire', views.questionnaire, name='questionnaire'),
+    path('questionnaireQ', views.questionnaireQ, name='questionnaireQ'),
+    path('questionnaireRes', views.questionnaireRes, name='questionnaireRes'),
+    path('questionnaireHist', views.questionnaireHist, name='questionnaireHist')
 ]

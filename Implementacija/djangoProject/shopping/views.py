@@ -219,4 +219,61 @@ def changeQuantity(request):
 
 
 def questionnaire(request):
-    return render(request, "upitnikPocetnaStrana.html")
+    return render(request, 'upitnikPocetnaStrana.html')
+
+
+def questionnaireQ(request):
+    questions = []
+    questionsBase = Upitnikpitanje.objects.all()
+    for qi in range(len(questionsBase)):
+        answersBase = Upitnikodgovor.objects.filter(idpitanje=questionsBase[qi])
+        answers = []
+        for qa in range(len(answersBase)):
+            answers.append((qa+1, answersBase[qa]))
+        questions.append((qi+1, questionsBase[qi].tekst, answers))
+
+    context = {
+        'questions' : questions
+    }
+    return render(request, 'upitnikPitanja.html', context)
+
+
+def questionnaireRes(request):
+    if request.method == "POST":
+        tagCount = {}
+        for qi in range(len(Upitnikpitanje.objects.all())):
+            tagName = request.POST.get('question' + str(qi+1))
+            if tagName in tagCount:
+                tagCount[tagName] += 1
+            else:
+                tagCount[tagName] = 1
+
+        maxCount = max(tagCount.values())
+        for tagName, count in tagCount.items():
+            if count == maxCount:
+                maxTagName = tagName
+                break
+
+        tagsBase = Tag.objects.filter(tag=maxTagName)
+        res = Rezultatupitnika()
+        res.idtag = tagsBase[0]
+        res.idkorisnik = request.user
+        res.save()
+
+        context = {
+            'tag': maxTagName,
+            'num': len(tagsBase)
+        }
+        return render(request, 'upitnikRes.html', context)
+    return redirect('/shopping/questionnaire')
+
+
+def questionnaireHist(request):
+    results = Rezultatupitnika.objects.filter(idkorisnik=request.user)
+    tags = []
+    for res in results:
+        tags.append(res.idtag.tag)
+    context = {
+        'tags': tags
+    }
+    return render(request, 'upitnikIstorijaRes.html', context)

@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block title %} Upitnik {% endblock %}
+
+{% block content %}
+
+<section class="ftco-section" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-lg-7 col-md-6 mt-5 cart-wrap ftco-animate">
+                <div class="cart-payment mb-3">
+                    <div class="questionnaire-text align-items-center">
+                        <form action="/shopping/questionnaireRes" method="post">
+                            {% csrf_token %}
+                            {% for index, question, answers in questions %}
+                                <div class="form-group">
+                                    <label for="question{{ index }}">
+                                        <h6>{{ index }}. {{ question }}</h6>
+                                    </label>
+                                    {% for indexA, answer in answers %}
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="question{{ index }}" value="{{ answer.idtag.tag }}">
+                                                {{ indexA }}. {{ answer.odgovor }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label for="question1"><h6>1. Koja Vam je omiljena vrsta čokolade?</h6></label>-->
+<!--                                    <div class="radio">-->
+<!--                                        <label><input type="radio" name="question1" value="1"> Hladna kokosova voda</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="radio">-->
+<!--                                        <label><input type="radio" name="question1" value="2"> Sveže ceđeni sok</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="radio">-->
+<!--                                        <label><input type="radio" name="question1" value="3"> Voćni šejk</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

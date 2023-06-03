@@ -112,6 +112,7 @@ class Termin(models.Model):
     idtermin = models.AutoField(db_column='idTermin', primary_key=True)
     vreme = models.DateField(blank=True, null=True)
     idponuda = models.ForeignKey(Ponudaprostor, models.CASCADE, db_column='idPonuda')
+    brojljudigi = models.IntegerField(db_column='brojLjudi', blank=True, null=True)
 
     class Meta:
         db_table = 'termin'
@@ -136,7 +137,7 @@ class Tag(models.Model):
 
 
 class Rezultatupitnika(models.Model):
-    idkorisnik = models.OneToOneField(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
+    idkorisnik = models.ForeignKey(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
     idtag = models.ForeignKey(Tag, models.CASCADE, db_column='idTag', null=False)
 
     class Meta:
