@@ -216,3 +216,7 @@ def changeQuantity(request):
         item.kolicina = int(newQuantity)
         item.save(update_fields=['kolicina'])
         return JsonResponse({'result': 'Success'})
+
+
+def questionnaire(request):
+    return render(request, "upitnikPocetnaStrana.html")

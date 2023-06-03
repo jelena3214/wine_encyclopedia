@@ -5,7 +5,7 @@ $(document).ready(function () {
         let quantity = parseInt($('#quantity').val());
         console.log(quantity)
         let max = parseInt($('#quantity').attr('max'));
-        if (document.URL.match("celebration")) {
+        if (document.URL.match("celebration") || document.URL.match("detour")) {
             if (quantity > max)
                 $('#quantity').val(max);
             else if (quantity < 1 || $('#quantity').val() === '')
@@ -22,7 +22,7 @@ $(document).ready(function () {
         let newQuantity = quantity + 1;
         let max = parseInt($('#quantity').attr('max'));
 
-        if (document.URL.match("celebration")) {
+        if (document.URL.match("celebration")  || document.URL.match("detour")) {
             if (quantity > max)
                 $('#quantity').val(max);
             else if (quantity < max)
