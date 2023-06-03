@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block title %} Upitnik {% endblock %}
+
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-lg-7 col-md-6 mt-5 cart-wrap ftco-animate">
+                <div class="cart-payment mb-3">
+                    <h3 class="cart-payment-text">Koja vrsta vina je idealna za Vas?</h3>
+                    <div class="questionnaire-text align-items-center">
+                        Ukoliko ste početnik u svetu vina i potrebna Vam je pomoć pri odabiru, došli ste na pravo mesto! <br>
+                        Odgovorom na pažljivo odabrana pitanja u našem upitniku dobićete listu vina koja najbolje odgovaraju Vašem ukusu.<br>
+                        <a href="#" class="btn btn-primary m-3" style="width:100%">Započnite upitnik!</a>
+                        Već ste popunili upitnik?
+                        <a href="#">Pogledajte Vaše rezultate!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
