@@ -143,7 +143,6 @@ class Rezultatupitnika(models.Model):
 
     class Meta:
         db_table = 'rezultatupitnika'
-        unique_together = (('idkorisnik', 'idtag'),)
 
 
 class Slika(models.Model):
