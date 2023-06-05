@@ -28,7 +28,7 @@ urlpatterns = [
     path('user/', include("userApp.urls")),
     path('views/', include("views.urls")),
     path('', views.home, name="home"),
-    path('user/add/', include("Aleksa.urls")),
+    path('user/add/', include("producerApp.urls")),
     path('shopping/', include("shopping.urls")),
 ]
 

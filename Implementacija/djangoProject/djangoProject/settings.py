@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'baza.apps.BazaConfig',
     'userApp.apps.UserappConfig',
     'views.apps.ViewsConfig',
-    'Aleksa.apps.AleksaConfig'
+    'producerApp.apps.AleksaConfig'
 ]
 
 MIDDLEWARE = [
