@@ -1,3 +1,8 @@
+/* Author: Jovana Mitic 2020/0315
+  styling of the stars used in leaving the reviews and carousel used in displaying of single celebration
+  as well as some buttons
+*/
+
 .toRate{
   transform: rotateY(180deg);
 }

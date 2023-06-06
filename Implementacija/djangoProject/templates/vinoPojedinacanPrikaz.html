@@ -1,3 +1,8 @@
+<!--
+    Author: Jovana Mitic 2020/0315
+    Html page for displaying certain wine and leaving reviews
+-->
+
 {% extends "template.html" %}
 {% load static %}
 {% block title %}
@@ -50,7 +55,8 @@
                             </div>
                         </div>
                         <button id="addWineButton" class="btn btn-primary px-5 mr-2 pb-3" data-item-id="{{ vino.id }}">Dodaj u korpu</button>
-                        <p class="py-2" alert-dismissible" id="confirmationText" style="display: none; color: #b04023;">Uspešno ste dodali artikl u korpu.</p>
+                        <p class="py-2" alert-dismissible id="confirmationText" style="display: none; color: #b04023;">
+                        Uspešno ste dodali artikl u korpu.</p>
                     {% endif %}
                 </div>
             </div>
