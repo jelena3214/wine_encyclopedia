@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 
 """
+    Author: Jelena Cvetic 2020/0305
     Custom user manager for user login verification, creating new users and superusers.
 """
 

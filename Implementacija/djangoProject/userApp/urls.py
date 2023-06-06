@@ -1,7 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
-
+from django.urls import path
 from userApp import views
+
+"""
+    Author: Jelena Cvetic 2020/0305
+    Defined urls for this part of the application.
+"""
 
 urlpatterns = [
     path('', views.loginUser, name='loginUser'),
@@ -12,5 +15,4 @@ urlpatterns = [
     path('resetPassword', views.resetPassword, name='resetPassword'),
     path('changeInfoUser', views.changeInfoUser, name='changeInfoUser'),
     path('userExists/<str:email>/', views.userExists, name='userExists'),
-
 ]

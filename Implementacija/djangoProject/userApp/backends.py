@@ -2,13 +2,14 @@ from django.contrib.auth.backends import ModelBackend
 from baza.models import *
 
 """
+    Author: Jelena Cvetic 2020/0305
     Custom authentication model using email as primary key.
 """
+
 
 class EmailBackend(ModelBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
         try:
-            print(email)
             user = Korisnik.objects.get(email=email)
         except Korisnik.DoesNotExist:
             return None

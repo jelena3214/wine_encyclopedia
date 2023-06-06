@@ -1,10 +1,13 @@
 import datetime
 import random
-from datetime import date, timedelta
-
+from datetime import date
 from django.contrib.auth.models import Group
-
 from baza.models import *
+
+"""
+    Author: Jelena Cvetic 2020/0305
+    Python script for database population.
+"""
 
 
 def random_datetime_future():
@@ -32,14 +35,16 @@ def init():
     p1 = Proizvodjac.objects.create_user(password="Vinarijakis123", imefirme="Vinarija Kis", registarskibroj=1234,
                                          brtelefona="+381645565656", adresa="Bulevar Oslobodjenja 67, Novi Sad",
                                          opis="Mala porodicna vinarija puna ljubavi",
-                                         javnoime="Vinarija Kis", email="bojana0507@hotmail.com", logo="images/1234.jpg")
+                                         javnoime="Vinarija Kis", email="bojana0507@hotmail.com",
+                                         logo="images/1234.jpg")
 
     producerGroup.user_set.add(p1)
     p2 = Proizvodjac.objects.create_user(password="Vinarijabogdan123", imefirme="Vinarija Zvonko Bogdan",
                                          registarskibroj=1237,
                                          brtelefona="+381645565690", adresa="Palicko jezero",
                                          opis="Dodjite da pijemo zajedno i veselimo se!",
-                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan111@gmail.com", logo="images/1237.png")
+                                         javnoime="Zvonko Bogdan", email="zvonkoBogdan111@gmail.com",
+                                         logo="images/1237.png")
     producerGroup.user_set.add(p2)
 
     p3 = Proizvodjac.objects.create_user(password="Novasansa123", imefirme="Vinarija Nova Sansa", registarskibroj=1277,
@@ -96,7 +101,8 @@ def init():
         else:
             tmpOff = Ponuda(idkorisnik=p3)
         tmpOff.save()
-        offersPhoto.append(Slika(idponuda=tmpOff, slika='images/' + tmpOff.idkorisnik.javnoime + str(tmpOff.idponuda) + ".jpg"))
+        offersPhoto.append(
+            Slika(idponuda=tmpOff, slika='images/' + tmpOff.idkorisnik.javnoime + str(tmpOff.idponuda) + ".jpg"))
         offers.append(tmpOff)
 
     [x.save() for x in offersPhoto]
@@ -177,10 +183,10 @@ def init():
                                    brojljudi=random.randint(1, 20)))
 
     for i in range(len(spaces)):
-        for j in range(random.randint(1,3)):
+        for j in range(random.randint(1, 3)):
             tourTime.append(Termin(idponuda=spaces[i].idponuda,
-                            vreme=date.today() + datetime.timedelta(days=random.randint(1, 365)),
-                            brojljudi=random.randint(1, spaces[i].kapacitet)))
+                                   vreme=date.today() + datetime.timedelta(days=random.randint(1, 365)),
+                                   brojljudi=random.randint(1, spaces[i].kapacitet)))
 
     [x.save() for x in tourOffers]
     [x.save() for x in tourTime]
@@ -188,10 +194,9 @@ def init():
     reservations = []
 
     for i in range(len(tourTime)):
-        reservations.append(Rezervacija(idtermin=tourTime[i], idkorisnik=buyers[random.randint(0, len(buyers)-1)]))
+        reservations.append(Rezervacija(idtermin=tourTime[i], idkorisnik=buyers[random.randint(0, len(buyers) - 1)]))
 
     [r.save() for r in reservations]
-
 
     subscriptionType = [Pretplata(naslov="GODIŠNJI PAKET", cena=1000,
                                   opis='Proizvodi vinarije su istaknuti na početnoj stranici.Naplata na svakih godinu dana do otkazivanja.'),

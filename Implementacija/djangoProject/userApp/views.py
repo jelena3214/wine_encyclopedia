@@ -1,4 +1,3 @@
-import email
 import os
 import random
 import string
@@ -14,7 +13,14 @@ from django.contrib import messages
 from baza.models import *
 from .decorators import *
 
+"""
+    Author: Jelena Cvetic 2020/0305
+    Methods for registration, logging in, changing user information, changing winery information, 
+        getting new password, logging out. All the methods are passed a request, and produce html response.
+"""
 
+
+# Function for registering users on the site
 def registerUser(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -42,6 +48,7 @@ def registerUser(request):
     return render(request, 'registracijaKupac.html')
 
 
+# Function for registering producers on the site
 def registerProducer(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -76,8 +83,12 @@ def registerProducer(request):
     return render(request, 'registracijaProizvodjac.html')
 
 
-# User that is already logged in can't go to login page again.
-# User has to log out first.
+"""
+    Function for logging in.
+    User that is already logged in can't go to login page again. User has to log out first.
+"""
+
+
 @notLoggedIn()
 def loginUser(request):
     if request.method == "POST":
@@ -86,19 +97,20 @@ def loginUser(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            print(request.session)
             return redirect("home")
         else:
             messages.error(request, message="Pogresna lozinka ili email adresa")
     return render(request, "login.html")
 
 
+# Function for logging out, only logged-in users can access it.
 @login_required(login_url='/user')
 def logoutUser(request):
     logout(request)
     return redirect("home")
 
 
+# Function for changing winery information
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def changeCompanyStuff(request):
@@ -137,6 +149,7 @@ def changeCompanyStuff(request):
         return render(request, "promenaInformacijaVinarije.html", context)
 
 
+# Function for changing user information
 @login_required(login_url='/user')
 def changeInfoUser(request):
     if request.method == "POST":
@@ -189,6 +202,7 @@ def changeInfoUser(request):
         return render(request, 'promenaInformacijaKorisnika.html', context)
 
 
+# Function for generating new password when user forgets it
 def generate_random_password():
     length = 8
     characters = string.ascii_letters + string.digits + string.punctuation
@@ -200,11 +214,13 @@ def generate_random_password():
             return password
 
 
+# Function for sending email to user with new password
 def send_custom_email(email, subject, template_name, context):
     html_message = render_to_string('emails/' + template_name, context)
     send_mail(subject, '', 'enciklopedijavina@gmail.com', [email], html_message=html_message)
 
 
+# Function for getting new password
 def resetPassword(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -222,6 +238,7 @@ def resetPassword(request):
     return render(request, 'resetovanjeLozinke.html')
 
 
+# Checking if user exists
 def userExists(request, email):
     try:
         Korisnik.objects.get(email=email)

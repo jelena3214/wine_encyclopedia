@@ -2,6 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from userApp.manager import KorisnikManager
 
+"""
+    Authors: 4Desperados
+    Defining django models for database.
+"""
 
 class Korisnik(AbstractUser):
     username = None

@@ -1,3 +1,8 @@
+/*
+    Author: Jelena Cvetic 2020/0305
+    Script for checking if user is not underage for registration on our site.
+ */
+
 if (window.location.href === "http://127.0.0.1:8000/user/registerUser") {
     document.querySelector('#userRegistration').addEventListener('submit', function (event) {
         event.preventDefault();

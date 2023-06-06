@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import user_passes_test
 
+"""
+    Author: Jelena Cvetic 2020/0305
+    Custom function decorators for checking if user is in the specific group and if user is not registered.
+"""
 
-# Checks if user is in specific group
+
 def group_required(*group_names):
     def in_groups(user):
         if bool(user.groups.filter(name__in=group_names)) | user.is_superuser:

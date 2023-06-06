@@ -1,3 +1,8 @@
+/*
+    Author: 4Desperados
+    Script for managing loading, resizing, carousel, dropdown animations and popups.
+ */
+
 (function ($) {
 
     "use strict";
@@ -223,6 +228,11 @@
 
 })(jQuery);
 
+/*
+    Author: Jelena Cvetic 2020/0305
+    Script for checking if user is registered on the site with the email that is provided in email field for getting new password
+ */
+
 if (window.location.href === "http://127.0.0.1:8000/user/resetPassword") {
     document.addEventListener('DOMContentLoaded', function () {
         let submitButton = document.getElementById('resetBtn');
@@ -248,6 +258,10 @@ if (window.location.href === "http://127.0.0.1:8000/user/resetPassword") {
     });
 }
 
+/*
+    Author: Jelena Cvetic 2020/0305
+    Function for toggling eye icon in password field
+ */
 function togglePass(id) {
     let passwordInput = document.getElementById(id);
     if (passwordInput.type === 'password') {
