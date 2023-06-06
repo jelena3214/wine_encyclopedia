@@ -1,3 +1,8 @@
+"""
+    Author: Aleksa Boricic 2020/0294
+    Includes the paths for the producerApp
+"""
+
 from django.contrib import admin
 from django.urls import path, include
 

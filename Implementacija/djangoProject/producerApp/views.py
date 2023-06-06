@@ -1,6 +1,12 @@
+"""
+    Author: Aleksa Boricic 2020/0294
+    Functions for inputting celebrations,tours and wine.
+    Includes functions that are used for ad-subscription handling.
+"""
+
+
 import datetime
 from xmlrpc.client import DateTime
-
 from django.contrib.auth.decorators import *
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -8,8 +14,7 @@ from django.contrib.auth.decorators import login_required
 from userApp.decorators import group_required
 from baza.models import *
 
-# from project_FourDesperados.Implementacija.djangoProject.baza.models import *
-#
+# Used to input wine
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def viewWine(request : HttpRequest):
@@ -17,12 +22,12 @@ def viewWine(request : HttpRequest):
     if request.method == "POST":
         print(request.POST)
 
-        # kreiranje ponude
+        # creating an offer
         new_offer = Ponuda()
         new_offer.idkorisnik = request.user
         new_offer.save()
 
-        # unos vina
+        # creating wine
         new_wine = Vino()
         new_wine.naziv = request.POST['wineName']
         new_wine.cena = request.POST['price']
@@ -31,7 +36,7 @@ def viewWine(request : HttpRequest):
         new_wine.idponuda = new_offer
         new_wine.save()
 
-        #kreiranje slika
+        # creating a picture
         new_picture = Slika()
         new_picture.slika = request.FILES["winePicture"]
         new_picture.idponuda = new_offer
@@ -54,13 +59,13 @@ def viewWine(request : HttpRequest):
         return render(request, "modalMesesage.html", context)
     return render(request,"unosVina.html")
 
-
+# Load the tour input page
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def inputTour(request : HttpRequest):
     return unosObilaskaExit(request)
 
-
+# Function to input a tour type to the producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def addTourType(request):
@@ -82,6 +87,7 @@ def addTourType(request):
 
     return unosObilaskaExit(request)
 
+# Function used to add a picture to the producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def inputTourPicture(request):
@@ -101,7 +107,7 @@ def inputTourPicture(request):
     }
     return render(request, "unosObilaska.html", context)
 
-
+# Function used to remove a picture from a producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def removeTourPicture(request, picture_id):
@@ -113,7 +119,7 @@ def removeTourPicture(request, picture_id):
     return redirect('myStore')
 
 
-
+# Function used to input a celebration for the producer
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def inputCelebration(request):
@@ -138,7 +144,7 @@ def inputCelebration(request):
 
     return render(request,"unosProslave.html")
 
-
+# Function that creates a celebration object if the producer doesn't already have one
 def checkIfCelebrationExists(request: HttpRequest):
 
 
@@ -170,7 +176,7 @@ def checkIfCelebrationExists(request: HttpRequest):
         new_picture.save()
         new_celebration.save()
 
-
+# Function to save the producers tour details
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def setTourDetails(request: HttpRequest):
@@ -197,7 +203,7 @@ def setTourDetails(request: HttpRequest):
 
         print(request.POST)
     return unosObilaskaExit(request)
-
+# Function to add a sommelier to the producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def addSommelier(request : HttpRequest):
@@ -212,7 +218,7 @@ def addSommelier(request : HttpRequest):
         new_sommelier.save()
 
     return redirect('inputTour')
-
+# Function that creates a tour object for the producer if it doesn't already exist
 def checkIfTourExists(request : HttpRequest):
 
     tours = Obilazak.objects.filter(idponuda__idponuda__idkorisnik=request.user)
@@ -231,6 +237,7 @@ def checkIfTourExists(request : HttpRequest):
         new_tour.save()
         return new_tour
 
+# Function that renders the inputTour page
 def unosObilaskaExit(request : HttpRequest):
     tour = checkIfTourExists(request)
     tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
@@ -242,6 +249,7 @@ def unosObilaskaExit(request : HttpRequest):
     }
     return render(request, "unosObilaska.html", context)
 
+# Function that removes a tour type for the producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def removeTourType(request : HttpRequest, value):
@@ -251,6 +259,7 @@ def removeTourType(request : HttpRequest, value):
 
     return redirect("inputTour")
 
+# Function that removes a sommelier for the producers tour
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def removeSommelier(request: HttpRequest,value):
@@ -260,6 +269,7 @@ def removeSommelier(request: HttpRequest,value):
 
     return redirect('inputTour')
 
+# Function that renders the producers store.
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def myStore(request):
@@ -276,18 +286,12 @@ def myStore(request):
             tour_user = Rezervacija.objects.get(idtermin=reservation.idtermin)
             reserved_tours_tuple.append([reservation,tour_user])
 
-
-
     celebration = checkIfCelebrationExists(request)
     if celebration:
         celebrations = Termin.objects.filter(idponuda=celebration.idponuda)
         for reservation in celebrations:
             celebration_user = Rezervacija.objects.get(idtermin=reservation.idtermin)
             reserved_celebrations_tuple.append([reservation, celebration_user])
-
-
-
-
 
     wines = Vino.objects.filter(idponuda__idkorisnik=request.user)
 
@@ -305,6 +309,7 @@ def myStore(request):
     }
     return render(request, "mojaProdavnica.html", context)
 
+# Function that the producer uses to remove a reservation
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def removeReservation(request, reservation_id):
@@ -314,6 +319,8 @@ def removeReservation(request, reservation_id):
 
     return redirect("myStore")
 
+
+# Function that the producer calls to remove wine
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def removeWine(request,wine_id):
@@ -324,13 +331,14 @@ def removeWine(request,wine_id):
     return redirect("myStore")
 
 
-
+# Function to display ads
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def viewAds(request : HttpRequest):
 
     return adsExit(request)
 
+# Function that the producer calls to unsubscribe from an ad-package
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def unsubscribeAd(request: HttpRequest, ad_id):
@@ -343,6 +351,7 @@ def unsubscribeAd(request: HttpRequest, ad_id):
 
     return redirect('viewAds')
 
+# Function that the producer calls to subscribe to an ad-package
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def subscribeAd(request: HttpRequest, ad_id):
@@ -367,7 +376,7 @@ def subscribeAd(request: HttpRequest, ad_id):
     return redirect('viewAds')
 
 
-
+# Function that helps with rendering the ad page
 def adsExit(request):
     ads_not_subscribed_to = Pretplata.objects.exclude(pretplacen__idkorisnik=request.user)
     ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Aktivna')
