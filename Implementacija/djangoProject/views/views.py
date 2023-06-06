@@ -1,3 +1,11 @@
+"""
+    Jovana Mitić 2020/0315
+    In this file are all functions that are used for views of offers as well as function for home page
+    All the methods are passed a request, and produce html response.
+    All classes that are defined in this file are used for encapsulating data that is need in order to display
+    all offers
+"""
+
 from django.shortcuts import render, redirect
 from baza.models import *
 from random import choice, choices
@@ -10,7 +18,6 @@ class TempVino:
         self.slika = slika
         self.opis = opis
         self.id = id
-
 
 class TempRecenzija:
     def __init__(self, tekst, ocena, ime):
@@ -32,21 +39,27 @@ class TempProslava:
         self.id = id
 
 
-filtered = None
-sorted = None
-wnry = None
+filtered = None # global variable that is used to check if offers should be filtered
+sorted = None # global variable that is used to check if wines should be sorted
+wnry = None # global variable that is used to check if wines should be filtered by winery
 
 
+# function used to render page where all wines are displayed
+# this function is also responsible for filtering and sorting of wines, by users request
 def viewWines(request):
     global sorted, filtered, wnry
     sortToDisplay = None
+    # all wines
     wines = Vino.objects.all()
+    # all tags that exist in data base, by which wines can be filtered
     tags = list(Tag.objects.all().values('tag').distinct())
     wineries = Proizvodjac.objects.all()
     listOfWineries = []
+    # names of all wineries, by which wines can be filteres
     for winery in wineries:
         listOfWineries.append(winery.javnoime)
     listOfTags = []
+    # list in which only tags are stored
     for tag in tags:
         listOfTags.append(tag["tag"])
 
@@ -72,6 +85,7 @@ def viewWines(request):
             wnry = wineryFilter
             ids, offers = findWinesByWinery()
 
+        # filtering wines
         if filter:
             filtered = filter
             if len(offers) == 0:
@@ -109,6 +123,7 @@ def viewWines(request):
                 offers = list(queryset)
             else:
                 offers = list(queryset)
+        # sorting the wines, checking if they were already filtered
         if sort:
             sorted = sort
             if sort == 'Po ceni rastuce':
@@ -124,6 +139,8 @@ def viewWines(request):
                 else:
                     offers = list(Vino.objects.all().order_by('-cena'))
         forCnt = 0
+        # collecting all the necessary data for displaying the wines
+        # also packing wines in rows of three or less
         for wine in offers:
             pictures = Slika.objects.filter(idponuda=wine.idponuda_id)
             picture = pictures[0].slika
@@ -137,6 +154,7 @@ def viewWines(request):
             rowsOfWines.append(row)
 
     else:
+        # just displaying wines, no sorting or filtering
         filtered = None
         sorted = None
         wnry = None
@@ -171,6 +189,7 @@ def viewWines(request):
     return render(request, "pregledVina.html", context)
 
 
+# temporary function which filters wines by winery
 def findWinesByWinery():
     winery = Proizvodjac.objects.get(javnoime=wnry)
 
@@ -188,9 +207,13 @@ def findWinesByWinery():
     return ids, wines
 
 
+
+# displaying only one wine which was chosen by customer, value that is nest to request is id of wine which is chosen
+# in this function reviews are also displayed and left
 def wine(request, value):
     id = int(value[1:])
     if request.method == 'POST' and request.user.is_authenticated:
+        # leaving new review if user is logged in
         mark = request.POST.get('rate')
         user = request.user
         text = request.POST.get('recenzija')
@@ -229,7 +252,8 @@ def wine(request, value):
     }
     return render(request, "vinoPojedinacanPrikaz.html", context)
 
-
+# function used for displaying all tours that exist
+# the logic is same as logic used in functin viewWines
 def detour(request):
     offer = Ponuda.objects.all()
     tours = Obilazak.objects.all()
@@ -275,6 +299,9 @@ def detour(request):
     return render(request, "pregledObilazaka.html", context)
 
 
+# function used to display certain tour that customer wanted to see
+# value is name of the winery that offers the tour
+# logic used is same as the one in function wine
 def oneDetour(request, value):
     name = value[1:]
     users = Korisnik.objects.filter(javnoime=name)
@@ -307,6 +334,7 @@ def oneDetour(request, value):
     return render(request, "obilazakPojedinacanPrikaz.html", context)
 
 
+# temporary function that helps with packing celebrations in rows of three or less
 def makeList(list, n):
     offer = Ponuda.objects.all()
     forCnt = 0
@@ -327,6 +355,8 @@ def makeList(list, n):
     return rowsOfCelebrations
 
 
+# function used to display all celebrations
+# logic is same as the one used in functions detour and viewWines
 def celebration(request):
     celebrations = Proslava.objects.all()
     filteredCelebrations = []
@@ -359,6 +389,9 @@ def celebration(request):
     return render(request, "pregledProslava.html", context)
 
 
+# function used to display certain celebration that customer chose
+# value is name of the winery that offers celebration
+# logic is same as the one used in functions oneDetour and wine
 def oneCelebration(request, value):
     name = value[1:]
     users = Korisnik.objects.filter(javnoime=name)
@@ -393,6 +426,11 @@ def oneCelebration(request, value):
     return render(request, "proslavaPojedinacanPrikaz.html", context)
 
 
+# function used for displaying offers of wineries that have subscribed to one of the subscriptions that are available
+# for winery that is displayed, one is chosen form premium subcribers everytime that you open or refresh the page
+# for wines, if there is more, six wineries are chosen from the basic subscribers, and then random wine from their offer
+# is chosen to be displatyed
+# logic for showing wines is same as the logic used in functions viewWines, detour and celebration
 def home(request):
     subscribedBasicYearly = Pretplacen.objects.filter(idpretplata=1)
     subscribedBasicMonthly = Pretplacen.objects.filter(idpretplata=3)
