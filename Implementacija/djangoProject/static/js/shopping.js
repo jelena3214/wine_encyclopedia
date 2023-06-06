@@ -1,3 +1,9 @@
+/*
+    Author: Bojana Malesevic 2020/0235
+    Script for handling dynamic calculation of prices in cart view,
+    changing number of instances of items in cart, deleting cart items, purchasing cart items,(sends Ajax requests)
+    enforces made requests for reservations to have valid inputs.
+ */
 $(document).ready(function () {
 
     //updating the sumPrice of a single row in cart(a wine)
