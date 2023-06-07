@@ -1,0 +1,4 @@
+U fajlu pod nazivom classDiagramAndUserApp.mdj nalaze se klasi dijagram i dijagrami sekvence koji opisuju funkcionalnosti iz Django aplikazije userApp.
+U fajlu producerAdd.mdj nalaze se dijagrami sekvence koji opisuju funkcionalnosti iz Django aplikazije producerAdd.
+U fajlu shopping.mdj nalaze se dijagrami sekvence koji opisuju funkcionalnosti koje se tiču rada sa korpom.
+U fajlu viewsAndReservations.mdj nalaze se dijagrami skevence koji opisuju funkcionalnosti iz Django aplikazije views, kao i tok rezervacije i kupine vina.
