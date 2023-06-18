@@ -1,0 +1,976 @@
+{
+  "id": "01f60cdf-c958-4e91-a359-7138ede428a1",
+  "version": "2.0",
+  "name": "EnciklopedijaViewsTest",
+  "url": "http://127.0.0.1:8000",
+  "tests": [{
+    "id": "56ebd47b-36df-4615-a7f2-f7e29fb70a6d",
+    "name": "TestVina",
+    "commands": [{
+      "id": "fb505b1d-a671-45f5-b1b1-04e2ba6f64de",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "467e6710-d228-465d-a696-cda5cee97db6",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "763cbd20-07f9-4c34-898f-c7808d3b22e1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Vina",
+      "targets": [
+        ["linkText=Vina", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Vina')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/allwines')]", "xpath:href"],
+        ["xpath=//li[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Vina')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "582769fd-202c-4f9c-b910-48edf67b3fdc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-4:nth-child(1) .flaticon-visibility",
+      "targets": [
+        ["css=.col-md-4:nth-child(1) .flaticon-visibility", "css:finder"],
+        ["xpath=//p/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe378127-9c57-4b3d-bccd-cf7ef6648d9b",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.col-lg-6 > h3",
+      "targets": [
+        ["css=.col-lg-6 > h3", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Aalto')]", "xpath:innerText"]
+      ],
+      "value": "Aalto"
+    }]
+  }, {
+    "id": "73430e74-4852-47f0-8569-ddf436afc023",
+    "name": "TestVinaFilterTag",
+    "commands": [{
+      "id": "196f22f3-faf2-403c-b75c-ca7596d84a5b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1854991d-15e0-4a75-b551-3a2355a7ef24",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ef48f882-81a1-450a-8cba-d61d6109b556",
+      "comment": "",
+      "command": "click",
+      "target": "css=.slider-text",
+      "targets": [
+        ["css=.slider-text", "css:finder"],
+        ["xpath=//body/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "43a06f8f-5c92-4b07-b321-907cc28195e9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Vina",
+      "targets": [
+        ["linkText=Vina", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Vina')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/allwines')]", "xpath:href"],
+        ["xpath=//li[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Vina')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e35b4d3-d6e3-4705-a017-1c0bffdf0b21",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dropdown:nth-child(2) .filter-option-inner-inner",
+      "targets": [
+        ["css=.dropdown:nth-child(2) .filter-option-inner-inner", "css:finder"],
+        ["xpath=//button/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "90b7b10c-45ed-4f0e-830f-53b62df911d5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Belo",
+      "targets": [
+        ["linkText=Belo", "linkText"],
+        ["css=li:nth-child(2) > .dropdown-item", "css:finder"],
+        ["xpath=//form/div/div/div/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Belo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d410a567-86c0-48d0-858c-ca8ba0dbe6af",
+      "comment": "",
+      "command": "select",
+      "target": "id=filter",
+      "targets": [],
+      "value": "label=Belo"
+    }, {
+      "id": "46393c5a-404b-40d1-a0b7-3e1c51d92a91",
+      "comment": "",
+      "command": "click",
+      "target": "name=formButton",
+      "targets": [
+        ["name=formButton", "name"],
+        ["css=.btn:nth-child(3)", "css:finder"],
+        ["xpath=//button[@name='formButton']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filtriraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bab24f5e-83b3-4f64-84fb-34d166d0a208",
+      "comment": "",
+      "command": "click",
+      "target": "css=.flaticon-visibility",
+      "targets": [
+        ["css=.flaticon-visibility", "css:finder"],
+        ["xpath=//p/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf4da9fe-2f24-434e-9c19-0c76f4152d63",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Aalto')]", "xpath:innerText"]
+      ],
+      "value": "Aalto"
+    }, {
+      "id": "4cae1c31-8a9b-4461-b2e3-aecaa6af7c7b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Aalto')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "01f07759-1d9d-4f85-9f4a-ee333c3ad69d",
+    "name": "TestVinaFilterVinarija",
+    "commands": [{
+      "id": "2d44e627-42f6-4093-b0be-6cc58b11dd64",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "135c433f-9e70-4436-a102-c8f38dc9ce3f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b9905d75-7dbe-44ff-92c8-1aa0950fa13d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Vina",
+      "targets": [
+        ["linkText=Vina", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Vina')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/allwines')]", "xpath:href"],
+        ["xpath=//li[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Vina')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1d08bc5a-1a73-46a8-b17e-ff2a8b8652f0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dropdown:nth-child(6) .filter-option",
+      "targets": [
+        ["css=.dropdown:nth-child(6) .filter-option", "css:finder"],
+        ["xpath=//div[3]/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "311334c3-6af3-4087-b60e-7cd2a6c926fa",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,363.6363525390625)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7b08fa15-d365-4933-8cdf-0c5fc03fa053",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(2) .text",
+      "targets": [
+        ["css=li:nth-child(2) .text", "css:finder"],
+        ["xpath=//li[2]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "03ca4d09-a672-4d51-b94f-3c0dc916ff6b",
+      "comment": "",
+      "command": "select",
+      "target": "name=winery",
+      "targets": [],
+      "value": "label=Vinarija Kis"
+    }, {
+      "id": "526efb28-0769-465f-bb0e-4b6ab93cfcd7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(7)",
+      "targets": [
+        ["css=.btn:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@name='formButton'])[3]", "xpath:attributes"],
+        ["xpath=//button[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f8561c65-231e-4dd3-b1ba-ece916be2b97",
+      "comment": "",
+      "command": "click",
+      "target": "css=h2:nth-child(2)",
+      "targets": [
+        ["css=h2:nth-child(2)", "css:finder"],
+        ["xpath=//div[2]/h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Aalto')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4ee742a4-5c46-43d2-9d8e-10ab1a64732d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(2)",
+      "targets": [
+        ["css=.row:nth-child(2)", "css:finder"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5276874-18f6-4941-8cc7-a9cf5087c992",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.row:nth-child(2)",
+      "targets": [
+        ["css=.row:nth-child(2)", "css:finder"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "Aalto\\nAalto\\n1200.00 RSD"
+    }]
+  }, {
+    "id": "0000ecea-dfb6-4a47-bd9c-de35ec85cf57",
+    "name": "TestVinaSort",
+    "commands": [{
+      "id": "1c41c79a-a1ff-4353-a470-05c6469f63c8",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b567c6e6-58b6-48ef-a8e3-5eb54985a518",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d26d9496-ee77-41a1-b6ab-b0d55cd5b95e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Vina",
+      "targets": [
+        ["linkText=Vina", "linkText"],
+        ["css=.show > .dropdown-item:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'Vina')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/allwines')]", "xpath:href"],
+        ["xpath=//li[2]/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Vina')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1fe03ad1-8062-4101-9b41-482878c4d48b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.dropdown:nth-child(4) .filter-option-inner-inner",
+      "targets": [
+        ["css=.dropdown:nth-child(4) .filter-option-inner-inner", "css:finder"],
+        ["xpath=//div[2]/button/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e792e33-0353-41c6-b7f1-8a37cac10435",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(2) .text",
+      "targets": [
+        ["css=li:nth-child(2) .text", "css:finder"],
+        ["xpath=//li[2]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Po ceni opadajuce')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0b5d8da1-155c-43c7-bbd0-d02b5e33f851",
+      "comment": "",
+      "command": "select",
+      "target": "id=sort",
+      "targets": [],
+      "value": "label=Po ceni opadajuce"
+    }, {
+      "id": "e1685b55-fed8-4d5f-8a46-5513e1187795",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(5)",
+      "targets": [
+        ["css=.btn:nth-child(5)", "css:finder"],
+        ["xpath=(//button[@name='formButton'])[2]", "xpath:attributes"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Sortiraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "67b57f76-db7a-43d6-8caf-2ed1029527ef",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.col-md-4:nth-child(1) .mb-0",
+      "targets": [
+        ["css=.col-md-4:nth-child(1) .mb-0", "css:finder"],
+        ["xpath=//div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'1430.00 RSD')]", "xpath:innerText"]
+      ],
+      "value": "1430.00 RSD"
+    }, {
+      "id": "5b554ef7-c2ec-4ab1-aa9e-5572edf14ac6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-md-4:nth-child(1) .price",
+      "targets": [
+        ["css=.col-md-4:nth-child(1) .price", "css:finder"],
+        ["xpath=//p/span", "xpath:position"],
+        ["xpath=//span[contains(.,'1430.00 RSD')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "0cb1a7f1-141a-49e0-87bc-3e85ce664cb0",
+    "name": "TestObilaska",
+    "commands": [{
+      "id": "e5dbd125-82ec-4fc8-8d07-ca05abfcfbea",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dc28152c-0203-4d9b-a6b8-d6e77dcf4f4f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0738077c-350d-48df-8aba-41c33605f8f3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Obilasci",
+      "targets": [
+        ["linkText=Obilasci", "linkText"],
+        ["css=.dropdown-item:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Obilasci')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/detour')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Obilasci')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84926e82-b737-42d6-9dcd-de804cff9f90",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility",
+      "targets": [
+        ["css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility", "css:finder"],
+        ["xpath=//p/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "98220fbb-d8c0-42ac-b350-466b98f80139",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": "Vinarija Kis"
+    }, {
+      "id": "09e5d7a7-b70f-4f5a-b891-a7b2f8047716",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b33fb6fb-add3-49b0-a43f-3544e9f17c7f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": "Vinarija Kis obilazak 1668.00 RSD\\nDoživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja.\\nMarko\\nMoja biografija Marko\\nJovan\\nMoja biografija Jovan\\nDatum obilaska\\nRezerviši"
+    }]
+  }, {
+    "id": "e124cec1-b4e6-4dee-b4e7-5a2fbd4f0259",
+    "name": "TestObilaskaFilter",
+    "commands": [{
+      "id": "aecfd82c-ec78-4c9c-8389-47de52947602",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "257681da-c20c-4d42-aa6d-2f4e4de511f2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1503306e-33e3-441d-8755-f74cae864e23",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Obilasci",
+      "targets": [
+        ["linkText=Obilasci", "linkText"],
+        ["css=.dropdown-item:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Obilasci')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/detour')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Obilasci')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e3aa69ed-a5d4-4d85-ba6e-e764d1473346",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-option-inner-inner",
+      "targets": [
+        ["css=.filter-option-inner-inner", "css:finder"],
+        ["xpath=//button/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5b784f2f-576f-4d8c-952e-487958a72cd8",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(2) .text",
+      "targets": [
+        ["css=li:nth-child(2) .text", "css:finder"],
+        ["xpath=//li[2]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Ima somelijera')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff80b2a1-9e53-44e9-8213-8f4e4e5c088b",
+      "comment": "",
+      "command": "select",
+      "target": "name=filter",
+      "targets": [],
+      "value": "label=Ima somelijera"
+    }, {
+      "id": "3c4fa8d0-1b7c-426b-af1e-33772265f36f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filtriraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b7b312a6-d8ea-4190-848a-6330b23bff54",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility",
+      "targets": [
+        ["css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility", "css:finder"],
+        ["xpath=//p/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a18a334d-d865-43bc-9ba5-aa8d07b91c09",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.form-check",
+      "targets": [
+        ["css=.form-check", "css:finder"],
+        ["xpath=//form/div/div/div", "xpath:position"]
+      ],
+      "value": "Vinarija Kis obilazak 1668.00 RSD\\nDoživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja."
+    }]
+  }, {
+    "id": "29071c53-b96e-4f3d-a737-bb802495d951",
+    "name": "TestProslava",
+    "commands": [{
+      "id": "9546bbf8-190c-4d64-bf99-381f65f9da63",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5aa549c9-3bd0-4605-947a-d9c5fdcc0cac",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f617229a-2fb3-4584-8af4-d4cb233b5237",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Proslave",
+      "targets": [
+        ["linkText=Proslave", "linkText"],
+        ["css=.dropdown-item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Proslave')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/celebration')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Proslave')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6fdf9d89-750d-4d7a-8a09-0b403ebd1ab1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(2) > .col-md-4:nth-child(1) .meta-prod > .d-flex",
+      "targets": [
+        ["css=.row:nth-child(2) > .col-md-4:nth-child(1) .meta-prod > .d-flex", "css:finder"],
+        ["xpath=//a[contains(@href, '/views/celebration/0Vinarija Kis')]", "xpath:href"],
+        ["xpath=//p/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1909789d-d6ed-4db2-bcaf-139db8d56523",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=cena",
+      "targets": [
+        ["id=cena", "id"],
+        ["css=#cena", "css:finder"],
+        ["xpath=//h3[@id='cena']", "xpath:attributes"],
+        ["xpath=//div[2]/h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Cena po osobi: 3099 RSD')]", "xpath:innerText"]
+      ],
+      "value": "Cena po osobi: 3099 RSD"
+    }, {
+      "id": "47db24d9-79a6-4c19-b73c-c441c92d8b96",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff7dc36e-31dc-4733-b414-8a4d37394deb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": "Kapacitet sale: 110 osoba\\nCena po osobi: 3099 RSD\\nPrevious\\nNext\\n\\nPoštovani, Izdajemo dvorište sa bazenom i vinskom salom za sve vrste proslava i događaja. Takođe u cenu je uključen i obilazak vinarije, kao i degustacija vina i edukacija o istoriji vinarstva.\\nDatum proslave\\nRezerviši"
+    }, {
+      "id": "e2cc424d-23f5-44ea-bc87-232717652646",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "44ac6f4a-e906-449b-914f-7b2f475a0cf0",
+    "name": "TestProslavaFilter",
+    "commands": [{
+      "id": "1f118348-c91c-4384-a27c-1cbf5e368b7d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7147b03c-a6f9-4377-ae73-c2454fe83964",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f957ba8-f8c8-4903-b574-265c0003a16b",
+      "comment": "",
+      "command": "click",
+      "target": "id=dropdown04",
+      "targets": [
+        ["id=dropdown04", "id"],
+        ["css=.show > #dropdown04", "css:finder"],
+        ["xpath=//a[contains(text(),'Ponuda')]", "xpath:link"],
+        ["xpath=//a[@id='dropdown04']", "xpath:attributes"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '#')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "841dd42b-6369-42e6-844d-ab1e693156e2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Proslave",
+      "targets": [
+        ["linkText=Proslave", "linkText"],
+        ["css=.dropdown-item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Proslave')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/celebration')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Proslave')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2669824-4f77-4e5c-8b75-1b2d5972e8e8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "58dbc481-74c5-48af-aa27-8a18adca4a71",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-option",
+      "targets": [
+        ["css=.filter-option", "css:finder"],
+        ["xpath=//button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "14a85761-5fbd-4edd-b727-0ede73e8f456",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(3) .text",
+      "targets": [
+        ["css=li:nth-child(3) .text", "css:finder"],
+        ["xpath=//li[3]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'40-80 mesta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0bb87bb-3557-420f-a6d6-cc5e05c718b4",
+      "comment": "",
+      "command": "select",
+      "target": "name=filter",
+      "targets": [],
+      "value": "label=40-80 mesta"
+    }, {
+      "id": "183b413a-d3cb-457d-9cc7-2823595cd94e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filtriraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "05b77016-e516-4a58-93f3-a24a4bdec8bf",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": "Izaberi kapacitet\\nDo 40 mesta\\n40-80 mesta\\n80-100 mesta\\n100+ mesta\\nIzaberi kapacitet\\nFiltriraj"
+    }, {
+      "id": "f9e04511-839b-4a50-b765-8547ac80f9c2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.container > .row > .col-md-12",
+      "targets": [
+        ["css=.container > .row > .col-md-12", "css:finder"],
+        ["xpath=//section[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6dc7e136-b6ac-4953-bcf3-714514545fd8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.d-flex",
+      "targets": [
+        ["css=.d-flex", "css:finder"],
+        ["xpath=//div/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c2192819-d502-4186-8f0e-579cda8cfe1a",
+    "name": "TestProslavaFilterNasao",
+    "commands": [{
+      "id": "3397928d-6f90-4ff5-80d0-e6966e4fe9c4",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "de194d18-7f6f-4dd9-b59b-cdd40147ed09",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88a2c202-c3bf-4d85-b9aa-32771d728443",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Proslave",
+      "targets": [
+        ["linkText=Proslave", "linkText"],
+        ["css=.dropdown-item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Proslave')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/celebration')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Proslave')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb922fd9-fcae-49ea-b172-131f9967b29d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "51fcbc8e-0546-41ea-ba50-f120bceeca8d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-option-inner-inner",
+      "targets": [
+        ["css=.filter-option-inner-inner", "css:finder"],
+        ["xpath=//button/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "db829c6e-4abd-4d20-88df-28e759fa3133",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(5) .text",
+      "targets": [
+        ["css=li:nth-child(5) .text", "css:finder"],
+        ["xpath=//li[5]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'100+ mesta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a262030-79fd-4685-9d92-48e7177c5a3e",
+      "comment": "",
+      "command": "select",
+      "target": "name=filter",
+      "targets": [],
+      "value": "label=100+ mesta"
+    }, {
+      "id": "4f8833bf-31f2-4a3c-a53b-9297a1eb6eed",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filtriraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "374451a6-ab20-4292-8e02-c09870dc4e48",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility",
+      "targets": [
+        ["css=.row:nth-child(2) > .col-md-4:nth-child(1) .flaticon-visibility", "css:finder"],
+        ["xpath=//p/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f456a1a8-68a0-4021-94f6-646f732f4887",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": "Vinarija Kis"
+    }, {
+      "id": "8a52551d-195b-41f2-93ad-973aff023584",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mb-0",
+      "targets": [
+        ["css=.mb-0", "css:finder"],
+        ["xpath=//h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "0f019bec-377b-4200-aa3f-7a320dc70588",
+    "name": "TestObilaskaFilterNema",
+    "commands": [{
+      "id": "1dde8f40-96e7-4698-b17d-c83fcddd8af0",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ac32ccd7-3aed-4075-a6df-214f1450f15e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x780",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "38a96a2b-057b-4b7b-a085-3856da4bb817",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Obilasci",
+      "targets": [
+        ["linkText=Obilasci", "linkText"],
+        ["css=.dropdown-item:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Obilasci')]", "xpath:link"],
+        ["xpath=//div[@id='ftco-nav']/ul/li[2]/div/a[3]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/views/detour')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Obilasci')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c3489c8d-4b9a-4d6c-aa0a-1a72ad87eba4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-option-inner-inner",
+      "targets": [
+        ["css=.filter-option-inner-inner", "css:finder"],
+        ["xpath=//button/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "319db3aa-3fc9-46cd-958f-60b264c3e41c",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(3) .text",
+      "targets": [
+        ["css=li:nth-child(3) .text", "css:finder"],
+        ["xpath=//li[3]/a/span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'Nema somelijera')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5cf8c8c6-5177-44a6-b3d5-9aba8c1a5244",
+      "comment": "",
+      "command": "select",
+      "target": "name=filter",
+      "targets": [],
+      "value": "label=Nema somelijera"
+    }, {
+      "id": "e647417b-9867-48ff-930b-f66507ed0592",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Filtriraj')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "891315bc-7def-4162-99e7-b863d5b1abca",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ftco-section",
+      "targets": [
+        ["css=.ftco-section", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": "Izaberi opciju\\nIma somelijera\\nNema somelijera\\nIzaberi opciju\\nFiltriraj"
+    }]
+  }],
+  "suites": [{
+    "id": "b830243a-67ca-4be2-984a-4e2fc8ac0c08",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://127.0.0.1:8000/"],
+  "plugins": []
+}
