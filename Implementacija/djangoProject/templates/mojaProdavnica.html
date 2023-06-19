@@ -100,7 +100,7 @@
             <h4>Rezervisani obilasci:</h4>
         </div>
         <div id="rezervisaniObilasci" class=" row justify-content-center" style="margin-top: 10px">
-            {% if resrved_tourslist|length == 0 %}
+            {% if resrved_tours|length == 0 %}
                 <h6>Trenutno nemate rezervisanih obilazaka</h6>
             {% else %}
                 <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
@@ -129,12 +129,12 @@
         </div>
 
         <div id="rezervisaneProslave" class=" row justify-content-center" style="margin-top: 10px">
-            {% if resrved_tourslist|length == 0 %}
+            {% if celebrations|length == 0 %}
                 <h6>Trenutno nemate rezervisanih proslava</h6>
             {% else %}
                 <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
                     {% for proslava in celebrations %}
-                        <div class="card  row" style="width: 28rem; margin: 2px">
+                        <div class="card row" style="width: 28rem; margin: 2px">
                             <div class="card-body">
                                 <div class="text-right" style="height: 5px"><a
                                         href="{% url 'removeReservation' proslava.0.idtermin %}" class="btn">X</a></div>
