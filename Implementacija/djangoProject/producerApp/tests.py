@@ -163,7 +163,7 @@ class ProducerAppTests(TestCase):
     def test_subscribed_more(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
         new_subsc = Pretplacen(idpretplata=self.pretplata1, idkorisnik=self.p1, datumpocetak=date(2023, 1, 16),
-                               datumkraj=date.today(), trenutnistatus='aktivna')
+                               datumkraj=date.today(), trenutnistatus='Aktivna')
         new_subsc.save()
         response = self.client.post('/user/add/subscribeAd/' + str(self.pretplata1.idpretplata))
         self.assertEqual(response.status_code, 200)
@@ -171,7 +171,7 @@ class ProducerAppTests(TestCase):
     def test_unsubscribe(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
         new_subsc = Pretplacen(idpretplata=self.pretplata1, idkorisnik=self.p1, datumpocetak=date(2023, 1, 16),
-                               datumkraj=date.today(), trenutnistatus='aktivna')
+                               datumkraj=date.today(), trenutnistatus='Aktivna')
         new_subsc.save()
         response = self.client.post('/user/add/unsubscribeAd/' + str(self.pretplata1.idpretplata))
         self.assertEqual(response.status_code, 302)

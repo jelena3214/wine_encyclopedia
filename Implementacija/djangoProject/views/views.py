@@ -5,7 +5,9 @@
     All classes that are defined in this file are used for encapsulating data that is need in order to display
     all offers
 """
-
+import datetime
+from datetime import date
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from baza.models import *
 from random import choice, choices
@@ -432,16 +434,17 @@ def oneCelebration(request, value):
 # is chosen to be displatyed
 # logic for showing wines is same as the logic used in functions viewWines, detour and celebration
 def home(request):
-    subscribedBasicYearly = Pretplacen.objects.filter(idpretplata=1).filter(trenutnistatus='aktivna')
-    subscribedBasicMonthly = Pretplacen.objects.filter(idpretplata=3).filter(trenutnistatus='aktivna')
+    changeDates()
+    subscribedBasicYearly = Pretplacen.objects.filter(idpretplata=1).filter(trenutnistatus='Aktivna')
+    subscribedBasicMonthly = Pretplacen.objects.filter(idpretplata=3).filter(trenutnistatus='Aktivna')
     subscribedBasic = []
     for sub in subscribedBasicYearly:
         subscribedBasic.append(Korisnik.objects.get(id=sub.idkorisnik_id))
     for sub in subscribedBasicMonthly:
         subscribedBasic.append(Korisnik.objects.get(id=sub.idkorisnik_id))
 
-    subscribedPremiumYearly = Pretplacen.objects.filter(idpretplata=2).filter(trenutnistatus='aktivna')
-    subscribedPremiumMonthly = Pretplacen.objects.filter(idpretplata=4).filter(trenutnistatus='aktivna')
+    subscribedPremiumYearly = Pretplacen.objects.filter(idpretplata=2).filter(trenutnistatus='Aktivna')
+    subscribedPremiumMonthly = Pretplacen.objects.filter(idpretplata=4).filter(trenutnistatus='Aktivna')
     subscribedPremium = []
     for sub in subscribedPremiumYearly:
         subscribedPremium.append(Korisnik.objects.get(id=sub.idkorisnik_id))
@@ -495,6 +498,8 @@ def home(request):
     if row not in rowsOfWine:
         rowsOfWine.append(row)
 
+    if len(winesToShow) == 0:
+        rowsOfWine = None
     context = {
         "premium": premiumSubscriber,
         'one': one,
@@ -502,3 +507,13 @@ def home(request):
         "wines": rowsOfWine
     }
     return render(request, "pocetna.html", context)
+
+def changeDates():
+    subcscribed = Pretplacen.objects.all()
+    for sub in subcscribed:
+        if sub.datumkraj < timezone.now():
+            sub.trenutnistatus = 'Istekla'
+            sub.save()
+        else:
+            sub.trenutnistatus = 'Aktivna'
+            sub.save()
