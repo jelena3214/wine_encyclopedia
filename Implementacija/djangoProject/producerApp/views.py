@@ -8,6 +8,7 @@
 import datetime
 from xmlrpc.client import DateTime
 from django.contrib.auth.decorators import *
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -378,7 +379,7 @@ def subscribeAd(request: HttpRequest, ad_id):
 
 # Function that helps with rendering the ad page
 def adsExit(request):
-    ads_not_subscribed_to = Pretplata.objects.exclude(pretplacen__idkorisnik=request.user)
+    ads_not_subscribed_to = Pretplata.objects.exclude(Q(pretplacen__idkorisnik=request.user) & ~Q(pretplacen__trenutnistatus='Istekla'))
     ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Aktivna')
     old_ads = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Istekla')
 

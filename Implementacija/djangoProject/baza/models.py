@@ -76,7 +76,6 @@ class Pretplata(models.Model):
 
 
 class Pretplacen(models.Model):
-
     idpretplacen = models.AutoField(primary_key=True,db_column='idPretplacen',default=None)
     idkorisnik = models.ForeignKey(Korisnik, models.CASCADE, db_column='idKorisnik', null=False)
     idpretplata = models.ForeignKey(Pretplata, models.CASCADE, db_column='idPretplata', null=False)
@@ -87,7 +86,6 @@ class Pretplacen(models.Model):
 
     class Meta:
         db_table = 'pretplacen'
-        unique_together = (('idkorisnik', 'idpretplata'),)
 
 
 class Proslava(models.Model):

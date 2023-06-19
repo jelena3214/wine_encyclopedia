@@ -42,10 +42,26 @@
 
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 20px">
-            <h3>
+            <div class="col-sm-4"></div>
+            <div class = 'col-sm-4 text-center'>
+                <h3>
                 Dostupne pretplate:
-            </h3>
+                </h3>
+            </div>
+            <div class="col-sm-4"></div>
         </div>
+
+        <div class = 'row'>
+            <div class="col-sm-4"></div>
+            <div class = 'col-sm-4 text-center'>
+                <h6>
+                Uplatnica će Vam stići na adresu koju ste ostavili uz nalog. Za bilo kakvu pomoć kontaktirajte nas preko našeg mejla.
+                </h6>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+
         {% for reklama in ads_not_subscribed_to %}
             <div class="row justify-content-center">
                 <div class="card rounded-pill-lg"
@@ -75,22 +91,22 @@
             {% if old_ads|length == 0 %}
                 <h6>Istorija pretplata je prazna.</h6>
             {% else %}
-            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
-                {% for reklama in old_ads %}
-                    <div class="card rounded-pill-lg row"
-                         style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
-                        <div class="card-body">
+                <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+                    {% for reklama in old_ads %}
+                        <div class="card rounded-pill-lg row"
+                             style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                            <div class="card-body">
 
-                            <h5 class="card-title">{{ reklama.naslov }} {{ reklama.cena }} RSD
-                            </h5>
-                            <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                                <h5 class="card-title">{{ reklama.naslov }} {{ reklama.cena }} RSD
+                                </h5>
+                                <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
     </div>
-<br>
+    <br>
 {% endblock %}
 
