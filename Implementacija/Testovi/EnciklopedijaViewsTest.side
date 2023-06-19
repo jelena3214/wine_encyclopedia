@@ -444,15 +444,16 @@
       ],
       "value": ""
     }, {
-      "id": "b33fb6fb-add3-49b0-a43f-3544e9f17c7f",
+      "id": "9678dc8e-5c20-4053-bbc9-7a54433a2d5b",
       "comment": "",
       "command": "assertText",
-      "target": "css=.ftco-section",
+      "target": "css=p:nth-child(3)",
       "targets": [
-        ["css=.ftco-section", "css:finder"],
-        ["xpath=//section[2]", "xpath:position"]
+        ["css=p:nth-child(3)", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Doživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja.')]", "xpath:innerText"]
       ],
-      "value": "Vinarija Kis obilazak 1668.00 RSD\\nDoživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja.\\nMarko\\nMoja biografija Marko\\nJovan\\nMoja biografija Jovan\\nDatum obilaska\\nRezerviši"
+      "value": "Doživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja."
     }]
   }, {
     "id": "e124cec1-b4e6-4dee-b4e7-5a2fbd4f0259",
@@ -540,12 +541,13 @@
       "id": "a18a334d-d865-43bc-9ba5-aa8d07b91c09",
       "comment": "",
       "command": "assertText",
-      "target": "css=.form-check",
+      "target": "css=p:nth-child(3)",
       "targets": [
-        ["css=.form-check", "css:finder"],
-        ["xpath=//form/div/div/div", "xpath:position"]
+        ["css=p:nth-child(3)", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Doživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja.')]", "xpath:innerText"]
       ],
-      "value": "Vinarija Kis obilazak 1668.00 RSD\\nDoživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja."
+      "value": "Doživite čari nastanka vina i u prelepom ambijentu uživajte u degustaciji vina koja nose pečat Palićkog vinogorja."
     }]
   }, {
     "id": "29071c53-b96e-4f3d-a737-bb802495d951",
@@ -594,15 +596,13 @@
       "id": "1909789d-d6ed-4db2-bcaf-139db8d56523",
       "comment": "",
       "command": "assertText",
-      "target": "id=cena",
+      "target": "css=.justify-content-center > p",
       "targets": [
-        ["id=cena", "id"],
-        ["css=#cena", "css:finder"],
-        ["xpath=//h3[@id='cena']", "xpath:attributes"],
-        ["xpath=//div[2]/h3", "xpath:position"],
-        ["xpath=//h3[contains(.,'Cena po osobi: 3099 RSD')]", "xpath:innerText"]
+        ["css=.justify-content-center > p", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'Poštovani, Izdajemo dvorište sa bazenom i vinskom salom za sve vrste proslava i događaja. Takođe u cenu je uključen i obilazak vinarije, kao i degustacija vina i edukacija o istoriji vinarstva.')]", "xpath:innerText"]
       ],
-      "value": "Cena po osobi: 3099 RSD"
+      "value": "Poštovani, Izdajemo dvorište sa bazenom i vinskom salom za sve vrste proslava i događaja. Takođe u cenu je uključen i obilazak vinarije, kao i degustacija vina i edukacija o istoriji vinarstva."
     }, {
       "id": "47db24d9-79a6-4c19-b73c-c441c92d8b96",
       "comment": "",
@@ -614,16 +614,6 @@
         ["xpath=//h2[contains(.,'Vinarija Kis')]", "xpath:innerText"]
       ],
       "value": ""
-    }, {
-      "id": "ff7dc36e-31dc-4733-b414-8a4d37394deb",
-      "comment": "",
-      "command": "assertText",
-      "target": "css=.ftco-section",
-      "targets": [
-        ["css=.ftco-section", "css:finder"],
-        ["xpath=//section[2]", "xpath:position"]
-      ],
-      "value": "Kapacitet sale: 110 osoba\\nCena po osobi: 3099 RSD\\nPrevious\\nNext\\n\\nPoštovani, Izdajemo dvorište sa bazenom i vinskom salom za sve vrste proslava i događaja. Takođe u cenu je uključen i obilazak vinarije, kao i degustacija vina i edukacija o istoriji vinarstva.\\nDatum proslave\\nRezerviši"
     }, {
       "id": "e2cc424d-23f5-44ea-bc87-232717652646",
       "comment": "",
@@ -961,6 +951,55 @@
         ["xpath=//section[2]", "xpath:position"]
       ],
       "value": "Izaberi opciju\\nIma somelijera\\nNema somelijera\\nIzaberi opciju\\nFiltriraj"
+    }]
+  }, {
+    "id": "270bcabf-e516-4e54-a1fd-3565a9cfe4a0",
+    "name": "TestPocetnaStrana",
+    "commands": [{
+      "id": "108071d6-214b-4197-aebb-88ab958186b5",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8459ef19-5d5f-4d7a-a480-1ed57215c5b3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x688",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a1ef137-9bf3-4145-b896-162d50dfb030",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ftco-no-pb",
+      "targets": [
+        ["css=.ftco-no-pb", "css:finder"],
+        ["xpath=//section[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "04597840-59a1-4e07-84b7-6b5eff4b309b",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.color-2 h2",
+      "targets": [
+        ["css=.color-2 h2", "css:finder"],
+        ["xpath=//div[2]/div/div[2]/h2", "xpath:position"]
+      ],
+      "value": "BESPLATNA DOSTAVA"
+    }, {
+      "id": "e6fc1f46-74b0-41d0-99b3-3dd896b43621",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.col-md-6:nth-child(1) p",
+      "targets": [
+        ["css=.col-md-6:nth-child(1) p", "css:finder"],
+        ["xpath=//p", "xpath:position"],
+        ["xpath=//p[contains(.,'enciklopedijavina@gmail.com')]", "xpath:innerText"]
+      ],
+      "value": "enciklopedijavina@gmail.com"
     }]
   }],
   "suites": [{
