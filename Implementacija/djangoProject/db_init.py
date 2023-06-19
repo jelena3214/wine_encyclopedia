@@ -215,11 +215,11 @@ def init():
     [x.save() for x in reviews]
 
     producersSubscriptions = [
-        Pretplacen(idpretplata=subscriptionType[0], idkorisnik=producers[0], trenutnistatus='',
+        Pretplacen(idpretplata=subscriptionType[0], idkorisnik=producers[0], trenutnistatus='Aktivna',
                    datumpocetak=date.today(),
                    datumkraj=date(year=date.today().year + 1, day=date.today().day, month=date.today().month)),
 
-        Pretplacen(idpretplata=subscriptionType[1], idkorisnik=producers[2], trenutnistatus='',
+        Pretplacen(idpretplata=subscriptionType[1], idkorisnik=producers[2], trenutnistatus='Aktivna',
                    datumpocetak=date.today(),
                    datumkraj=date(year=date.today().year + 1, day=date.today().day, month=date.today().month))
     ]
