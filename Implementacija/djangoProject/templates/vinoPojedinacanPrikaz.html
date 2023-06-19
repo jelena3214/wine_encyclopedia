@@ -37,7 +37,7 @@
                         would have been rewritten a thousand times and everything that was left from its origin would be
                         the word "and" and the Little Blind Text should turn around and return to its own, safe country.
                     </p>
-                    {% if user.groups.all.0.name != "Proizvodjaci" %}
+                    {% if user.groups.all.0.name == "Kupci" %}
                         <div class="row mt-4">
                             <div class="input-group col-md-6 d-flex mb-3">
                                 <span class="input-group-btn mr-2">
@@ -87,6 +87,7 @@
                             <div class="row p-4">
                                 <div class="col-md-7">
                                     <h3 class="mb-4">{{ recenzije|length }} Recenzije</h3>
+                                    {% if user.groups.all.0.name == "Kupci" %}
                                     <div class="review">
                                         <div class="user-img"
                                              style="background-image: url({% static 'images/user.png' %})"></div>
@@ -114,12 +115,13 @@
                                                     <input type="text" name="recenzija" maxlength="20">
                                                 </div>
                                                 <div class="row">
-                                                    <button class="sub" type="submit" id="submit">Posalji
+                                                    <button class="sub" type="submit" id="submit">Pošalji
                                                     </button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     {% for rec in recenzije %}
                                         <div class="review">
                                             <div class="user-img"
