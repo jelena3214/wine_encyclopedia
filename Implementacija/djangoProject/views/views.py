@@ -51,7 +51,7 @@ def viewWines(request):
     sortToDisplay = None
     # all wines
     wines = Vino.objects.all()
-    # all tags that exist in data base, by which wines can be filtered
+    # all tags that exist in database, by which wines can be filtered
     tags = list(Tag.objects.all().values('tag').distinct())
     wineries = Proizvodjac.objects.all()
     listOfWineries = []
@@ -448,17 +448,17 @@ def home(request):
     for sub in subscribedPremiumMonthly:
         subscribedPremium.append(Korisnik.objects.get(id=sub.idkorisnik_id))
 
-    premiumSubscriber = choice(list(subscribedPremium))
     basicSubscribers = []
     if len(list(subscribedBasic)) > 6:
         basicSubscribers = choices(list(subscribedBasic), k=6)
     else:
         basicSubscribers = list(subscribedBasic)
 
-    if premiumSubscriber is None:
+    if len(list(subscribedPremium)) == 0:
         allProducers = Proizvodjac.objects.all()
         premiumSubscriber = choice(list(allProducers))
     else:
+        premiumSubscriber = choice(list(subscribedPremium))
         premiumSubscriber = Proizvodjac.objects.get(korisnik_ptr_id=premiumSubscriber.id)
 
     one = False
@@ -487,6 +487,7 @@ def home(request):
     for wine in winesToShow:
         picture = Slika.objects.get(idponuda=wine.idponuda).slika
         tmp = TempVino(wine.naziv, wine.opisvina, wine.cena, picture, wine.idponuda_id)
+        # print(wine.idponuda_id)
         row.append(tmp)
         if (forCnt + 1) % 3 == 0:
             rowsOfWine.append(row)
