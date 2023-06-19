@@ -8,7 +8,8 @@ from baza.models import *
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 import os
-
+from datetime import date, datetime
+import random
 
 # Create your tests here.
 
@@ -24,8 +25,17 @@ class ProducerAppTests(TestCase):
                                                  logo="images/1234.jpg")
         cls.p1.save()
         cls.group1 = Group(name='Proizvodjaci')
+        cls.group2 = Group(name='Kupci')
         cls.group1.save()
+        cls.group2.save()
         cls.group1.user_set.add(cls.p1)
+        cls.pretplata1 = Pretplata(naslov="GODIŠNJI PAKET", cena=1000,
+                                  opis='Proizvodi vinarije su istaknuti na početnoj stranici.Naplata na svakih godinu dana do otkazivanja.')
+        cls.pretplata2 = Pretplata(naslov='JEDNOKRATNI PAKET', cena=2000,
+                                  opis='Proizvodi vinarije su istaknuti na početnoj stranici u trajanju od mesec dana.')
+        cls.pretplata1.save()
+        cls.pretplata2.save()
+
 
     def test_for_producder_redirect(self):
         response = self.client.post('/user/add/myStore')
@@ -114,3 +124,81 @@ class ProducerAppTests(TestCase):
         tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
         self.assertEquals(len(tour_types), 2)
         self.assertEquals(response.status_code, 200)
+
+    def test_add_sommelier(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        file_content = b"File content goes here"
+        file = SimpleUploadedFile("myfile.txt", file_content)
+        response = self.client.post('/user/add/addSommelier',
+                                    {'sommelierName': 'Ime',
+                                     'sommelierDescription': 'Opis',
+                                     'sommelierPicture': file}
+                                    )
+        sommelierNum = Somelijer.objects.all().count()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(sommelierNum, 1)
+
+    def test_remove_sommelier(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        offer = Ponuda(idkorisnik=self.p1)
+        offer.save()
+        offerTour = Ponudaprostor(idponuda=offer)
+        offerTour.save()
+        tour = Obilazak(idponuda=offerTour, cenasomelijera=1200)
+        tour.save()
+        newSommelier = Somelijer(ime='Jovana', biografija='Moja biografija', slika='slika.jpg', idponuda=tour)
+        newSommelier.save()
+        response = self.client.get('/user/add/removeSommelier/' + str(newSommelier.pk) + '/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Somelijer.objects.all().count(), 0)
+
+    def test_subscribe_first(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        response = self.client.post('/user/add/subscribeAd/' + str(self.pretplata1.idpretplata))
+
+        pretplaceni = Pretplacen.objects.all()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(pretplaceni), 1)
+
+    def test_subscribed_more(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        new_subsc = Pretplacen(idpretplata=self.pretplata1, idkorisnik=self.p1, datumpocetak=date(2023, 1, 16), datumkraj=date.today(), trenutnistatus='aktivna')
+        new_subsc.save()
+        response = self.client.post('/user/add/subscribeAd/' + str(self.pretplata1.idpretplata))
+        self.assertEqual(response.status_code, 200)
+
+    def test_unsubscribe(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        new_subsc = Pretplacen(idpretplata=self.pretplata1, idkorisnik=self.p1, datumpocetak=date(2023, 1, 16),
+                               datumkraj=date.today(), trenutnistatus='aktivna')
+        new_subsc.save()
+        response = self.client.post('/user/add/unsubscribeAd/' + str(self.pretplata1.idpretplata))
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_reservation(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        kupac = Kupac.objects.create_user(password="Aleksa1234", first_name="Aleksa", last_name="Boricic",
+                                              brtelefona="+3817866577", adresa="Novi Beograd",
+                                              javnoime="Aleksa Boricic",
+                                              datumrodjenja=datetime(year=2001, month=1, day=26),
+                                              email="aleksaboricic@gmail.com")
+        kupac.save()
+        self.group2.user_set.add(kupac)
+        ponuda = Ponuda(idkorisnik=self.p1)
+        ponuda.save()
+        ponudaprostor = Ponudaprostor(idponuda=ponuda)
+        ponudaprostor.save()
+        obilazak = Obilazak(idponuda=ponudaprostor, cenasomelijera=random.randint(800, 1400))
+        obilazak.save()
+        vrstaobilaska = Vrstaobilaska(idponuda=obilazak, opis="Mnogo lep obilazak, degustacija 4 vina",
+                                          naziv=obilazak.idponuda.idponuda.idkorisnik.javnoime + " obilazak",
+                                          cena=random.randint(1500, 2000))
+        vrstaobilaska.save()
+        termin = Termin(idponuda=ponudaprostor, brojljudi=15, vreme=date(2023, 6, 20))
+        termin.save()
+        rezervacija = Rezervacija(idkorisnik=Korisnik.objects.get(id=kupac.id), idtermin=termin)
+        rezervacija.save()
+        response = self.client.post('/user/add/removeReservation/' + str(termin.idtermin))
+        termini = Termin.objects.all()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(len(termini), 0)
