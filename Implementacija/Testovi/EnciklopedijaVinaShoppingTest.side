@@ -1,0 +1,552 @@
+{
+  "id": "2acee209-2c41-44ae-858a-bab2ef722e9c",
+  "version": "2.0",
+  "name": "shoppingTest",
+  "url": "http://127.0.0.1:8000/shopping/shoppingCart",
+  "tests": [{
+    "id": "55fd5bb8-7d90-4af9-bf04-e491b9d546be",
+    "name": "prikazKorpe",
+    "commands": [{
+      "id": "729be012-a5f0-4b75-ace3-018bcbf181d6",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "10dc1113-1538-4e1b-9b8a-369f8754e5f0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ebbf4f11-03fd-4eb7-ad5f-6ef74c13f388",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-cart > .flaticon-shopping-bag",
+      "targets": [
+        ["css=.btn-cart > .flaticon-shopping-bag", "css:finder"],
+        ["xpath=//nav[@id='ftco-navbar']/div/div/div[3]/div/a/span", "xpath:idRelative"],
+        ["xpath=//div[3]/div/a/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3fae53fb-9b59-4561-ad1f-41ac1d986b11",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h3",
+      "targets": [
+        ["css=h3", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Ukupna cena')]", "xpath:innerText"]
+      ],
+      "value": "Ukupna cena"
+    }, {
+      "id": "f8046f05-da51-4468-b5c7-590b32a03b61",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(2)",
+      "targets": [
+        ["css=th:nth-child(2)", "css:finder"],
+        ["xpath=//th[2]", "xpath:position"],
+        ["xpath=//th[contains(.,'Proizvod')]", "xpath:innerText"]
+      ],
+      "value": "Proizvod"
+    }, {
+      "id": "b656c085-664c-4fbc-80b0-86c7619ef08d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(3)",
+      "targets": [
+        ["css=th:nth-child(3)", "css:finder"],
+        ["xpath=//th[3]", "xpath:position"],
+        ["xpath=//th[contains(.,'Cena')]", "xpath:innerText"]
+      ],
+      "value": "Cena"
+    }, {
+      "id": "8532d682-c270-4e39-ae87-f6c7b1ac9bf2",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(4)",
+      "targets": [
+        ["css=th:nth-child(4)", "css:finder"],
+        ["xpath=//th[4]", "xpath:position"],
+        ["xpath=//th[contains(.,'Količina')]", "xpath:innerText"]
+      ],
+      "value": "Količina"
+    }, {
+      "id": "81ff1c8c-35f0-46a8-9a84-3bf330d6c11f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(5)",
+      "targets": [
+        ["css=th:nth-child(5)", "css:finder"],
+        ["xpath=//th[5]", "xpath:position"],
+        ["xpath=//th[contains(.,'Ukupno')]", "xpath:innerText"]
+      ],
+      "value": "Ukupno"
+    }]
+  }, {
+    "id": "654c2943-fa8a-4904-8c0b-3526c07a0313",
+    "name": "ubacivanjeArtiklaUKorpu",
+    "commands": [{
+      "id": "dc58fb0c-e6b8-45a7-a938-6f60d90889ef",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/views/wine/02",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d685a7cd-eb5c-49f0-b528-45b677860585",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d60dc47b-2716-4bbe-9dd7-fbbc86c9cced",
+      "comment": "",
+      "command": "click",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "35ecf833-e038-46e7-a3ea-3c0b3e752335",
+      "comment": "",
+      "command": "click",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb022a6f-96e6-4715-a9b8-7b034e70b028",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b21d700-a58d-46f7-bf7e-7353db72d1b7",
+      "comment": "",
+      "command": "click",
+      "target": "id=addWineButton",
+      "targets": [
+        ["id=addWineButton", "id"],
+        ["css=#addWineButton", "css:finder"],
+        ["xpath=//button[@id='addWineButton']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Dodaj u korpu')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c74cf406-076c-4e8b-abdf-856d36553061",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=confirmationText",
+      "targets": [
+        ["id=confirmationText", "id"],
+        ["css=#confirmationText", "css:finder"],
+        ["xpath=//p[@id='confirmationText']", "xpath:attributes"],
+        ["xpath=//p[4]", "xpath:position"],
+        ["xpath=//p[contains(.,'Uspešno ste dodali artikl u korpu.')]", "xpath:innerText"]
+      ],
+      "value": "Uspešno ste dodali artikl u korpu."
+    }]
+  }, {
+    "id": "23fb1c52-34a6-46eb-9877-36f6c0b35c9b",
+    "name": "rezervacijaSale",
+    "commands": [{
+      "id": "fe1dd38e-4639-4b8f-9821-b11d4c308ad9",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/views/celebration/0Zvonko%20Bogdan",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82d2b41c-ea37-4af4-a20e-f402d7ee292c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2e1a4e7f-3cd7-4fd9-a97f-8eb13f8c941d",
+      "comment": "",
+      "command": "click",
+      "target": "name=date",
+      "targets": [
+        ["name=date", "name"],
+        ["css=.form-control-lg", "css:finder"],
+        ["xpath=//input[@name='date']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f0a5dcf4-a039-431d-8780-3958ddbaf0bf",
+      "comment": "",
+      "command": "click",
+      "target": "name=date",
+      "targets": [
+        ["name=date", "name"],
+        ["css=.form-control-lg", "css:finder"],
+        ["xpath=//input[@name='date']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "80919a11-96c9-4fae-bcaa-9eccdeebeb8a",
+      "comment": "",
+      "command": "type",
+      "target": "name=date",
+      "targets": [
+        ["name=date", "name"],
+        ["css=.form-control-lg", "css:finder"],
+        ["xpath=//input[@name='date']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "2028-06-30"
+    }, {
+      "id": "4ea6871b-16bd-431c-b348-e87d2638aacd",
+      "comment": "",
+      "command": "click",
+      "target": "id=quantity",
+      "targets": [
+        ["id=quantity", "id"],
+        ["name=quantity", "name"],
+        ["css=#quantity", "css:finder"],
+        ["xpath=//input[@id='quantity']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "110b5b05-f85b-4d1d-8f3f-02cd9268684e",
+      "comment": "",
+      "command": "type",
+      "target": "id=quantity",
+      "targets": [
+        ["id=quantity", "id"],
+        ["name=quantity", "name"],
+        ["css=#quantity", "css:finder"],
+        ["xpath=//input[@id='quantity']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "100"
+    }, {
+      "id": "7fd142df-9cf2-46ab-a3a7-3df07ee47725",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Rezerviši')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "715bd49b-5800-472a-8ba0-3466c69f049c",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.cart-payment-text:nth-child(1)",
+      "targets": [
+        ["css=.cart-payment-text:nth-child(1)", "css:finder"],
+        ["xpath=//h3", "xpath:position"]
+      ],
+      "value": "Čestitamo na uspešnoj rezervaciji prostora za proslavu!\\nUpustvo za plaćanje poslato je na mejl adresu:"
+    }]
+  }, {
+    "id": "1cc8a733-2894-4f16-80ea-042f58551294",
+    "name": "rezervacijaObilaska",
+    "commands": [{
+      "id": "8328d25d-58d6-45ad-92d2-6e649590ab5c",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/views/detours/0Nova%20Sansa",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "89285c78-e121-47d7-afb5-f8fb32df55fd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e85206d6-f490-409e-9c3b-079c5fdbb628",
+      "comment": "",
+      "command": "click",
+      "target": "name=obilazak",
+      "targets": [
+        ["name=obilazak", "name"],
+        ["css=.form-check-input", "css:finder"],
+        ["xpath=//input[@name='obilazak']", "xpath:attributes"],
+        ["xpath=//div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44e0b8ae-6d57-4dd9-9cc6-7039669cc506",
+      "comment": "",
+      "command": "click",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "15ff2016-2c73-4198-ac43-3abf0aa386a0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "49866d8a-a5f1-4c9b-96e0-1bfb7a95d80b",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=.quantity-right-plus",
+      "targets": [
+        ["css=.quantity-right-plus", "css:finder"],
+        ["xpath=(//button[@type='button'])[2]", "xpath:attributes"],
+        ["xpath=//span[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "93f026d1-ce8c-47a5-8859-8fc6241b5a38",
+      "comment": "",
+      "command": "click",
+      "target": "name=date",
+      "targets": [
+        ["name=date", "name"],
+        ["css=.form-control-lg", "css:finder"],
+        ["xpath=//input[@name='date']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9086feae-cf04-4df0-807e-65668963e6bd",
+      "comment": "",
+      "command": "type",
+      "target": "name=date",
+      "targets": [
+        ["name=date", "name"],
+        ["css=.form-control-lg", "css:finder"],
+        ["xpath=//input[@name='date']", "xpath:attributes"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "2026-10-13"
+    }, {
+      "id": "0422ba23-6cba-408f-b1e4-45942fdad723",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Rezerviši')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fcb4975a-9d69-4614-a1e4-5447cbea8ccc",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.cart-payment-text:nth-child(1)",
+      "targets": [
+        ["css=.cart-payment-text:nth-child(1)", "css:finder"],
+        ["xpath=//h3", "xpath:position"]
+      ],
+      "value": "Čestitamo na uspešnoj rezervaciji obilaska vinarije!\\nUpustvo za plaćanje poslato je na mejl adresu:"
+    }]
+  }, {
+    "id": "9eaf4b1e-073c-47ff-a933-65f52bd578b1",
+    "name": "pregledRezultata",
+    "commands": [{
+      "id": "6dff3c50-0749-4ca5-816b-f5626e876665",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/shopping/questionnaire",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6cb498ff-e7a7-4a49-92ec-b42baba198b4",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bcdcc812-eb60-4314-adaa-4714460f85c6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pogledajte Vaše rezultate!",
+      "targets": [
+        ["linkText=Pogledajte Vaše rezultate!", "linkText"],
+        ["css=a:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Pogledajte Vaše rezultate!')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/shopping/questionnaireHist')]", "xpath:href"],
+        ["xpath=//div/div/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Pogledajte Vaše rezultate!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "742b4fac-dec3-4f54-bba0-3802c5d9f156",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.cart-payment-text",
+      "targets": [
+        ["css=.cart-payment-text", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Vaši prethodni rezultati:')]", "xpath:innerText"]
+      ],
+      "value": "Vaši prethodni rezultati:"
+    }]
+  }, {
+    "id": "e9ba120a-7f7e-4e55-892b-38aad53e46c2",
+    "name": "popunjavanjeUpitnika",
+    "commands": [{
+      "id": "39209b7d-8dda-4201-9a71-5563c1724c06",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/shopping/questionnaire",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3059bf1c-9ece-461c-97fe-3f90e773ac59",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x688",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b6a3e4cd-3700-4d70-b35e-2423a0558787",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Započnite upitnik!",
+      "targets": [
+        ["linkText=Započnite upitnik!", "linkText"],
+        ["css=.btn", "css:finder"],
+        ["xpath=//a[contains(text(),'Započnite upitnik!')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/shopping/questionnaireQ')]", "xpath:href"],
+        ["xpath=//div/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Započnite upitnik!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe05626d-d318-4932-b106-1f3fe722a821",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(2) > .radio:nth-child(2) > label",
+      "targets": [
+        ["css=.form-group:nth-child(2) > .radio:nth-child(2) > label", "css:finder"],
+        ["xpath=//div/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,' 1. Hladna kokosova voda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a7805e3-d770-4d8b-8a33-82916220146f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(3) > .radio:nth-child(2) > label",
+      "targets": [
+        ["css=.form-group:nth-child(3) > .radio:nth-child(2) > label", "css:finder"],
+        ["xpath=//div[2]/div/label", "xpath:position"],
+        ["xpath=//label[contains(.,' 1. Mlečna čokolada')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "73764449-1dfd-4767-885e-078e41062ea8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "96b80417-8bf2-47ea-9700-68d341a5200f",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.cart-payment-text",
+      "targets": [
+        ["css=.cart-payment-text", "css:finder"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'Idealna vrsta vina za vas je...')]", "xpath:innerText"]
+      ],
+      "value": "Idealna vrsta vina za vas je..."
+    }]
+  }, {
+    "id": "0de180a1-336f-42b9-af88-c7aeea10a7c4",
+    "name": "praznjenjeKorpe",
+    "commands": [{
+      "id": "bd12d5da-98da-4070-8a2a-ce363c2a92ba",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/shopping/shoppingCart",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8c78899c-e400-4df6-92a7-ffae0275141d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x672",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6060c46c-71ff-41ba-902e-94994143ab8b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(2)",
+      "targets": [
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Isprazni korpu')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "18576068-36eb-49c5-b409-f9e49b00da4a",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=priceTotal",
+      "targets": [
+        ["id=priceTotal", "id"],
+        ["css=#priceTotal", "css:finder"],
+        ["xpath=//span[@id='priceTotal']", "xpath:attributes"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'0 RSD')]", "xpath:innerText"]
+      ],
+      "value": "0 RSD"
+    }]
+  }],
+  "suites": [{
+    "id": "35dc3567-1bda-4c7a-9266-fa98220727a9",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://127.0.0.1:8000/", "http://127.0.0.1:8000/views/wine/02", "http://127.0.0.1:8000/shopping/shoppingCart", "http://127.0.0.1:8000/views/celebration/0Zvonko%20Bogdan", "http://127.0.0.1:8000/views/detours/0Nova%20Sansa", "http://127.0.0.1:8000/shopping/questionnaire"],
+  "plugins": []
+}
