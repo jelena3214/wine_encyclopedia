@@ -7,6 +7,9 @@ from django.test import TestCase
 from baza.models import *
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
+import os
+
+
 # Create your tests here.
 
 
@@ -18,7 +21,7 @@ class ProducerAppTests(TestCase):
                                                  brtelefona="+381645565656", adresa="Bulevar Oslobodjenja 67, Novi Sad",
                                                  opis="Mala porodicna vinarija puna ljubavi",
                                                  javnoime="Vinarija Kis", email="bojana0507@hotmail.com",
-                                                  logo="images/1234.jpg")
+                                                 logo="images/1234.jpg")
         cls.p1.save()
         cls.group1 = Group(name='Proizvodjaci')
         cls.group1.save()
@@ -34,8 +37,8 @@ class ProducerAppTests(TestCase):
             'wineName': 'Vino123',
             'price': '800',
             'description': 'veoma lepo vino',
-            'winePicture': SimpleUploadedFile('/images/barbara.jpg', open('/images/barbara.jpg', 'rb')).read(),
-            'taginputs': 'roze'
+            'winePicture': SimpleUploadedFile('images/barbara.jpg', open('static/images/barbara.jpg', 'rb').read()),
+            'taginputs': ''
         })
         offer = Ponuda.objects.all()
         new_wine = None
@@ -44,8 +47,15 @@ class ProducerAppTests(TestCase):
             if wine.naziv == 'Vino123':
                 new_wine = wine
         self.assertEquals(response.status_code, 200)
-        self.assertIsNotNone(offer)
         self.assertIsNotNone(new_wine)
+        self.assertEqual(new_wine.naziv, "Vino123")
+        self.assertEqual(new_wine.cena, 800)
+        self.assertEqual(new_wine.opisvina, "veoma lepo vino")
+        slika = Slika.objects.get(idponuda_id=new_wine.idponuda).slika
+        self.assertRegex(slika.name, r"^images/barbara_[a-zA-Z0-9]{7}\.jpg$")
+
+        if os.path.exists(slika.path):
+            os.remove(slika.path)
 
     def test_add_celebration(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
@@ -53,12 +63,54 @@ class ProducerAppTests(TestCase):
             'price': '35',
             'capacity': '78',
             'description': 'veoma lepa sala',
-            # 'winePicture': SimpleUploadedFile('/static/images/barbara.jpg', open('/static/images/barbara.jpg', 'rb')).read(),
+            'inputTourPicture': SimpleUploadedFile('images/barbara.jpg',
+                                                   open('static/images/barbara.jpg', 'rb').read()),
         })
         offer = Ponuda.objects.filter(idkorisnik=self.p1)
-        self.assertEquals(response.status_code, 302)
-        self.assertIsNotNone(offer)
+        new_celebration = None
+        for off in offer:
+            off_space = Ponudaprostor.objects.get(idponuda=off)
+            celebration = Proslava.objects.get(idponuda=off_space)
+            if celebration.opisproslave == 'veoma lepa sala':
+                new_celebration = celebration
+        self.assertEquals(response.status_code, 200)
+        self.assertIsNotNone(new_celebration)
+        self.assertEqual(new_celebration.cenapoosobi, 35)
+        self.assertEqual(new_celebration.kapacitet, 78)
+        self.assertEqual(new_celebration.opisproslave, 'veoma lepa sala')
+        slika = Slika.objects.get(idponuda=new_celebration.idponuda.idponuda).slika
+        self.assertRegex(slika.name, r"^images/barbara_[a-zA-Z0-9]{7}\.jpg$")
 
-    def test_check_if_tour_exists(self):
+        if os.path.exists(slika.path):
+            os.remove(slika.path)
+
+    def test_no_tours(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
-        
+        response = self.client.post('/user/add/addTourType', {
+            'tourDescription': 'veoma lep obilazak',
+            'tourName': 'premium',
+            'tourPrice': '2000'
+        })
+        offer = Ponuda.objects.filter(idkorisnik=self.p1)
+        self.assertEquals(len(offer), 1)
+        self.assertEquals(response.status_code, 200)
+
+    def test_tours_exist(self):
+        self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        offer = Ponuda(idkorisnik=self.p1)
+        offer.save()
+        offer_space = Ponudaprostor(idponuda=offer)
+        offer_space.save()
+        tour = Obilazak(idponuda=offer_space)
+        tour.save()
+        basic_tour = Vrstaobilaska(idponuda=tour, naziv="Basic", cena=1500, opis="Veoma lep obilazak")
+        basic_tour.save()
+        response = self.client.post('/user/add/addTourType', {
+            'tourDescription': 'veoma lep obilazak',
+            'tourName': 'premium',
+            'tourPrice': '2000'
+        })
+        tour = Obilazak.objects.get(idponuda__idponuda__idkorisnik=self.p1)
+        tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
+        self.assertEquals(len(tour_types), 2)
+        self.assertEquals(response.status_code, 200)

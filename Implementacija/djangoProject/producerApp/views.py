@@ -176,6 +176,7 @@ def checkIfCelebrationExists(request: HttpRequest):
         new_picture.idponuda = new_offer
         new_picture.save()
         new_celebration.save()
+        return new_celebration
 
 # Function to save the producers tour details
 @login_required(login_url='/user')

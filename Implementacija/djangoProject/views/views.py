@@ -432,16 +432,16 @@ def oneCelebration(request, value):
 # is chosen to be displatyed
 # logic for showing wines is same as the logic used in functions viewWines, detour and celebration
 def home(request):
-    subscribedBasicYearly = Pretplacen.objects.filter(idpretplata=1)
-    subscribedBasicMonthly = Pretplacen.objects.filter(idpretplata=3)
+    subscribedBasicYearly = Pretplacen.objects.filter(idpretplata=1).filter(trenutnistatus='aktivna')
+    subscribedBasicMonthly = Pretplacen.objects.filter(idpretplata=3).filter(trenutnistatus='aktivna')
     subscribedBasic = []
     for sub in subscribedBasicYearly:
         subscribedBasic.append(Korisnik.objects.get(id=sub.idkorisnik_id))
     for sub in subscribedBasicMonthly:
         subscribedBasic.append(Korisnik.objects.get(id=sub.idkorisnik_id))
 
-    subscribedPremiumYearly = Pretplacen.objects.filter(idpretplata=2)
-    subscribedPremiumMonthly = Pretplacen.objects.filter(idpretplata=4)
+    subscribedPremiumYearly = Pretplacen.objects.filter(idpretplata=2).filter(trenutnistatus='aktivna')
+    subscribedPremiumMonthly = Pretplacen.objects.filter(idpretplata=4).filter(trenutnistatus='aktivna')
     subscribedPremium = []
     for sub in subscribedPremiumYearly:
         subscribedPremium.append(Korisnik.objects.get(id=sub.idkorisnik_id))
@@ -473,7 +473,6 @@ def home(request):
     for subscriber in basicSubscribers:
         offers = Ponuda.objects.filter(idkorisnik=subscriber.id)
         wines = []
-
         for offer in offers:  # all offers from one subscriber
             w = Vino.objects.filter(idponuda=offer.idponuda)  # check if this offer is also a wine
             if len(list(w)) != 0:

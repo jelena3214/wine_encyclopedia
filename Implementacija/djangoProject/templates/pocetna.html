@@ -134,17 +134,14 @@
             {% else %}
                 {% for row in wines %}
                     <div class="row justify-content-center">
-                        {% for wine in wines %}
+                        {% for wine in row %}
                             <div class="col-md-4 d-flex">
                                 <div class="product ftco-animate align-items-center justify-content-center">
                                     <div class="img d-flex align-items-center justify-content-center"
                                          style="background-image: url('{% static '' %}{{ wine.slika }}');">
                                         <div class="desc">
                                             <p class="meta-prod d-flex">
-                                                <a href="#"
-                                                   class="d-flex align-items-center justify-content-center"><span
-                                                        class="flaticon-shopping-bag"></span></a>
-                                                <a href="#"
+                                                <a href="{% url 'wine' value=0 %}{{ wine.id }}"
                                                    class="d-flex align-items-center justify-content-center"><span
                                                         class="flaticon-visibility"></span></a>
                                             </p>
