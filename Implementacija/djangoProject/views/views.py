@@ -508,6 +508,7 @@ def home(request):
     }
     return render(request, "pocetna.html", context)
 
+
 def changeDates():
     subcscribed = Pretplacen.objects.all()
     for sub in subcscribed:

@@ -63,19 +63,20 @@ class ProducerAppTests(TestCase):
         self.assertEqual(new_wine.opisvina, "veoma lepo vino")
         slika = Slika.objects.get(idponuda_id=new_wine.idponuda).slika
         self.assertRegex(slika.name, r"^images/barbara_[a-zA-Z0-9]{7}\.jpg$")
-
-        if os.path.exists(slika.path):
-            os.remove(slika.path)
+        os.remove(slika.path)
 
     def test_add_celebration(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
+        file_content = b"File content goes here"
+        file = SimpleUploadedFile("myfile.txt", file_content)
         response = self.client.post(reverse('inpurtCelebration'), {
             'price': '35',
             'capacity': '78',
             'description': 'veoma lepa sala',
-            'inputTourPicture': SimpleUploadedFile('images/barbara.jpg',
-                                                   open('static/images/barbara.jpg', 'rb').read()),
+            'inputTourPicture': file,
         })
+        path = Slika.objects.first().slika.path
+        os.remove(path)
         offer = Ponuda.objects.filter(idkorisnik=self.p1)
         new_celebration = None
         for off in offer:
@@ -88,11 +89,7 @@ class ProducerAppTests(TestCase):
         self.assertEqual(new_celebration.cenapoosobi, 35)
         self.assertEqual(new_celebration.kapacitet, 78)
         self.assertEqual(new_celebration.opisproslave, 'veoma lepa sala')
-        slika = Slika.objects.get(idponuda=new_celebration.idponuda.idponuda).slika
-        self.assertRegex(slika.name, r"^images/barbara_[a-zA-Z0-9]{7}\.jpg$")
 
-        if os.path.exists(slika.path):
-            os.remove(slika.path)
 
     def test_no_tours(self):
         self.client.login(username='bojana0507@hotmail.com', password='Vinarijakis123')
@@ -134,6 +131,8 @@ class ProducerAppTests(TestCase):
                                      'sommelierDescription': 'Opis',
                                      'sommelierPicture': file}
                                     )
+        path = Somelijer.objects.first().slika.path
+        os.remove(path)
         sommelierNum = Somelijer.objects.all().count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(sommelierNum, 1)

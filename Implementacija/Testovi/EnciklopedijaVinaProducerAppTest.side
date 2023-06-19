@@ -1,0 +1,247 @@
+{
+  "id": "3aeab31b-e0c2-4ad0-ad36-89ae5d0b502c",
+  "version": "2.0",
+  "name": "enciklopedijaVina_producerAppTest",
+  "url": "http://127.0.0.1:8000/user/add/myStore",
+  "tests": [{
+    "id": "c819fd52-f644-4c43-baf2-7623046212d2",
+    "name": "brisanje_rezervacije",
+    "commands": [{
+      "id": "92756dae-3377-4cf8-a09d-8709ba678051",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a42a713-202c-4ca1-a28f-f8c61e584ffa",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81900b65-b846-4ae2-9141-110d02e3795f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#rezervisaneProslave .card:nth-child(1) .btn",
+      "targets": [
+        ["css=#rezervisaneProslave .card:nth-child(1) .btn", "css:finder"],
+        ["xpath=(//a[contains(text(),'X')])[5]", "xpath:link"],
+        ["xpath=//div[@id='rezervisaneProslave']/div/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/add/removeReservation/8')]", "xpath:href"],
+        ["xpath=//div[5]/div[2]/div/div/div/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "204521c2-63df-4453-87d8-b0d2ecf47625",
+    "name": "brisanje_vina",
+    "commands": [{
+      "id": "2a525bcc-9855-4c45-b69a-57c35cc29318",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f4172ee-0534-4ac2-8f92-c85053116d65",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "742b955d-43fa-4373-874f-6dc9b728d1a3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=X",
+      "targets": [
+        ["linkText=X", "linkText"],
+        ["css=#mojaVina .meta-prod > .d-flex", "css:finder"],
+        ["xpath=(//a[contains(text(),'X')])[2]", "xpath:link"],
+        ["xpath=//div[@id='mojaVina']/div/div/div/div/p/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/add/removeWine/1')]", "xpath:href"],
+        ["xpath=//div[3]/div[2]/div/div/div/div/p/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "5abe44c0-1634-4b3f-83b6-1fcc11bef6e2",
+    "name": "brisanje_slike",
+    "commands": [{
+      "id": "4ea2738d-ebca-4161-b896-7cd0f8d5f4af",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae3497e0-caf9-428a-830b-0b04dc5de1b8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79e7ecf0-27ef-4192-9c88-2a67f89dcbee",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=X",
+      "targets": [
+        ["linkText=X", "linkText"],
+        ["css=.row:nth-child(3) .meta-prod > .d-flex", "css:finder"],
+        ["xpath=//a[contains(text(),'X')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/user/add/removeTourPicture/4')]", "xpath:href"],
+        ["xpath=//p/a", "xpath:position"],
+        ["xpath=//a[contains(.,'X')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "913e749a-d14c-4095-88ae-92b8b7e3d12d",
+    "name": "brisanje_somelijera",
+    "commands": [{
+      "id": "df02d777-ca59-40dc-81dd-29146d4b00fe",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45b1afe3-bad9-4a3c-b7a3-f5b812b201c0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2d536915-e8a8-43a2-87ad-b997331e1d49",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Azuriranje opcije obilaska",
+      "targets": [
+        ["linkText=Azuriranje opcije obilaska", "linkText"],
+        ["css=.nav-link:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Azuriranje opcije obilaska')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, 'tour')])[2]", "xpath:href"],
+        ["xpath=//a[4]", "xpath:position"],
+        ["xpath=//a[contains(.,'Azuriranje opcije obilaska')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b65e280-b638-4553-b2fe-523407421b01",
+      "comment": "",
+      "command": "click",
+      "target": "css=.card:nth-child(1) > .text-center .btn",
+      "targets": [
+        ["css=.card:nth-child(1) > .text-center .btn", "css:finder"],
+        ["xpath=(//a[contains(text(),'X')])[2]", "xpath:link"],
+        ["xpath=//div[@id='sommelierList']/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/add/removeSommelier/1/')]", "xpath:href"],
+        ["xpath=//div[5]/div/div/div/div/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "3a391707-dafd-4496-91fe-8c0b38e0ad5b",
+    "name": "brisanje_reklame",
+    "commands": [{
+      "id": "18d38909-f197-49ac-8b9a-e1cb13eb39a0",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d282a65-05c0-40e6-81a9-3e1d415d50b9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f83e0b9-e339-4dbb-9723-7412076504f3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pretplate i plan reklama",
+      "targets": [
+        ["linkText=Pretplate i plan reklama", "linkText"],
+        ["css=.nav-link:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Pretplate i plan reklama')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, 'ad')])[2]", "xpath:href"],
+        ["xpath=//nav/a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Pretplate i plan reklama')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "29ac459e-1be0-4391-8a2e-d6c10d470a05",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=X",
+      "targets": [
+        ["linkText=X", "linkText"],
+        ["css=.row > .card-body .btn", "css:finder"],
+        ["xpath=//a[contains(text(),'X')]", "xpath:link"],
+        ["xpath=//div[@id='mojeReklame']/div/div/div/div/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/user/add/unsubscribeAd/1')]", "xpath:href"],
+        ["xpath=//div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'X')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "5be964d9-dcb0-4292-88a3-89e36eca0a64",
+    "name": "pretplata_na_reklamu",
+    "commands": [{
+      "id": "c2a4bd54-2bc6-4409-a850-4cb2daac02b3",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:8000/user/add/myStore",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "08e9e2df-f8fb-48cd-ba14-7a159b7ddf1e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7bc8040e-02c3-46f9-8572-a31dbf814edc",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pretplate i plan reklama",
+      "targets": [
+        ["linkText=Pretplate i plan reklama", "linkText"],
+        ["css=.nav-link:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'Pretplate i plan reklama')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, 'ad')])[2]", "xpath:href"],
+        ["xpath=//nav/a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'Pretplate i plan reklama')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "10edc1fd-08c5-4513-b30a-d6b691a11efc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.row:nth-child(3) span",
+      "targets": [
+        ["css=.row:nth-child(3) span", "css:finder"],
+        ["xpath=//div[3]/div/div/div/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'+')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "007971f6-3218-4a23-a3e4-ffb715616b88",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://127.0.0.1:8000/", "http://127.0.0.1:8000/user/add/myStore"],
+  "plugins": []
+}
