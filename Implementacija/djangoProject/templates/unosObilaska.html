@@ -11,171 +11,192 @@
 {% endblock %}
 
 {% block content %}
-    <div  class="container">
+    <br>
+    <div class="container">
 
-        <form action="addTourType" class="" method="post" style="">
-                    {% csrf_token %}
-	          		<div class="cart-detail" style="margin-top: 10px;">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-4">
-	                            <div class="form-group">
-	                	            <label for="tourName">Naziv vrste obilaska</label>
-	                                <input required name="tourName" type="text" class="form-control" placeholder="Unesite vrstu obilaska" oninvalid="this.setCustomValidity('Unesite ime obilaska')">
-	                            </div>
-	                        </div>
+        <form action="addTourType" method="post">
+            {% csrf_token %}
+            <div style="margin-top: 10px;">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="tourName">Naziv vrste obilaska</label>
+                            <input required name="tourName" type="text" class="form-control"
+                                   placeholder="Unesite vrstu obilaska"
+                                   oninvalid="this.setCustomValidity('Unesite ime obilaska')">
                         </div>
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-sm-3">
-	                            <div class="form-group">
-	                	            <label for="tourPrice">Cena obilaska</label>
-	                                <input min="0" required name="tourPrice" type="number" class="form-control" placeholder="Unesite cenu obilaska" oninput="this.value = this.value.replace(/^0+/, '')">
-	                            </div>
-	                        </div>
-                            <div class="col-sm-1">
-                                RSD
-                            </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="tourPrice">Cena obilaska</label>
+                            <input min="0" required name="tourPrice" type="number" class="form-control"
+                                   placeholder="Unesite cenu obilaska"
+                                   oninput="this.value = this.value.replace(/^0+/, '')">
                         </div>
-                        <div class="row justify-content-center">
-                             <div class="col-sm-4">
-	                            <div class="form-group">
-                                    <label for="tourDescription">Opis obilaska</label>
-                                    <textarea required name="tourDescription" type="number" class="form-control" placeholder="Unesite opis obilaska"></textarea>
-                                </div>
-	                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        RSD
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="tourDescription">Opis obilaska</label>
+                            <textarea required name="tourDescription" type="number" class="form-control"
+                                      placeholder="Unesite opis obilaska"></textarea>
                         </div>
-                        <div class="row text-center form-group justify-content-center">
-                            <div class="col-sm-4 text-center">
-                                <input id="tourSubmit" type="submit" class="btn" style="background-color: #b7472a; color: white; width: 100%" value="Dodaj vrstu obilaska">
-                            </div>
-                        </div>
-	          	    </div>
+                    </div>
+                </div>
+                <div class="row text-center form-group justify-content-center">
+                    <div class="col-sm-4 text-center">
+                        <input id="tourSubmit" type="submit" class="btn"
+                               style="background-color: #b7472a; color: white; width: 100%"
+                               value="Dodaj vrstu obilaska">
+                    </div>
+                </div>
+            </div>
 
         </form>
     </div>
     <!-- Kraj forme za unos tipa obilaska -->
 
     <div id="tourTypes" class="justify-content-center row" style="margin-top: 10px">
-      {% for vrsta_obilaska in obilasci %}
-        <div class="card" style="width: 18rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
-            <div class="card-body">
-                <div class="text-right" style="height: 5px">  <a href= "{% url 'removeTourType' vrsta_obilaska.idobilazak %}" class="btn">X</a></div>
+        {% for vrsta_obilaska in obilasci %}
+            <div class="card"
+                 style="width: 18rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                <div class="card-body">
+                    <div class="text-right" style="height: 5px"><a
+                            href="{% url 'removeTourType' vrsta_obilaska.idobilazak %}" class="btn">X</a></div>
 
-                <h5 class="card-title">{{ vrsta_obilaska.naziv }}
-                </h5>
-                <h5>{{ vrsta_obilaska.cena }}</h5>
-                <p class="card-text">{{ vrsta_obilaska.opis }}</p>
-            </div>
-        </div>
-      {% endfor %}
-    </div>
-    <!-- Unos slike -->
-    <div class="container">
-    <form action="inputTourPicture" enctype='multipart/form-data' method="post">
-    {% csrf_token %}
-        <div class="" style="margin-top: 10px">
-            <div class="row justify-content-center">
-                <div class="col-sm-4 form-group">
-                    <div class="form-group custom-file">
-                        <label for="inputTourPicture" class="custom-file-label">Unesite sliku ambijenta</label>
-                        <input required name="inputTourPicture" class="custom-file-input" type="file"/>
-                    </div>
+                    <h5 class="card-title">{{ vrsta_obilaska.naziv }}
+                    </h5>
+                    <h5>{{ vrsta_obilaska.cena }}</h5>
+                    <p class="card-text">{{ vrsta_obilaska.opis }}</p>
                 </div>
             </div>
-        <div class="row justify-content-center form-group">
-                <input id="submitTourPicture" type="submit" class="btn" style="background-color: #b7472a; color: white;" value="Dodajte sliku ambijenta">
-        </div>
-        </div>
-    </form>
+        {% endfor %}
     </div>
-
-    <!-- Unos somelijera -->
+    <!-- Unos slike -->
+    <br>
     <div class="container">
-    <div class="row-md-6 justify-content-center">
-    <form action="addSommelier" class="" method="post" enctype='multipart/form-data'>
-                    {% csrf_token %}
-	          		<div class="cart-detail" style="margin-top: 10px;">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-4">
-	                            <div class="form-group">
-	                	            <label for="sommelierName">Ime somelijera</label>
-	                                <input required name="sommelierName" type="text" class="form-control" placeholder="Unesite ime somelijera">
-	                            </div>
-	                        </div>
+        <form action="inputTourPicture" enctype='multipart/form-data' method="post">
+            {% csrf_token %}
+            <div class="" style="margin-top: 10px">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 form-group">
+                        <div class="form-group custom-file">
+                            <label for="inputTourPicture" class="custom-file-label">Unesite sliku ambijenta</label>
+                            <input required name="inputTourPicture" class="custom-file-input" type="file"/>
                         </div>
-                        <div class="row justify-content-center">
-                             <div class="col-sm-4">
-	                            <div class="form-group">
-                                    <label for="sommelierDescription">Biografija somelijera</label>
-                                    <textarea required name="sommelierDescription"  class="form-control" placeholder="Kratka biografija somelijera"></textarea>
-                                </div>
-	                        </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-sm-4 form-group">
-                                <div class="form-group custom-file">
-                                    <label for="sommelierPicture" class="custom-file-label">Unesite sliku somelijera</label>
-                                    <input required name="sommelierPicture" class="custom-file-input" type="file"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row text-center form-group justify-content-center">
-                            <div class="col-sm-4 text-center">
-                                <input id="sommelierSubmit" type="submit" class="btn" style="background-color: #b7472a; color: white; width: 100%" value="Dodajte somelijera">
-                            </div>
-                        </div>
-	          	    </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center form-group">
+                    <input id="submitTourPicture" type="submit" class="btn"
+                           style="background-color: #b7472a; color: white;" value="Dodajte sliku ambijenta">
+                </div>
+            </div>
         </form>
     </div>
+    <br>
+    <!-- Unos somelijera -->
+    <div class="container">
+        <div class="row-md-6 justify-content-center">
+            <form action="addSommelier" class="" method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <div style="margin-top: 10px;">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sommelierName">Ime somelijera</label>
+                                <input required name="sommelierName" type="text" class="form-control"
+                                       placeholder="Unesite ime somelijera">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="sommelierDescription">Biografija somelijera</label>
+                                <textarea required name="sommelierDescription" class="form-control"
+                                          placeholder="Kratka biografija somelijera"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4 form-group">
+                            <div class="form-group custom-file">
+                                <label for="sommelierPicture" class="custom-file-label">Unesite sliku somelijera</label>
+                                <input required name="sommelierPicture" class="custom-file-input" type="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center form-group justify-content-center">
+                        <div class="col-sm-4 text-center">
+                            <input id="sommelierSubmit" type="submit" class="btn"
+                                   style="background-color: #b7472a; color: white; width: 100%"
+                                   value="Dodajte somelijera">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="">
         <div id="sommelierList" class="justify-content-center row" style="margin-top: 10px">
             {% for somelijer in somelijeri %}
-            <div class="card" style=" width: 18rem;margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
-                <img class="card-img-top" alt="xd" src="../../media/{{somelijer.slika}}">
-                <div class="card-body">
-                    <div class="text-right" style="height: 5px">  <a href="{% url 'removeSommelier' somelijer.idsomelijer %}" class="btn">X</a></div>
-                    <h5 class="card-title">{{ somelijer.ime }}
-                    </h5>
-                    <p class="card-text">{{somelijer.biografija}}</p>
+                <div class="card" style="width: 200px; height: 280px;margin: 2px">
+                    <img class="card-img-top" alt="xd" src="../../media/{{ somelijer.slika }}"
+                         style="width: 100%;height: 12vw;object-fit: cover;">
+                    <div class="card-body text-center" style="height: fit-content">
+                        <div class="text-right" style="height: 5px"><a
+                                href="{% url 'removeSommelier' somelijer.idsomelijer %}" class="btn">X</a></div>
+                        <h5 class="card-title">{{ somelijer.ime }}</h5>
+                        <p class="card-text">{{ somelijer.biografija }}</p>
+                    </div>
                 </div>
-            </div>
             {% endfor %}
 
         </div>
     </div>
 
+    <br>
 
 
-
-    <form action="setTourDetails" class="" method="post" enctype='multipart/form-data' >
+    <form action="setTourDetails" class="" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
-           <div class="row justify-content-center align-items-center">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label for="sommelierPrice">Cena angazovanja somelijera</label>
-                        <input required min="0" name="sommelierPrice" type="number" class="form-control" placeholder="Unesite cenu angazovanja somelijera" oninput="this.value = this.value.replace(/^0+/, '')">
-                    </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="sommelierPrice">Cena angazovanja somelijera</label>
+                    <input required min="0" name="sommelierPrice" type="number" class="form-control"
+                           placeholder="Unesite cenu"
+                           oninput="this.value = this.value.replace(/^0+/, '')">
                 </div>
-                <div class="col-sm-1">
+            </div>
+            <div class="col-sm-1">
                 RSD
-                </div>
-           </div>
-            <div class="row text-center form-group justify-content-center">
-{#                <div class="col-sm-3 text-center">#}
-{#                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%">#}
-{#                </div>#}
             </div>
-            <div class="row text-center form-group justify-content-center">
-                <div class="col-sm-3 text-center">
-                    <input id="tourDetailsSubmit" type="submit" class="btn" style="background-color: #b7472a; color: white; width: 100%" value="Sacuvajte informacije o obilasku">
-                </div>
+        </div>
+        <div class="row text-center form-group justify-content-center">
+            {#                <div class="col-sm-3 text-center">#}
+            {#                    <input id="tourDate" name="tourDate" type="date" min="" class=""  style="width: 100%">#}
+            {#                </div>#}
+        </div>
+        <div class="row text-center form-group justify-content-center">
+            <div class="col-sm-3 text-center">
+                <input id="tourDetailsSubmit" type="submit" class="btn"
+                       style="background-color: #b7472a; color: white; width: 100%"
+                       value="Sacuvajte informacije o obilasku">
             </div>
+        </div>
 
     </form>
     </div>
 
-<script src="../../static/js/unosObilaska.js">
+    <script src="../../static/js/unosObilaska.js">
 
-</script>
+    </script>
 {% endblock %}

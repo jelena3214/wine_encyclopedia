@@ -5,6 +5,11 @@ from django.test import TestCase
 from baza.models import *
 
 
+"""
+    Author: Jelena Cvetic 2020/0305
+    Tests for shopping application.
+"""
+
 class shoppingApp(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -166,7 +171,7 @@ class shoppingApp(TestCase):
         self.assertNotContains(response, 'Neko drugo ime')
         self.assertTemplateUsed(response, 'korpaZaKupovinu.html')
 
-    def test_shoppingDoneEmpryCart(self):
+    def test_shoppingDoneEmptyCart(self):
         self.client.login(username='jovanamitic@gmail.com', password='Jovana1234')
         response = self.client.get('/shopping/shoppingDone')
         self.assertEqual(response.status_code, 302)

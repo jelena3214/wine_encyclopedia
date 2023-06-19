@@ -9,28 +9,33 @@
 {% endblock %}
 
 {% block content %}
-
+    <br>
     {# Trenutne pretplate #}
-     <div class="container">
+    <div class="container">
         <div class="row justify-content-center" style="margin-top: 10px">
             <h4>Trenutno aktivne pretplate:</h4>
         </div>
         <div id="mojeReklame" class=" row justify-content-center" style="margin-top: 10px">
-
-            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+            {% if ads_subscribed_to|length == 0 %}
+                <h6>Nemate aktivne pretplate.</h6>
+            {% else %}
+                <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
                     {% for reklama in ads_subscribed_to %}
-                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
-                        <div class="card-body">
-                            <div class="text-right" style="height: 5px">  <a href= "{% url 'unsubscribeAd' reklama.idpretplata %}" class="btn">X</a></div>
+                        <div class="card rounded-pill row"
+                             style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                            <div class="card-body">
+                                <div class="text-right" style="height: 5px"><a
+                                        href="{% url 'unsubscribeAd' reklama.idpretplata %}" class="btn">X</a></div>
 
-                            <h5 class="card-title">{{ reklama.naslov  }} {{reklama.cena}}RSD
-                            </h5>
-                            <p class="card-text">{{ reklama.opis }}</p>
+                                <h5 class="card-title">{{ reklama.naslov }} {{ reklama.cena }}RSD
+                                </h5>
+                                <p class="card-text">{{ reklama.opis }}</p>
+                            </div>
                         </div>
-                    </div>
                     {% endfor %}
-            </div>
-    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
     {# Dostupne pretplate #}
@@ -41,47 +46,51 @@
                 Dostupne pretplate:
             </h3>
         </div>
-         {% for reklama in ads_not_subscribed_to %}
-        <div class="row justify-content-center">
-            <div class="card rounded-pill" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;">
-                        <div class="card-body">
-                            <div class="text-right align-items-end" style="height: 5px;">
-                               <a href= "{% url 'subscribeAd' reklama.idpretplata %}" class="btn">
-                                   <p style="font-size: 25pt">+</p>
-                               </a>
-                            </div>
-
-                            <h5 class="card-title">{{ reklama.naslov }}  {{reklama.cena}} RSD
-                            </h5>
-                            <p class="card-text">{{ reklama.opis }}</p>
+        {% for reklama in ads_not_subscribed_to %}
+            <div class="row justify-content-center">
+                <div class="card rounded-pill-lg"
+                     style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px;">
+                    <div class="card-body">
+                        <div class="text-right align-items-end" style="height: 5px;">
+                            <a href="{% url 'subscribeAd' reklama.idpretplata %}" class="btn">
+                                <span style="font-size: 25pt; color:#b7472a">+</span>
+                            </a>
                         </div>
+
+                        <h5 class="card-title">{{ reklama.naslov }} {{ reklama.cena }} RSD
+                        </h5>
+                        <p class="card-text">{{ reklama.opis }}</p>
                     </div>
-        </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
-
+    <br>
     {# Istorija pretplata #}
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 10px">
             <h4>Istorija pretplata:</h4>
         </div>
         <div id="mojeReklame" class=" row justify-content-center" style="margin-top: 10px">
-
+            {% if old_ads|length == 0 %}
+                <h6>Istorija pretplata je prazna.</h6>
+            {% else %}
             <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
                 {% for reklama in old_ads %}
-                    <div class="card rounded-pill row" style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
+                    <div class="card rounded-pill row"
+                         style="width: 28rem; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 2px">
                         <div class="card-body">
 
-                            <h5 class="card-title">{{ reklama.naslov }} {{reklama.cena}} RSD
+                            <h5 class="card-title">{{ reklama.naslov }} {{ reklama.cena }} RSD
                             </h5>
                             <p class="card-text">{{ reklama.opis }}Ovde ide opis reklamice ono nase</p>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-
+            {% endif %}
+        </div>
     </div>
-    </div>
-
+<br>
 {% endblock %}
 

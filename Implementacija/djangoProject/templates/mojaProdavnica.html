@@ -5,138 +5,164 @@
 {% endblock %}
 
 {% block content %}
-       <div class="container" style="margin-top: 10px;">
-                    <nav class="navbar navbar-light " style="background-color: #b7472a">
-                        <a class="nav-item nav-link" href="wine" style="color: white">Unos Novog Vina</a>
-{#                        <hr style="background-color: black;margin: 0;">#}
+    <div class="container" style="margin-top: 10px; font-weight: normal">
+        <nav class="navbar navbar-light " style="background-color: #b7472a">
+            <a class="nav-item nav-link" href="wine" style="color: white">Unos Novog Vina</a>
+            {#                        <hr style="background-color: black;margin: 0;">#}
 
-                        <a class="nav-item nav-link" href="celebration" style="color: white">Azuriranje opcije proslava</a>
-{#                        <hr style="background-color: black;margin: 0">#}
-                        <a class="nav-item nav-link" href="ad" style="color: white">Pretplate i plan reklama</a>
-{#                        <hr style="background-color: black;margin: 0px">#}
-                        <a class="nav-item nav-link"  href="tour" style="color: white">Azuriranje opcije obilaska</a>
-                        </nav>
+            <a class="nav-item nav-link" href="celebration" style="color: white">Azuriranje opcije proslava</a>
+            {#                        <hr style="background-color: black;margin: 0">#}
+            <a class="nav-item nav-link" href="ad" style="color: white">Pretplate i plan reklama</a>
+            {#                        <hr style="background-color: black;margin: 0px">#}
+            <a class="nav-item nav-link" href="tour" style="color: white">Azuriranje opcije obilaska</a>
+        </nav>
     </div>
 
 
 
     <div class="container">
+        <br>
         <div class="row justify-content-center">
-             <h4>Slike ambijenta: </h4>
+            <h4>Slike ambijenta: </h4>
         </div>
+
         <div class="row justify-content-center" style="margin-top: 10px">
+            {% if pictures|length == 0 %}
+                <h6>Nemate unete slike ambijenta.</h6>
+            {% else %}
                 {% for picture in pictures %}
-{#                <div class="card" style="width: 33%;">#}
-{#                    <img class="card-img-top" src="../../media/{{ picture.slika }}" style="max-width: 100%;max-height: 250px" alt="Card image cap">#}
-{#                </div>#}
+                    {#                <div class="card" style="width: 33%;">#}
+                    {#                    <img class="card-img-top" src="../../media/{{ picture.slika }}" style="max-width: 100%;max-height: 250px" alt="Card image cap">#}
+                    {#                </div>#}
                     <div class="col-md-4 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url('{% static '' %}{{ picture.slika }}') ">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="{% url 'removeTourPicture'  picture.idslika %}"
-                                   class="d-flex align-items-center justify-content-center" style="color: white;"><span
-                                        class=""></span>X</a>
-                            </p>
+                        <div class="product ftco-animate">
+                            <div class="img d-flex align-items-center justify-content-center"
+                                 style="background-image: url('{% static '' %}{{ picture.slika }}') ">
+                                <div class="desc">
+                                    <p class="meta-prod d-flex">
+                                        <a href="{% url 'removeTourPicture'  picture.idslika %}"
+                                           class="d-flex align-items-center justify-content-center"
+                                           style="color: white;"><span
+                                                class=""></span>X</a>
+                                    </p>
+                                </div>
+                            </div>
+                            {#                    <div class="text text-center">#}
+                            {#                        <span class="category"#}
+                            {#                              style="text-transform: capitalize">{{ vino.0.naziv }}</span>#}
+                            {#                        <h2>{{ vino.0.naziv }}</h2>#}
+                            {#                        <p class="mb-0"><span class="price">{{ vino.0.cena }}.00 RSD</span>#}
+                            {#                    </div>#}
                         </div>
                     </div>
-{#                    <div class="text text-center">#}
-{#                        <span class="category"#}
-{#                              style="text-transform: capitalize">{{ vino.0.naziv }}</span>#}
-{#                        <h2>{{ vino.0.naziv }}</h2>#}
-{#                        <p class="mb-0"><span class="price">{{ vino.0.cena }}.00 RSD</span>#}
-{#                    </div>#}
+                {% endfor %}
                 </div>
-            </div>
-            {% endfor %}
-        </div>
-
+            {% endif %}
     </div>
+    <br>
     <div class="container">
-            <div class="row justify-content-center" style="margin-top: 10px;">
-                <h4>Moja Vina:</h4>
-            </div>
+        <div class="row justify-content-center" style="margin-top: 10px;">
+            <h4>Moja Vina:</h4>
+        </div>
         <div id="mojaVina" class="row justify-content-center text-center">
-            {% for vino in wines  %}
-             <div class="col-md-4 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center"
-                         style="background-image: url('{% static '' %}{{ vino.1.slika }}') ">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="{% url 'removeWine' vino.0.idponuda.idponuda %}"
-                                   class="d-flex align-items-center justify-content-center" style="color: white;"><span
-                                        class=""></span>X</a>
-                            </p>
+            {% if wines|length == 0 %}
+                <h6>Nemate unetih vina.</h6>
+            {% else %}
+                {% for vino in wines %}
+                    <div class="col-md-4 d-flex">
+                        <div class="product ftco-animate">
+                            <div class="img d-flex align-items-center justify-content-center"
+                                 style="background-image: url('{% static '' %}{{ vino.1.slika }}') ">
+                                <div class="desc">
+                                    <p class="meta-prod d-flex">
+                                        <a href="{% url 'removeWine' vino.0.idponuda.idponuda %}"
+                                           class="d-flex align-items-center justify-content-center"
+                                           style="color: white;"><span
+                                                class=""></span>X</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text text-center">
+                            <span class="category"
+                                  style="text-transform: capitalize">{{ vino.0.naziv }}</span>
+                                <h2>{{ vino.0.naziv }}</h2>
+                                <p class="mb-0"><span class="price">{{ vino.0.cena }}.00 RSD</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="text text-center">
-                        <span class="category"
-                              style="text-transform: capitalize">{{ vino.0.naziv }}</span>
-                        <h2>{{ vino.0.naziv }}</h2>
-                        <p class="mb-0"><span class="price">{{ vino.0.cena }}.00 RSD</span>
-                    </div>
+                {% endfor %}
                 </div>
-            </div>
-             {% endfor %}
-        </div>
-
+            {% endif %}
     </div>
+    <br>
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 10px">
             <h4>Rezervisani obilasci:</h4>
         </div>
         <div id="rezervisaniObilasci" class=" row justify-content-center" style="margin-top: 10px">
-
-            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+            {% if resrved_tourslist|length == 0 %}
+                <h6>Trenutno nemate rezervisanih obilazaka</h6>
+            {% else %}
+                <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
                     {% for obilazak in resrved_tours %}
-                    <div class="card row" style="width: 28rem; margin: 2px">
-                        <div class="card-body">
-                            <div class="text-right" style="height: 5px">  <a href= "{% url 'removeReservation' obilazak.0.idtermin %}" class="btn">X</a></div>
+                        <div class="card row" style="width: 28rem; margin: 2px">
+                            <div class="card-body">
+                                <div class="text-right" style="height: 5px"><a
+                                        href="{% url 'removeReservation' obilazak.0.idtermin %}" class="btn">X</a></div>
 
-                            <h5 class="card-title"> Rezervacija: {{ obilazak.0.vreme }}
-                            </h5>
-                            <p class="card-text">Rezervisao : {{ obilazak.1.idkorisnik }}
-                                <br>Kolicina ljudi : {{ obilazak.0.brojljudi }}
-                            </p>
+                                <h5 class="card-title"> Rezervacija: {{ obilazak.0.vreme }}
+                                </h5>
+                                <p class="card-text">Rezervisao : {{ obilazak.1.idkorisnik }}
+                                    <br>Kolicina ljudi : {{ obilazak.0.brojljudi }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
     </div>
-    </div>
-
+    <br>
     <div class="container">
         <div class="row justify-content-center" style="margin-top: 10px">
             <h4>Rezervisane proslave:</h4>
         </div>
+
         <div id="rezervisaneProslave" class=" row justify-content-center" style="margin-top: 10px">
-
-            <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
+            {% if resrved_tourslist|length == 0 %}
+                <h6>Trenutno nemate rezervisanih proslava</h6>
+            {% else %}
+                <div class="overflow-scroll" style="overflow: scroll; width: 30rem; height: 10rem">
                     {% for proslava in celebrations %}
-                      <div class="card  row" style="width: 28rem; margin: 2px">
-                        <div class="card-body">
-                            <div class="text-right" style="height: 5px">  <a href= "{% url 'removeReservation' proslava.0.idtermin %}" class="btn">X</a></div>
+                        <div class="card  row" style="width: 28rem; margin: 2px">
+                            <div class="card-body">
+                                <div class="text-right" style="height: 5px"><a
+                                        href="{% url 'removeReservation' proslava.0.idtermin %}" class="btn">X</a></div>
 
-                            <h5 class="card-title">Rezervacija : {{ proslava.0.vreme }}
-                            </h5>
-                            <p class="card-text">
-                                Rezervisao : {{ proslava.1.idkorisnik }}
-                                <br> Kolicina ljudi : {{ proslava.0.brojljudi }}
-                            </p>
+                                <h5 class="card-title">Rezervacija : {{ proslava.0.vreme }}
+                                </h5>
+                                <p class="card-text">
+                                    Rezervisao : {{ proslava.1.idkorisnik }}
+                                    <br> Kolicina ljudi : {{ proslava.0.brojljudi }}
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     {% endfor %}
-            </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
-    </div>
+    <br>
 {% endblock %}
 
 
 <style>
-    .custom_button
-    {
-        height : 10rem; width: 15rem; margin-left: 5px; margin-right: 5px; background-color: #b7472a; color: white
+    .custom_button {
+        height: 10rem;
+        width: 15rem;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: #b7472a;
+        color: white
     }
 </style>
