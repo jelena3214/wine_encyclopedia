@@ -22,12 +22,15 @@
                     <h3>{{ vino.naziv }}</h3>
                     <div class="rating d-flex">
                         <p class="text-left mr-4">
-                            <a href="#" class="mr-2">5.0</a>
-                            <a href="#"><span class="fa fa-star"></span></a>
-                            <a href="#"><span class="fa fa-star"></span></a>
-                            <a href="#"><span class="fa fa-star"></span></a>
-                            <a href="#"><span class="fa fa-star"></span></a>
-                            <a href="#"><span class="fa fa-star"></span></a>
+                            <a href="#" class="mr-2">{{ zvezda }}.00</a>
+                            {% for zv in numbers %}
+                                <a href="#"><span class="fa fa-star"></span></a>
+                            {% endfor %}
+{#                            <a href="#"><span class="fa fa-star"></span></a>#}
+{#                            <a href="#"><span class="fa fa-star"></span></a>#}
+{#                            <a href="#"><span class="fa fa-star"></span></a>#}
+{#                            <a href="#"><span class="fa fa-star"></span></a>#}
+{#                            <a href="#"><span class="fa fa-star"></span></a>#}
                         </p>
                     </div>
                     <p class="price"><span>{{ vino.cena }}.00 RSD</span></p>

@@ -214,11 +214,14 @@ def findWinesByWinery():
 # in this function reviews are also displayed and left
 def wine(request, value):
     id = int(value[1:])
+    star = 0
     if request.method == 'POST' and request.user.is_authenticated:
         # leaving new review if user is logged in
         mark = request.POST.get('rate')
         user = request.user
         text = request.POST.get('recenzija')
+        if mark is None:
+            return redirect("/views/wine/" + value)
         newReview = Recenzija(idponuda=Ponuda(idponuda=id, idkorisnik_id=user), idkorisnik_id=user.id,
                               opisrec=text, ocena=mark)
         newReview.save()
@@ -234,13 +237,20 @@ def wine(request, value):
         tag = Tag.objects.filter(idponuda=id)
         review = Recenzija.objects.filter(idponuda=id)
         if review:
+            stars = 0
             for r in review:
+                stars += r.ocena
                 ocena = []
                 user = Korisnik.objects.filter(id=r.idkorisnik_id)
                 if user != None:
                     for i in range(r.ocena):
                         ocena.append("+")
                     reviews.append(TempRecenzija(r.opisrec, ocena, user[0].javnoime))
+            star = int(stars / len(review))
+            print(star)
+        numOfStars = []
+        for i in range(star):
+            numOfStars.append('a')
         if tag:
             for t in tag:
                 tags.append(t.tag)
@@ -251,6 +261,8 @@ def wine(request, value):
         'vino': tmp,
         'tag': tags,
         'recenzije': reviews,
+        'zvezda': star,
+        'numbers': numOfStars
     }
     return render(request, "vinoPojedinacanPrikaz.html", context)
 
