@@ -92,7 +92,8 @@ def shoppingDone(request):
             return redirect('/shopping/shoppingCart')
         else:
             context = {
-                'text': 'Čestitamo na uspešnoj kupovini!'
+                'text': 'Čestitamo na uspešnoj kupovini!',
+                'email': request.user.email
             }
             return render(request, 'potvrdaKupovine.html', context)
 
