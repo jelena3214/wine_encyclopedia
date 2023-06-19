@@ -29,6 +29,7 @@ class UserRegistrationTestCase(TestCase):
             brtelefona='987654321',
             adresa='Ulica 1',
             datumrodjenja=datetime(year=1995, month=7, day=17),
+            javnoime='Jane Smith'
         )
         cls.existingBuyer.groups.add(Group.objects.get(name='Kupci'))
         cls.existingBuyer.save()
@@ -41,7 +42,8 @@ class UserRegistrationTestCase(TestCase):
             brtelefona='987654321',
             adresa='456 Vineyard St',
             opis='Existing winery description',
-            logo=SimpleUploadedFile('images/1234.jpg', open('static/images/1234.jpg', 'rb').read())
+            logo=SimpleUploadedFile('images/1234.jpg', open('static/images/1234.jpg', 'rb').read()),
+            javnoime='Existing Winery'
         )
         cls.existingProducer.groups.add(Group.objects.get(name='Proizvodjaci'))
         cls.existingProducer.save()
@@ -79,7 +81,7 @@ class UserRegistrationTestCase(TestCase):
 
     def test_register_existing_user(self):
         response = self.client.post(reverse('registerUser'), {
-            'email': 'existinguser@example.com',
+            'email': self.existingBuyer.email,
             'password': 'testpassword',
             'firstName': 'Jane',
             'lastName': 'Smith',
@@ -141,8 +143,10 @@ class UserRegistrationTestCase(TestCase):
         self.assertContains(response, 'Već postoji nalog sa unetom email adresom')
 
     def test_login_user(self):
+        self.assertFalse('_auth_user_id' in self.client.session)
+
         response = self.client.post(reverse('loginUser'), {
-            'email': 'existinguser@example.com',
+            'email': self.existingBuyer.email,
             'password': 'testpassword',
         })
 
@@ -150,15 +154,134 @@ class UserRegistrationTestCase(TestCase):
         self.assertRedirects(response, reverse('home'))
 
         # Check if the user is authenticated
-        user = Korisnik.objects.get(email='existinguser@example.com')
-        self.assertTrue(user.is_authenticated)
+        self.assertTrue('_auth_user_id' in self.client.session)
 
     def test_login_invalid_credentials(self):
         response = self.client.post(reverse('loginUser'), {
-            'email': 'existinguser@example.com',
+            'email': self.existingBuyer.email,
             'password': 'wrongpassword',
         })
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
         self.assertContains(response, 'Pogresna lozinka ili email adresa')
+
+    def test_logout_user(self):
+        self.assertFalse('_auth_user_id' in self.client.session)
+        self.client.login(email=self.existingBuyer.email, password='testpassword')
+
+        user = Korisnik.objects.get(email=self.existingBuyer.email)
+        self.assertTrue('_auth_user_id' in self.client.session)
+
+        response = self.client.get(reverse('logoutUser'))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('home'))
+
+        # Check if the user is logged out
+        self.assertFalse('_auth_user_id' in self.client.session)
+
+    def test_change_company_info(self):
+        self.client.login(email='existingproducer@example.com', password='testpassword')
+
+        response = self.client.post(reverse('changeCompanyStuff'), {
+            'opis': 'New winery description',
+            'naziv': 'New Winery Name',
+            'logo': SimpleUploadedFile('images/1237.png', open('static/images/1237.png', 'rb').read())
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promenaInformacijaVinarije.html')
+
+        self.existingProducer = Proizvodjac.objects.get(email=self.existingProducer.email)
+        # Check if the producer's information is updated in the database
+        self.assertEqual(self.existingProducer.opis, 'New winery description')
+        self.assertEqual(self.existingProducer.imefirme, 'New Winery Name')
+        self.assertEqual(self.existingProducer.javnoime, 'New Winery Name')
+        self.assertRegex(self.existingProducer.logo.name, r"^images/1237_[a-zA-Z0-9]{7}\.png$")
+
+        if os.path.exists(self.existingProducer.logo.path):
+            os.remove(self.existingProducer.logo.path)
+
+    def test_change_user_info(self):
+        self.client.login(email=self.existingBuyer.email, password='testpassword')
+
+        response = self.client.post(reverse('changeInfoUser'), {
+            'showName': 'New User Name',
+            'address': 'Ulica 2',
+            'phoneNumber': '987654321',
+            'currentPassword': 'testpassword',
+            'newPassword': 'newpassword',
+            'newPasswordSubmit': 'newpassword',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promenaInformacijaKorisnika.html')
+
+        # Check if the user's information is updated in the database
+        self.existingBuyer = Kupac.objects.get(email=self.existingBuyer.email)
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        self.assertEqual(self.existingBuyer.javnoime, 'New User Name')
+        self.assertEqual(self.existingBuyer.adresa, 'Ulica 2')
+        self.assertEqual(self.existingBuyer.brtelefona, '987654321')
+        self.assertTrue(self.existingBuyer.check_password('newpassword'))
+
+    def test_change_user_info_change_partially(self):
+        self.client.login(email=self.existingBuyer.email, password='testpassword')
+
+        response = self.client.post(reverse('changeInfoUser'), {
+            'showName': '',
+            'address': 'Ulica 2',
+            'phoneNumber': '987654321',
+            'currentPassword': '',
+            'newPassword': '',
+            'newPasswordSubmit': '',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promenaInformacijaKorisnika.html')
+
+        # Check if the user's information is updated in the database
+        self.existingBuyer = Kupac.objects.get(email=self.existingBuyer.email)
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        self.assertEqual(self.existingBuyer.javnoime, 'Jane Smith')
+        self.assertEqual(self.existingBuyer.adresa, 'Ulica 2')
+        self.assertEqual(self.existingBuyer.brtelefona, '987654321')
+
+    def test_change_user_info_invalid_password(self):
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        oldPass = 'testpassword'
+        self.assertTrue(user.check_password(oldPass))
+        self.client.login(email=self.existingBuyer.email, password=oldPass)
+
+        response = self.client.post(reverse('changeInfoUser'), {
+            'showName': '',
+            'address': '',
+            'phoneNumber': '',
+            'currentPassword': 'wrongpassword',
+            'newPassword': 'newpassword',
+            'newPasswordSubmit': 'newpassword',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promenaInformacijaKorisnika.html')
+
+        # Check if the user's information is updated in the database
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        self.assertTrue(user.check_password(oldPass))  # Assert that the password is not updated
+
+    def test_reset_password(self):
+        oldPass = 'testpassword'
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        self.assertTrue(user.check_password(oldPass))
+
+        response = self.client.post(reverse('resetPassword'), {
+            'email': self.existingBuyer.email,
+        })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('home'))
+
+        # Check if the user's password is updated in the database and email is sent
+        user = Kupac.objects.get(email=self.existingBuyer.email)
+        self.assertFalse(user.check_password(oldPass))  # Assert that the password is updated
