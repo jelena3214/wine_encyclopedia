@@ -345,7 +345,7 @@ def viewAds(request : HttpRequest):
 @group_required("Proizvodjaci")
 def unsubscribeAd(request: HttpRequest, ad_id):
 
-    ad_to_remove = Pretplacen.objects.get(idpretplata=ad_id,idkorisnik=request.user)
+    ad_to_remove = Pretplacen.objects.get(idpretplata=ad_id,idkorisnik=request.user,trenutnistatus='Aktivna')
     ad_to_remove.trenutnistatus = 'Istekla'
     ad_to_remove.save()
     # ad_to_remove.delete()
@@ -380,12 +380,18 @@ def subscribeAd(request: HttpRequest, ad_id):
 
 # Function that helps with rendering the ad page
 def adsExit(request):
-    ads_not_subscribed_to = Pretplata.objects.exclude(Q(pretplacen__idkorisnik=request.user) & ~Q(pretplacen__trenutnistatus='Istekla'))
+    all_ads = Pretplata.objects.all()
+    try:
+        active = Pretplacen.objects.get(idkorisnik=request.user, trenutnistatus='Aktivna')
+        all_ads_without_active = [ad for ad in all_ads if ad.pk != active.idpretplata_id]
+    except Exception:
+        all_ads_without_active = all_ads
     ads_subscribed_to = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Aktivna')
     old_ads = Pretplata.objects.filter(pretplacen__idkorisnik=request.user,pretplacen__trenutnistatus='Istekla')
 
 
-    context = {'ads_not_subscribed_to': ads_not_subscribed_to,
+    context = {'ads_not_subscribed_to': all_ads_without_active,
+               'ads_subscribed_to' : ads_subscribed_to,
                'ads_subscribed_to' : ads_subscribed_to,
                'old_ads' : old_ads
                }
