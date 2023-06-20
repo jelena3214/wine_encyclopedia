@@ -336,13 +336,15 @@ def oneDetour(request, value):
         return celebration(request)
 
     typesOfTour = Vrstaobilaska.objects.filter(idponuda=offer.idponuda.idponuda_id)
-    pictures = Slika.objects.filter(idponuda=offer.idponuda.idponuda_id)
-    slika = pictures[0].slika
+    pics = Slika.objects.filter(idponuda=offer.idponuda.idponuda_id)
+    pictures = []
+    for pic in pics:
+        pictures.append(pic.slika)
     sommeliers = Somelijer.objects.filter(idponuda=offer.idponuda.idponuda_id)
     context = {
         'vinarija': winery,
         'obilasci': typesOfTour,
-        'slika': slika,
+        'slike': pictures,
         'somelijeri': sommeliers
     }
     return render(request, "obilazakPojedinacanPrikaz.html", context)

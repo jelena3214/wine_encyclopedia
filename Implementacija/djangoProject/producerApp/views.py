@@ -81,10 +81,10 @@ def addTourType(request):
         new_tour_type.naziv = request.POST['tourName']
         new_tour_type.cena = request.POST['tourPrice']
         new_tour_type.save()
-        context = {
-            "message_body": "Vrsta obilaska je uspesno dodata! Klikom na dugme vraticete se na vašu prodavnicu."
-        }
-        return render(request,"modalMesesage.html",context)
+        # context = {
+        #     "message_body": "Vrsta obilaska je uspesno dodata! Klikom na dugme vraticete se na vašu prodavnicu."
+        # }
+        # return render(request,"modalMesesage.html",context)
 
     return unosObilaskaExit(request)
 
@@ -113,9 +113,9 @@ def inputTourPicture(request):
 @group_required("Proizvodjaci")
 def removeTourPicture(request, picture_id):
 
-    picture_to_remove = Slika.objects.filter(idslika=picture_id)
-    picture_to_remove.delete()
-
+    picture_to_remove = Slika.objects.filter(idslika=picture_id)[0]
+    if len(Slika.objects.filter(idponuda=picture_to_remove.idponuda)) > 1:
+        picture_to_remove.delete()
 
     return redirect('myStore')
 
@@ -182,28 +182,40 @@ def checkIfCelebrationExists(request: HttpRequest):
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def setTourDetails(request: HttpRequest):
-
-    tour = checkIfTourExists(request)
-    tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
-    print(tour_types)
-    if tour_types.exists():
-        context = {
-            "message_body": "Morate imati barem jednu vrstu obilaska unetu! Klikom na dugme vraticete se na vašu prodavnicu."
-        }
-
     if request.method == "POST":
-
         tour = checkIfTourExists(request)
-        tour.cenasomelijera = request.POST['sommelierPrice']
-        tour.save()
+        tour_ponuda = tour.idponuda.idponuda
+        tour_ponudaprostor = tour.idponuda
+        tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
+        images = Slika.objects.filter(idponuda=tour_ponuda)
 
-        context = {
-            "message_body": "Informacije o obilasku su uspesno sacuvane! Klikom na dugme vraticete se na vašu prodavnicu."
-        }
+        if not tour_types.exists():
+            for image in images:
+                image.delete()
+            tour.delete()
+            tour_ponudaprostor.delete()
+            tour_ponuda.delete()
+            context = {
+                "message_body": "Morate imati barem jednu vrstu obilaska unetu! Klikom na dugme vraticete se na vašu prodavnicu."
+            }
+        elif not images.exists():
+            for tour_type in tour_types:
+                tour_type.delete()
+            print(tour_ponuda.idponuda)
+            tour.delete()
+            tour_ponudaprostor.delete()
+            tour_ponuda.delete()
+            context = {
+                "message_body": "Morate imati barem jednu sliku prostora unetu! Klikom na dugme vraticete se na vašu prodavnicu."
+            }
+        else:
+            tour.cenasomelijera = request.POST['sommelierPrice']
+            tour.save()
+            context = {
+                "message_body": "Informacije o obilasku su uspesno sacuvane! Klikom na dugme vraticete se na vašu prodavnicu."
+            }
         return render(request, "modalMesesage.html", context)
 
-
-        print(request.POST)
     return unosObilaskaExit(request)
 # Function to add a sommelier to the producers tour
 @login_required(login_url='/user')
@@ -257,7 +269,8 @@ def unosObilaskaExit(request : HttpRequest):
 def removeTourType(request : HttpRequest, value):
 
     tour_type_to_remove = Vrstaobilaska.objects.get(idobilazak=int(value))
-    tour_type_to_remove.delete()
+    if Vrstaobilaska.objects.filter(idponuda=tour_type_to_remove.idponuda) > 1:
+        tour_type_to_remove.delete()
 
     return redirect("inputTour")
 
@@ -275,7 +288,9 @@ def removeSommelier(request: HttpRequest,value):
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def myStore(request):
-    tour = checkIfTourExists(request)
+    tour = Obilazak.objects.filter(idponuda__idponuda__idkorisnik=request.user)
+    if tour.exists():
+        tour = tour[0]
     celebrations = []
     pictures = []
     reserved_tours = []
@@ -288,7 +303,9 @@ def myStore(request):
             tour_user = Rezervacija.objects.get(idtermin=reservation.idtermin)
             reserved_tours_tuple.append([reservation,tour_user])
 
-    celebration = checkIfCelebrationExists(request)
+    celebration = Proslava.objects.filter(idponuda__idponuda__idkorisnik=request.user)
+    if celebration.exists():
+        celebration = celebration[0]
     if celebration:
         celebrations = Termin.objects.filter(idponuda=celebration.idponuda)
         for reservation in celebrations:
@@ -366,11 +383,18 @@ def subscribeAd(request: HttpRequest, ad_id):
         }
         return render(request, "modalMesesage.html", context)
 
+    addY = 0
+    addM = 0
+    if int(ad_id) <= 2:
+        addY = 1
+    elif int(ad_id) >= 3:
+        addM = 1
+
     new_subscription = Pretplacen()
     new_subscription.idkorisnik = request.user
     new_subscription.datumpocetak = datetime.date.today()
-    new_subscription.datumkraj = datetime.date.today()
-    new_subscription.datumkraj.replace(year=new_subscription.datumkraj.year + 1)
+    new_subscription.datumkraj = datetime.date(year=datetime.date.today().year + addY,
+                                               month=datetime.date.today().month + addM, day=datetime.date.today().day)
     new_subscription.idpretplata = Pretplata.objects.get(idpretplata=ad_id)
     new_subscription.trenutnistatus = 'Aktivna'
     new_subscription.save()
