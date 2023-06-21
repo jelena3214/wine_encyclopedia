@@ -530,6 +530,3 @@ def changeDates():
         if sub.datumkraj < timezone.now():
             sub.trenutnistatus = 'Istekla'
             sub.save()
-        else:
-            sub.trenutnistatus = 'Aktivna'
-            sub.save()
