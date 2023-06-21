@@ -494,8 +494,9 @@ def home(request):
             w = Vino.objects.filter(idponuda=offer.idponuda)  # check if this offer is also a wine
             if len(list(w)) != 0:
                 wines.append(w[0])  # if it is wine add to wines
-        wine = choice(wines)  # choose only one wine to show
-        winesToShow.append(wine)
+        if len(wines) != 0:
+            wine = choice(wines)  # choose only one wine to show
+            winesToShow.append(wine)
 
     rowsOfWine = []
     row = []
