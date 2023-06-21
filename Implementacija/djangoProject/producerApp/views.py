@@ -92,15 +92,21 @@ def addTourType(request):
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def inputTourPicture(request):
-    tour = checkIfTourExists(request)
-
+    tours = Obilazak.objects.filter(idponuda__idponuda__idkorisnik_id=request.user)
+    print(tours)
     if request.method == "POST":
+        if tours.count() == 0:
+            return render(request, "unosObilaska.html")
+        tour = tours[0]
+        old_pictures = Slika.objects.filter(idponuda=tour.idponuda.idponuda)
+        if len(old_pictures) == 1:
+            if old_pictures[0].slika == "images/nopic.png":
+                old_pictures[0].delete()
         print(request.POST)
         new_picture = Slika()
         new_picture.idponuda = tour.idponuda.idponuda
         new_picture.slika = request.FILES['inputTourPicture']
         new_picture.save()
-
 
     tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
     context = {
@@ -221,8 +227,11 @@ def setTourDetails(request: HttpRequest):
 @login_required(login_url='/user')
 @group_required("Proizvodjaci")
 def addSommelier(request : HttpRequest):
+    tours = Obilazak.objects.filter(idponuda__idponuda__idkorisnik_id=request.user)
+    print(tours)
     if request.method == "POST":
-
+        if tours.count() == 0:
+            return render(request, "unosObilaska.html")
         tour = checkIfTourExists(request)
         new_sommelier = Somelijer()
         new_sommelier.ime = request.POST['sommelierName']
@@ -249,10 +258,15 @@ def checkIfTourExists(request : HttpRequest):
         new_tour = Obilazak()
         new_tour.idponuda = new_space_offer
         new_tour.save()
+        new_picture = Slika(idponuda=new_offer, slika="images/nopic.png")
+        new_picture.save()
         return new_tour
 
 # Function that renders the inputTour page
 def unosObilaskaExit(request : HttpRequest):
+    tours = Obilazak.objects.filter(idponuda__idponuda__idkorisnik_id=request.user)
+    if tours.count() == 0:
+        return render(request, "unosObilaska.html")
     tour = checkIfTourExists(request)
     tour_types = Vrstaobilaska.objects.filter(idponuda=tour)
     sommeliers = Somelijer.objects.filter(idponuda=tour)
@@ -269,7 +283,7 @@ def unosObilaskaExit(request : HttpRequest):
 def removeTourType(request : HttpRequest, value):
 
     tour_type_to_remove = Vrstaobilaska.objects.get(idobilazak=int(value))
-    if Vrstaobilaska.objects.filter(idponuda=tour_type_to_remove.idponuda) > 1:
+    if Vrstaobilaska.objects.filter(idponuda=tour_type_to_remove.idponuda).count() > 1:
         tour_type_to_remove.delete()
 
     return redirect("inputTour")
@@ -297,7 +311,7 @@ def myStore(request):
     reserved_tours_tuple = []
     reserved_celebrations_tuple = []
     if tour:
-        pictures = Slika.objects.filter(idponuda=tour.idponuda.idponuda)
+        pictures = Slika.objects.filter(Q(idponuda=tour.idponuda.idponuda) & ~Q(slika='images/nopic.png'))
         reserved_tours = Termin.objects.filter(idponuda=tour.idponuda)
         for reservation in reserved_tours:
             tour_user = Rezervacija.objects.get(idtermin=reservation.idtermin)
